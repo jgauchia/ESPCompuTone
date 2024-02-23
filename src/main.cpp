@@ -7,20 +7,27 @@
  */
 
 #include "Arduino.h"
+#include <stdio.h>
 #include <SPIFFS.h>
 #include <SPI.h>
+#include <FS.h>
+#include <SD.h>
 #include "driver/i2s.h"
-#include "hardware/hal.h"
-#include "hardware/sdcard.h"
-#include "hardware/i2s.h"
+#include <WAVFileReader.h>
+#include <WAVFileWriter.h>
+#include <hal.h>
+#include <sdcard.h>
+#include <i2s.h>
+#include <audio_output.h>
+
 
 void setup()
 {
+  init_sd();
   set_I2S();
-  xTaskCreatePinnedToCore(process_Audio, "process_Audio", 4096, NULL, 10, NULL, 0);
+  play_wav("/sdcard/test.wav");
 }
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
 }
