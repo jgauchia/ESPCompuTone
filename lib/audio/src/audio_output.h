@@ -55,9 +55,9 @@ void play_wav(const char *fname)
     int16_t *samples = (int16_t *)malloc(sizeof(int16_t) * 1024);
     FILE *fp = fopen(fname, "rb");
     WAVFileReader *wav = new WAVFileReader(fp);
-    i2s_set_sample_rates(I2S_NUM_0, wav->sample_rate());
-    i2s_set_clk(I2S_NUM_0, wav->sample_rate(), I2S_BITS_PER_SAMPLE_24BIT, (i2s_channel_t)wav->num_channels());
-    i2s_start(I2S_NUM_0);
+    log_i("Opened wav file");
+    DAC_start(wav->sample_rate(),wav->num_channels());
+    log_i("Start playing");
     while (true)
     {
         int samples_read = wav->read(samples, 1024);
@@ -65,11 +65,11 @@ void play_wav(const char *fname)
         {
             break;
         }
-        log_i("Read %d samples", samples_read);
+        //log_i("Read %d samples", samples_read);
         out_sample(samples, samples_read);
-        log_i("Played samples");
+        //log_i("Played samples");
     }
-    i2s_stop(I2S_NUM_0);
+    DAC_stop();
     fclose(fp);
     delete wav;
     free(samples);

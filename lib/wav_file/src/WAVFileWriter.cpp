@@ -1,7 +1,4 @@
-#include "esp_log.h"
 #include "WAVFileWriter.h"
-
-static const char *TAG = "WAV";
 
 WAVFileWriter::WAVFileWriter(FILE *fp, int sample_rate)
 {
@@ -21,7 +18,7 @@ void WAVFileWriter::write(int16_t *samples, int count)
 
 void WAVFileWriter::finish()
 {
-  ESP_LOGI(TAG, "Finishing wav file size: %d", m_file_size);
+  log_i("Finishing wav file size: %d", m_file_size);
   // now fill in the header with the correct information and write it again
   m_header.data_bytes = m_file_size - sizeof(wav_header_t);
   m_header.wav_size = m_file_size - 8;

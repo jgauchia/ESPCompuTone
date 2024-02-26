@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include "WAVFile.h"
+#include "esp32-hal-log.h"
 
 class WAVFileWriter
 {
