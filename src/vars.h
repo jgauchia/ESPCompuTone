@@ -39,3 +39,10 @@ PCF8574 keys(0x20);
  */
 #define KEYS_UPDATE_TIME 120
 MyDelay keys_delay(KEYS_UPDATE_TIME);
+
+
+/**
+ * @brief TFT object declaration
+ * 
+ */
+static TFT_eSPI tft;
