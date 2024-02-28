@@ -86,3 +86,122 @@ static int32_t GIFSeekFile(GIFFILE *pFile, int32_t iPosition)
   i = micros() - i;
   return pFile->iPos;
 }
+
+/**
+ * @brief Draw GIF on screen 
+ * 
+ * @param pDraw 
+ */
+void GIFDraw(GIFDRAW *pDraw)
+{
+  uint8_t *s;
+  uint16_t *d, *usPalette, usTemp[320];
+  int x, y, iWidth;
+
+  iWidth = pDraw->iWidth;
+  if (iWidth > tft.width())
+    iWidth = tft.width();
+  usPalette = pDraw->pPalette;
+  y = pDraw->iY + pDraw->y; // current line
+
+  s = pDraw->pPixels;
+  if (pDraw->ucDisposalMethod == 2)
+  { // restore to background color
+    for (x = 0; x < iWidth; x++)
+    {
+      if (s[x] == pDraw->ucTransparent)
+        s[x] = pDraw->ucBackground;
+    }
+    pDraw->ucHasTransparency = 0;
+  }
+  // Apply the new pixels to the main image
+  if (pDraw->ucHasTransparency)
+  { // if transparency used
+    uint8_t *pEnd, c, ucTransparent = pDraw->ucTransparent;
+    int x, iCount;
+    pEnd = s + iWidth;
+    x = 0;
+    iCount = 0; // count non-transparent pixels
+    while (x < iWidth)
+    {
+      c = ucTransparent - 1;
+      d = usTemp;
+      while (c != ucTransparent && s < pEnd)
+      {
+        c = *s++;
+        if (c == ucTransparent)
+        {      // done, stop
+          s--; // back up to treat it like transparent
+        }
+        else
+        { // opaque
+          *d++ = usPalette[c];
+          iCount++;
+        }
+      } // while looking for opaque pixels
+      if (iCount)
+      { // any opaque pixels?
+        tft.pushImage((pDraw->iX + x) + xOffset, y + yOffset, iCount, 1, (uint16_t *)usTemp);
+        x += iCount;
+        iCount = 0;
+      }
+      // no, look for a run of transparent pixels
+      c = ucTransparent;
+      while (c == ucTransparent && s < pEnd)
+      {
+        c = *s++;
+        if (c == ucTransparent)
+          iCount++;
+        else
+          s--;
+      }
+      if (iCount)
+      {
+        x += iCount; // skip these
+        iCount = 0;
+      }
+    }
+  }
+  else
+  {
+    s = pDraw->pPixels;
+    // Translate the 8-bit pixels through the RGB565 palette (already byte reversed)
+    for (x = 0; x < iWidth; x++)
+      usTemp[x] = usPalette[*s++];
+    tft.pushImage((pDraw->iX + x) + xOffset, y + yOffset, iWidth, 1, (uint16_t *)usTemp);
+  }
+} 
+
+/**
+ * @brief Play GIF File
+ * 
+ * @param gifPath 
+ */
+void gifPlay(const char *gifPath)
+{ 
+  gif.begin(BIG_ENDIAN_PIXELS);
+
+  if (!gif.open(gifPath, GIFOpenFile, GIFCloseFile, GIFReadFile, GIFSeekFile, GIFDraw))
+  {
+    log_e("Could not open gif %s", gifPath);
+  }
+
+  int frameDelay = 0; // store delay for the last frame
+  int then = 0;       // store overall delay
+  bool showcomment = false;
+
+  // center the GIF !!
+  int w = gif.getCanvasWidth();
+  int h = gif.getCanvasHeight();
+  xOffset = (tft.width() - w) / 2;
+  yOffset = (tft.height() - h) / 2;
+
+  while (gif.playFrame(true, &frameDelay))
+  {
+    then += frameDelay;
+    if (then > maxGifDuration)
+      break;
+  }
+
+  gif.close();
+}

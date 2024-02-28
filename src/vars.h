@@ -7,6 +7,12 @@
  */
 
 /**
+ * @brief LVGL Backgroun color for LovyanGFX
+ * 
+ */
+#define LVGL_BKG 0x10A3
+
+/**
  * @brief Sampling rate and buffer recording
  * 
  */
@@ -52,3 +58,10 @@ static TFT_eSPI tft;
  * 
  */
 AnimatedGIF gif;
+
+
+/**
+ * @brief Max GIF duration (ms)
+ * 
+ */
+int maxGifDuration = 5000; 
