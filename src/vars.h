@@ -46,3 +46,9 @@ MyDelay keys_delay(KEYS_UPDATE_TIME);
  * 
  */
 static TFT_eSPI tft;
+
+/**
+ * @brief GIF object declaration
+ * 
+ */
+AnimatedGIF gif;
