@@ -43,16 +43,12 @@ void setup()
   init_tasks();
 
   Wire.begin();
-  // Wire.setClock(4000);
   keys.begin();
   keys_delay.start();
 
   tft.init();
   tft.setRotation(1);
   tft.initDMA();
-  tft.startWrite();
-  tft.fillScreen(LVGL_BKG);
-  tft.endWrite();
   init_LVGL();
 
   create_notify_bar();
