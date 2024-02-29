@@ -38,6 +38,7 @@ static ulong lvgl_tick_millis = millis();
 void setup()
 {
   init_sd();
+  init_SPIFFS();
   Wire.begin();
   Wire.setClock(4000);
   keys.begin();

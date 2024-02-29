@@ -28,7 +28,7 @@ static int yOffset = 0;
  */
 static void * GIFOpenFile(const char *fname, int32_t *pSize)
 {
-  FSGifFile = SD.open(fname);
+  FSGifFile = SPIFFS.open(fname);
   if (FSGifFile) {
     *pSize = FSGifFile.size();
     return (void *)&FSGifFile;
