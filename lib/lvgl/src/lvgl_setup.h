@@ -7,6 +7,7 @@
  */
 
 #include <lvgl.h>
+#include <notify_bar.h>
 
 /**
  * @brief Default display driver definition

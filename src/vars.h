@@ -69,3 +69,10 @@ AnimatedGIF gif;
  * 
  */
 int maxGifDuration = 5000; 
+
+
+/**
+ * @brief Flag sd loaded
+ * 
+ */
+bool sdloaded = false;

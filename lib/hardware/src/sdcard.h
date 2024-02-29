@@ -16,15 +16,18 @@ uint32_t sd_freq = 40000000;
 void init_sd()
 {
   spiSD.begin(SD_CLK, SD_MISO, SD_MOSI, SD_CS);
-  pinMode(SD_CS,OUTPUT);
-  digitalWrite(SD_CS,LOW);
+  pinMode(SD_CS, OUTPUT);
+  digitalWrite(SD_CS, LOW);
   if (!SD.begin(SD_CS, spiSD, sd_freq, "/sdcard"))
   {
     log_i("SD Card Mount Failed");
     return;
   }
   else
-   log_i("SD Card Mounted");
+  {
+    log_i("SD Card Mounted");
+    sdloaded = true;
+  }
 }
 
 /**

@@ -51,12 +51,7 @@ void setup()
   tft.endWrite();
   init_LVGL();
 
-  /*Create a white label, set its text and align it to the center*/
-  lv_obj_t *label = lv_label_create(lv_screen_active());
-  lv_label_set_text(label, "Hello world");
-  lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(0xffffff), LV_PART_MAIN);
-  lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 0);
-
+  create_notify_bar();
   // Serial.begin(115200);
   //  play_wav("/sdcard/test.wav");
   //  rec_wav("/sdcard/input.wav");
@@ -77,5 +72,5 @@ void loop()
   lvgl_tick_millis = millis();
   lv_tick_inc(tick_millis);
   yield();
-  delay(5);
+  // delay(5);
 }
