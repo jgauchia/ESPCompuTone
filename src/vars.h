@@ -47,7 +47,7 @@ PCF8574 keys(0x20);
  * @brief Keys read delay
  *
  */
-#define KEYS_UPDATE_TIME 120
+#define KEYS_UPDATE_TIME 135
 MyDelay keys_delay(KEYS_UPDATE_TIME);
 
 
@@ -68,7 +68,7 @@ AnimatedGIF gif;
  * @brief Max GIF duration (ms)
  * 
  */
-int maxGifDuration = 5000; 
+int maxGifDuration = 0; 
 
 
 /**

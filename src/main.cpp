@@ -30,6 +30,7 @@
 #include <audio_output.h>
 #include <audio_input.h>
 #include <GIFFile.h>
+#include <tasks.h>
 #include <lvgl_setup.h>
 
 unsigned long millis_actual = 0;
@@ -39,8 +40,10 @@ void setup()
 {
   init_sd();
   init_SPIFFS();
+  init_tasks();
+
   Wire.begin();
-  Wire.setClock(4000);
+  // Wire.setClock(4000);
   keys.begin();
   keys_delay.start();
 
@@ -60,18 +63,17 @@ void setup()
   //
 
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());
+  log_i("SPIFFS: Total %d - Free %d", SPIFFS.totalBytes(), (SPIFFS.totalBytes() - SPIFFS.usedBytes()));
+  log_i("FLASH: Total %d - Free %d", ESP.getFlashChipSize(), ESP.getFreeSketchSpace());
 }
 
 void loop()
 {
-  if (keys_delay.update())
-    Check_keys();
   gifPlay("/k7.gif");
-
   lv_timer_handler();
   unsigned long tick_millis = millis() - lvgl_tick_millis;
   lvgl_tick_millis = millis();
   lv_tick_inc(tick_millis);
-  yield();
-  // delay(5);
+  // yield();
+  //  delay(5);
 }

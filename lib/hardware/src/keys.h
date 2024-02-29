@@ -65,6 +65,7 @@ void Check_keys()
             is_stop = false;
             is_eject = false;
             is_pause = false;
+            maxGifDuration = 5000;
         }
         break;
     case REC_PLAY:
@@ -78,6 +79,7 @@ void Check_keys()
             is_stop = false;
             is_eject = false;
             is_pause = false;
+            maxGifDuration = 5000;
         }
         break;
     case REW:
@@ -91,6 +93,7 @@ void Check_keys()
             is_stop = false;
             is_eject = false;
             is_pause = false;
+            maxGifDuration = 5000;
         }
         break;
     case ADV:
@@ -104,6 +107,7 @@ void Check_keys()
             is_stop = false;
             is_eject = false;
             is_pause = false;
+            maxGifDuration = 5000;
         }
         break;
     case STOP_EJ:
@@ -124,18 +128,23 @@ void Check_keys()
         is_rewind = false;
         is_advance = false;
         is_pause = false;
+        maxGifDuration = 0;
         break;
     case PAUSE:
         if (!is_pause)
         {
             log_i("PAUSE");
             is_pause = true;
+            maxGifDuration = 0;
         }
         else
         {
             log_i("NO PAUSE");
             is_pause = false;
+            if (is_play || is_record || is_rewind || is_advance)
+                    maxGifDuration = 5000;
         }
+
         break;
     default:
         break;
