@@ -60,6 +60,8 @@ void init_LVGL()
 {
     lv_init();
 
+    lv_port_sd_fs_init();
+
     display = lv_display_create(TFT_WIDTH, TFT_HEIGHT);
     lv_display_set_flush_cb(display, disp_flush);
     lv_display_set_buffers(display, draw_buf, NULL, sizeof(draw_buf), LV_DISPLAY_RENDER_MODE_PARTIAL);
