@@ -19,6 +19,10 @@
 #define SAMPLING_RATE 22000
 #define BUFFER 1024
 
+
+#define TFT_WIDTH   320
+#define TFT_HEIGHT  240
+
 /**
  * @brief Boolean vars for tape status
  * 
