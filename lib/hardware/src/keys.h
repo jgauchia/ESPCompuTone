@@ -116,12 +116,14 @@ void Check_keys()
             log_i("EJECT");
             is_stop = false;
             is_eject = true;
+            fileopen = true;
         }
         else
         {
             log_i("STOP");
             is_stop = true;
             is_eject = false;
+            fileopen = false;
         }
         is_record = false;
         is_play = false;
@@ -142,7 +144,7 @@ void Check_keys()
             log_i("NO PAUSE");
             is_pause = false;
             if (is_play || is_record || is_rewind || is_advance)
-                    maxGifDuration = 5000;
+                maxGifDuration = 5000;
         }
 
         break;

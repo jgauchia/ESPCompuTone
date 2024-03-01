@@ -24,7 +24,7 @@ static lv_obj_t *sdcard;
  */
 void create_notify_bar()
 {
-    notifyBar = lv_obj_create(lv_screen_active());
+    notifyBar = lv_obj_create(mainscr);
     lv_obj_set_size(notifyBar, TFT_WIDTH, 22);
     lv_obj_set_pos(notifyBar, 0, 0);
     lv_obj_set_flex_flow(notifyBar, LV_FLEX_FLOW_ROW);
@@ -43,9 +43,4 @@ void create_notify_bar()
         lv_label_set_text_static(label, LV_SYMBOL_SD_CARD);
     else
         lv_label_set_text_static(label, " ");
-   
-//        lv_obj_t * file_explorer = lv_file_explorer_create(lv_screen_active());
-//     lv_file_explorer_set_sort(file_explorer, LV_EXPLORER_SORT_NONE);
-// lv_file_explorer_open_dir(file_explorer, "S:/");
-
 }

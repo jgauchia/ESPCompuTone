@@ -51,7 +51,6 @@ void setup()
   init_tft();
   init_LVGL();
 
-  create_notify_bar();
   // Serial.begin(115200);
   //  play_wav("/sdcard/test.wav");
   //  rec_wav("/sdcard/input.wav");
@@ -65,7 +64,21 @@ void setup()
 
 void loop()
 {
-  gifPlay("/k7.gif");
+  if (!fileopen)
+  {
+    if (!is_mainscreen)
+    {
+      is_mainscreen = true;
+      lv_screen_load(mainScr);
+    }
+    gifPlay("/k7.gif");
+  }
+  else
+  {
+    is_mainscreen = false;
+    lv_screen_load(fileExplorer);
+  }
+
   lv_timer_handler();
   unsigned long tick_millis = millis() - lvgl_tick_millis;
   lvgl_tick_millis = millis();

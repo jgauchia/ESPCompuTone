@@ -7,8 +7,11 @@
  */
 
 #include <lvgl.h>
-#include <notify_bar.h>
 
+static lv_obj_t *mainScr;
+
+#include <notify_bar.h>
+#include <file_open.h>
 /**
  * @brief Default display driver definition
  *
@@ -68,4 +71,12 @@ void init_LVGL()
     lv_indev_t *indev_drv = lv_indev_create();
     lv_indev_set_type(indev_drv, LV_INDEV_TYPE_POINTER);
     lv_indev_set_read_cb(indev_drv, touchpad_read);
+
+    mainScr = lv_obj_create(NULL);
+    lv_obj_set_size(mainScr, TFT_WIDTH, TFT_HEIGHT);
+
+    create_notify_bar();
+    create_file_explorer();
+
+    lv_screen_load(mainScr);
 }

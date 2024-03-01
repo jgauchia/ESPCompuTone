@@ -79,7 +79,9 @@ int maxGifDuration = 0;
 
 
 /**
- * @brief Flag sd loaded
+ * @brief Various boolean flags
  * 
  */
 bool sdloaded = false;
+bool fileopen = false;
+bool is_mainscreen = true;
