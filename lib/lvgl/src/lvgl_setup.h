@@ -10,8 +10,13 @@
 
 static lv_obj_t *mainScr;
 
+#include <lv_sd_fs.h>
+#include <lv_spiffs_fs.h>
+#include <lv_funcs.h>
+#include <button_bar.h>
 #include <notify_bar.h>
 #include <file_open.h>
+
 /**
  * @brief Default display driver definition
  *
@@ -63,6 +68,7 @@ void init_LVGL()
     lv_init();
 
     lv_port_sd_fs_init();
+    lv_port_spiffs_fs_init();
 
     display = lv_display_create(TFT_WIDTH, TFT_HEIGHT);
     lv_display_set_flush_cb(display, disp_flush);
@@ -76,6 +82,7 @@ void init_LVGL()
     lv_obj_set_size(mainScr, TFT_WIDTH, TFT_HEIGHT);
 
     create_notify_bar();
+    create_button_bar_scr();
     create_file_explorer();
 
     lv_screen_load(mainScr);

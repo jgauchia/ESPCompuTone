@@ -24,8 +24,8 @@ public:
             cfg.spi_host = HSPI_HOST;
             cfg.spi_mode = 0;
             cfg.freq_write = 79999999;
-            cfg.freq_read = 16000000;
-            cfg.spi_3wire = true;
+            cfg.freq_read = 27000000;
+            cfg.spi_3wire = false;
             cfg.use_lock = false;
             cfg.dma_channel = SPI_DMA_CH_AUTO;
             cfg.pin_sclk = 14;
@@ -50,7 +50,7 @@ public:
             cfg.offset_rotation = 0;
             cfg.dummy_read_pixel = 8;
             cfg.dummy_read_bits = 1;
-            cfg.readable = false;
+            cfg.readable = true;
             cfg.invert = false;
             cfg.rgb_order = false;
             cfg.dlen_16bit = false;

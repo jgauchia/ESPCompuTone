@@ -32,7 +32,6 @@
 #include <audio_input.h>
 #include <GIFFile.h>
 #include <tasks.h>
-#include <lv_sd_fs.h>
 #include <lvgl_setup.h>
 
 unsigned long millis_actual = 0;
