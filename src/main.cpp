@@ -27,6 +27,7 @@
 #include <i2s.h>
 #include <keys_def.h>
 #include <keys.h>
+#include <tft.h>
 #include <audio_output.h>
 #include <audio_input.h>
 #include <GIFFile.h>
@@ -47,9 +48,7 @@ void setup()
   keys.begin();
   keys_delay.start();
 
-  tft.init();
-  tft.setRotation(1);
-  tft.initDMA();
+  init_tft();
   init_LVGL();
 
   create_notify_bar();

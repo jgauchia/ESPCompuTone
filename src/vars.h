@@ -13,6 +13,13 @@
 #define LVGL_BKG 0x10A3
 
 /**
+ * @brief TFT Calibration
+ * 
+ */
+#define CALIBRATION_FILE "/TouchCalData1"
+bool REPEAT_CAL = false;
+
+/**
  * @brief Sampling rate and buffer recording
  * 
  */

@@ -641,7 +641,7 @@
 #endif
 
 /*LODEPNG decoder library*/
-#define LV_USE_LODEPNG 1
+#define LV_USE_LODEPNG 0
 
 /*PNG decoder(libpng) library*/
 #define LV_USE_LIBPNG 0
@@ -830,7 +830,7 @@
     #define LV_FILE_EXPLORER_PATH_MAX_LEN        (128)
     /*Quick access bar, 1:use, 0:not use*/
     /*Requires: lv_list*/
-    #define LV_FILE_EXPLORER_QUICK_ACCESS        1
+    #define LV_FILE_EXPLORER_QUICK_ACCESS        0
 #endif
 
 /*==================

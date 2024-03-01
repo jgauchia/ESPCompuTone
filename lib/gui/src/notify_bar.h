@@ -44,4 +44,8 @@ void create_notify_bar()
     else
         lv_label_set_text_static(label, " ");
    
+//        lv_obj_t * file_explorer = lv_file_explorer_create(lv_screen_active());
+//     lv_file_explorer_set_sort(file_explorer, LV_EXPLORER_SORT_NONE);
+// lv_file_explorer_open_dir(file_explorer, "S:/");
+
 }
