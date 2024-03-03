@@ -75,7 +75,7 @@ AnimatedGIF gif;
  * @brief Max GIF duration (ms)
  * 
  */
-int maxGifDuration = 0; 
+int maxGifDuration = 0;
 
 
 /**

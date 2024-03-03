@@ -15,13 +15,14 @@
 #include <SPI.h>
 #include <FS.h>
 #include <SD.h>
+#include <AnimatedGIF.h>
 #include <lvgfx.hpp>
 #include <LGFX_TFT_eSPI.hpp>
-#include <AnimatedGIF.h>
+#include <vars.h>
+#include <lvgl_setup.h>
 #include "driver/i2s.h"
 #include <WAVFileReader.h>
 #include <WAVFileWriter.h>
-#include <vars.h>
 #include <hal.h>
 #include <sdcard.h>
 #include <i2s.h>
@@ -32,7 +33,6 @@
 #include <audio_input.h>
 #include <GIFFile.h>
 #include <tasks.h>
-#include <lvgl_setup.h>
 
 unsigned long millis_actual = 0;
 static ulong lvgl_tick_millis = millis();
@@ -41,14 +41,15 @@ void setup()
 {
   init_sd();
   init_SPIFFS();
-  init_tasks();
 
   Wire.begin();
   keys.begin();
   keys_delay.start();
 
   init_tft();
+  init_GIF("/k7.gif");
   init_LVGL();
+  init_tasks();
 
   // Serial.begin(115200);
   //  play_wav("/sdcard/test.wav");
@@ -70,7 +71,13 @@ void loop()
       is_mainscreen = true;
       lv_screen_load(mainScr);
     }
-    gifPlay("/k7.gif");
+    if (is_stop || is_pause)
+    {
+      gif.playFrame(true, &maxGifDuration);
+      gif.reset();
+    }
+    else
+      gif.playFrame(true, NULL);
   }
   else
   {
@@ -82,6 +89,6 @@ void loop()
   unsigned long tick_millis = millis() - lvgl_tick_millis;
   lvgl_tick_millis = millis();
   lv_tick_inc(tick_millis);
-  // yield();
-  //  delay(5);
+  yield();
+  delay(5);
 }

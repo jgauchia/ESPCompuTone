@@ -8,28 +8,29 @@
 
 /**
  * @brief GIF File holder
- * 
+ *
  */
 static File FSGifFile;
 
 /**
  * @brief X,Y Offsets to center GIF
- * 
+ *
  */
 static int xOffset = 0;
 static int yOffset = 0;
 
 /**
  * @brief GIF File open callback
- * 
- * @param fname 
- * @param pSize 
- * @return void* 
+ *
+ * @param fname
+ * @param pSize
+ * @return void*
  */
-static void * GIFOpenFile(const char *fname, int32_t *pSize)
+static void *GIFOpenFile(const char *fname, int32_t *pSize)
 {
   FSGifFile = SPIFFS.open(fname);
-  if (FSGifFile) {
+  if (FSGifFile)
+  {
     *pSize = FSGifFile.size();
     return (void *)&FSGifFile;
   }
@@ -38,23 +39,23 @@ static void * GIFOpenFile(const char *fname, int32_t *pSize)
 
 /**
  * @brief GIF File close callback
- * 
- * @param pHandle 
+ *
+ * @param pHandle
  */
 static void GIFCloseFile(void *pHandle)
 {
   File *f = static_cast<File *>(pHandle);
   if (f != NULL)
-     f->close();
+    f->close();
 }
 
 /**
  * @brief GIF File read callback
- * 
- * @param pFile 
- * @param pBuf 
- * @param iLen 
- * @return int32_t 
+ *
+ * @param pFile
+ * @param pBuf
+ * @param iLen
+ * @return int32_t
  */
 static int32_t GIFReadFile(GIFFILE *pFile, uint8_t *pBuf, int32_t iLen)
 {
@@ -62,9 +63,9 @@ static int32_t GIFReadFile(GIFFILE *pFile, uint8_t *pBuf, int32_t iLen)
   iBytesRead = iLen;
   File *f = static_cast<File *>(pFile->fHandle);
   if ((pFile->iSize - pFile->iPos) < iLen)
-      iBytesRead = pFile->iSize - pFile->iPos - 1; 
+    iBytesRead = pFile->iSize - pFile->iPos - 1;
   if (iBytesRead <= 0)
-      return 0;
+    return 0;
   iBytesRead = (int32_t)f->read(pBuf, iBytesRead);
   pFile->iPos = f->position();
   return iBytesRead;
@@ -72,10 +73,10 @@ static int32_t GIFReadFile(GIFFILE *pFile, uint8_t *pBuf, int32_t iLen)
 
 /**
  * @brief GIF File seek callback
- * 
- * @param pFile 
- * @param iPosition 
- * @return int32_t 
+ *
+ * @param pFile
+ * @param iPosition
+ * @return int32_t
  */
 static int32_t GIFSeekFile(GIFFILE *pFile, int32_t iPosition)
 {
@@ -88,9 +89,9 @@ static int32_t GIFSeekFile(GIFFILE *pFile, int32_t iPosition)
 }
 
 /**
- * @brief Draw GIF on screen 
- * 
- * @param pDraw 
+ * @brief Draw GIF on screen
+ *
+ * @param pDraw
  */
 void GIFDraw(GIFDRAW *pDraw)
 {
@@ -170,38 +171,24 @@ void GIFDraw(GIFDRAW *pDraw)
       usTemp[x] = usPalette[*s++];
     tft.pushImage((pDraw->iX + x) + xOffset, y + yOffset, iWidth, 1, (uint16_t *)usTemp);
   }
-} 
+}
 
 /**
- * @brief Play GIF File
- * 
- * @param gifPath 
+ * @brief Init GIF File
+ *
+ * @param gifPath
  */
-void gifPlay(const char *gifPath)
-{ 
+void init_GIF(const char *gifPath)
+{
   gif.begin(BIG_ENDIAN_PIXELS);
 
   if (!gif.open(gifPath, GIFOpenFile, GIFCloseFile, GIFReadFile, GIFSeekFile, GIFDraw))
-  {
-    log_e("Could not open gif %s", gifPath);
-  }
+    log_e("Could not open gif %s",gifPath);
 
-  int frameDelay = 0; // store delay for the last frame
-  int then = 0;       // store overall delay
-  bool showcomment = false;
 
   // center the GIF !!
   int w = gif.getCanvasWidth();
   int h = gif.getCanvasHeight();
   xOffset = (tft.width() - w) / 2;
   yOffset = (tft.height() - h) / 2;
-
-  while (gif.playFrame(true, &frameDelay))
-  {
-    then += frameDelay;
-    if (then > maxGifDuration)
-      break;
-  }
-
-  gif.close();
 }

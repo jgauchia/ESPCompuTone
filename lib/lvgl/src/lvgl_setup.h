@@ -23,6 +23,7 @@ static lv_obj_t *mainScr;
  */
 
 static lv_display_t *display;
+static lv_indev_t *indev_drv;
 #define DRAW_BUF_SIZE (TFT_WIDTH * TFT_HEIGHT / 10 * (LV_COLOR_DEPTH / 8))
 uint32_t draw_buf[DRAW_BUF_SIZE / 4];
 
@@ -74,7 +75,7 @@ void init_LVGL()
     lv_display_set_flush_cb(display, disp_flush);
     lv_display_set_buffers(display, draw_buf, NULL, sizeof(draw_buf), LV_DISPLAY_RENDER_MODE_PARTIAL);
 
-    lv_indev_t *indev_drv = lv_indev_create();
+    indev_drv = lv_indev_create();
     lv_indev_set_type(indev_drv, LV_INDEV_TYPE_POINTER);
     lv_indev_set_read_cb(indev_drv, touchpad_read);
 

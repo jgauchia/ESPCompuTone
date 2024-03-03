@@ -65,7 +65,8 @@ void Check_keys()
             is_stop = false;
             is_eject = false;
             is_pause = false;
-            maxGifDuration = 5000;
+            select_obj(playBtn, true);
+            lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
         }
         break;
     case REC_PLAY:
@@ -79,7 +80,10 @@ void Check_keys()
             is_stop = false;
             is_eject = false;
             is_pause = false;
-            maxGifDuration = 5000;
+            select_obj(recBtn, true);
+            lv_obj_send_event(recBtn, LV_EVENT_REFRESH, NULL);
+            select_obj(playBtn, true);
+            lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
         }
         break;
     case REW:
@@ -93,7 +97,8 @@ void Check_keys()
             is_stop = false;
             is_eject = false;
             is_pause = false;
-            maxGifDuration = 5000;
+            select_obj(rewBtn, true);
+            lv_obj_send_event(rewBtn, LV_EVENT_REFRESH, NULL);
         }
         break;
     case ADV:
@@ -107,7 +112,8 @@ void Check_keys()
             is_stop = false;
             is_eject = false;
             is_pause = false;
-            maxGifDuration = 5000;
+            select_obj(ffwBtn, true);
+            lv_obj_send_event(ffwBtn, LV_EVENT_REFRESH, NULL);
         }
         break;
     case STOP_EJ:
@@ -124,29 +130,35 @@ void Check_keys()
             is_stop = true;
             is_eject = false;
             fileopen = false;
+            select_obj(rewBtn, false);
+            lv_obj_send_event(rewBtn, LV_EVENT_REFRESH, NULL);
+            select_obj(ffwBtn, false);
+            lv_obj_send_event(ffwBtn, LV_EVENT_REFRESH, NULL);
+            select_obj(recBtn, false);
+            lv_obj_send_event(recBtn, LV_EVENT_REFRESH, NULL);
+            select_obj(playBtn, false);
+            lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
         }
         is_record = false;
         is_play = false;
         is_rewind = false;
         is_advance = false;
         is_pause = false;
-        maxGifDuration = 0;
         break;
     case PAUSE:
         if (!is_pause)
         {
             log_i("PAUSE");
             is_pause = true;
-            maxGifDuration = 0;
+            select_obj(pauseBtn, true);
         }
         else
         {
             log_i("NO PAUSE");
             is_pause = false;
-            if (is_play || is_record || is_rewind || is_advance)
-                maxGifDuration = 5000;
+            select_obj(pauseBtn, false);
         }
-
+        lv_obj_send_event(pauseBtn, LV_EVENT_REFRESH, NULL);
         break;
     default:
         break;
