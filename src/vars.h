@@ -85,3 +85,7 @@ int maxGifDuration = 0;
 bool sdloaded = false;
 bool fileopen = false;
 bool is_mainscreen = true;
+
+
+static char* file_path;
+static char* file_name;
