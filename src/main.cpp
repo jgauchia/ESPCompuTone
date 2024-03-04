@@ -19,6 +19,8 @@
 #include <lvgfx.hpp>
 #include <LGFX_TFT_eSPI.hpp>
 #include <vars.h>
+#include <tft.h>
+#include <GIFFile.h>
 #include <lvgl_setup.h>
 #include "driver/i2s.h"
 #include <WAVFileReader.h>
@@ -28,14 +30,14 @@
 #include <i2s.h>
 #include <keys_def.h>
 #include <keys.h>
-#include <tft.h>
 #include <audio_output.h>
 #include <audio_input.h>
-#include <GIFFile.h>
 #include <tasks.h>
 
 unsigned long millis_actual = 0;
 static ulong lvgl_tick_millis = millis();
+
+static lv_obj_t *test;
 
 void setup()
 {
@@ -60,6 +62,9 @@ void setup()
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());
   log_i("SPIFFS: Total %d - Free %d", SPIFFS.totalBytes(), (SPIFFS.totalBytes() - SPIFFS.usedBytes()));
   log_i("FLASH: Total %d - Free %d", ESP.getFlashChipSize(), ESP.getFreeSketchSpace());
+
+  //play_wav("/sdcard/CUSTOM/Apple_logo_HIRES.wav");
+  //play_wav("/sdcard/Applevision.wav");
 }
 
 void loop()
@@ -77,7 +82,17 @@ void loop()
       gif.reset();
     }
     else
+    {
       gif.playFrame(true, NULL);
+    }
+    // if (is_play)
+    // {
+    //   char file_info[LV_FILE_EXPLORER_PATH_MAX_LEN];
+    //   strcpy(file_info, "/sdcard/");
+    //   strcat(file_info, file_name);
+    //   log_i("%s",file_info);
+    //    play_wav("/sdcard/CUSTOM/Apple_logo_HIRES.wav");
+    // }
   }
   else
   {

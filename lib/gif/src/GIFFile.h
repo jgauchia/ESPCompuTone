@@ -140,7 +140,7 @@ void GIFDraw(GIFDRAW *pDraw)
           iCount++;
         }
       } // while looking for opaque pixels
-      if (iCount)
+      if (iCount && y>30)
       { // any opaque pixels?
         tft.pushImage((pDraw->iX + x) + xOffset, y + yOffset, iCount, 1, (uint16_t *)usTemp);
         x += iCount;
@@ -183,8 +183,7 @@ void init_GIF(const char *gifPath)
   gif.begin(BIG_ENDIAN_PIXELS);
 
   if (!gif.open(gifPath, GIFOpenFile, GIFCloseFile, GIFReadFile, GIFSeekFile, GIFDraw))
-    log_e("Could not open gif %s",gifPath);
-
+    log_e("Could not open gif %s", gifPath);
 
   // center the GIF !!
   int w = gif.getCanvasWidth();

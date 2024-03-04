@@ -15,7 +15,9 @@ static lv_obj_t *mainScr;
 #include <lv_funcs.h>
 #include <button_bar.h>
 #include <notify_bar.h>
+#include <file_info.h>
 #include <file_open.h>
+
 
 /**
  * @brief Default display driver definition
@@ -85,6 +87,7 @@ void init_LVGL()
     create_notify_bar();
     create_button_bar_scr();
     create_file_explorer();
+    create_file_info_bar();
 
     lv_screen_load(mainScr);
 }

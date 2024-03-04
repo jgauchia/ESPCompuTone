@@ -1,6 +1,6 @@
 #pragma once
 
-#define SAMPLING_RATE 22000
+#define SAMPLING_RATE_WAV 44100
 #define BUFFER 1024
 
 #pragma pack(push, 1)
@@ -15,11 +15,11 @@ typedef struct _wav_header
   char fmt_header[4];      // Contains "fmt " (includes trailing space)
   int fmt_chunk_size = 16; // Should be 16 for PCM
   short audio_format = 1;  // Should be 1 for PCM. 3 for IEEE Float
-  short num_channels = 2;
-  int sample_rate = SAMPLING_RATE;
+  short num_channels = 1;
+  int sample_rate = SAMPLING_RATE_WAV;
   int byte_rate = sample_rate * num_channels * 2;      // Number of bytes per second. sample_rate * num_channels * Bytes Per Sample
-  short sample_alignment = 4; // num_channels * Bytes Per Sample
-  short bit_depth = 24;       // Number of bits per sample
+  short sample_alignment = num_channels * 2; // num_channels * Bytes Per Sample
+  short bit_depth = 16;       // Number of bits per sample
 
   // Data
   char data_header[4]; // Contains "data"

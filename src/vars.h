@@ -23,7 +23,7 @@ bool REPEAT_CAL = false;
  * @brief Sampling rate and buffer recording
  * 
  */
-#define SAMPLING_RATE 22000
+#define SAMPLING_RATE 8000
 #define BUFFER 1024
 
 
@@ -85,6 +85,7 @@ int maxGifDuration = 0;
 bool sdloaded = false;
 bool fileopen = false;
 bool is_mainscreen = true;
+bool fileload = false;
 
 
 static char* file_path;

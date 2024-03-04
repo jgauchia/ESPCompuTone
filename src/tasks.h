@@ -22,6 +22,18 @@ void Keys_task(void *pvParameters)
         if (keys_delay.update())
             Check_keys();
         delay(1);
+
+        if (is_play)
+        {
+            char file_info[LV_FILE_EXPLORER_PATH_MAX_LEN];
+            strcpy(file_info, "/sdcard");
+            strcat(file_info,file_path+3);
+            strcat(file_info, file_name);
+            log_i("%s", file_info);
+            play_wav(file_info);
+            select_obj(playBtn, false);
+            lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
+        }
     }
 }
 

@@ -55,7 +55,7 @@ void Check_keys()
     switch (key_pressed)
     {
     case PLAY:
-        if (is_stop && !is_pause)
+        if (is_stop && !is_pause && fileload)
         {
             log_i("PLAY");
             is_record = false;
@@ -123,6 +123,7 @@ void Check_keys()
             is_stop = false;
             is_eject = true;
             fileopen = true;
+            fileload = false;
         }
         else
         {
@@ -138,6 +139,11 @@ void Check_keys()
             lv_obj_send_event(recBtn, LV_EVENT_REFRESH, NULL);
             select_obj(playBtn, false);
             lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
+            if (!fileload)
+            {
+                lv_label_set_text(file, "No File");
+                lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
+            }
         }
         is_record = false;
         is_play = false;

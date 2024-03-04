@@ -56,7 +56,7 @@ void play_wav(const char *fname)
     FILE *fp = fopen(fname, "rb");
     WAVFileReader *wav = new WAVFileReader(fp);
     log_i("Opened wav file");
-    DAC_start(wav->sample_rate(),wav->num_channels());
+    DAC_start(wav->sample_rate(), wav->num_channels(), wav->bit_depth());
     log_i("Start playing");
     while (true)
     {
@@ -65,13 +65,15 @@ void play_wav(const char *fname)
         {
             break;
         }
-        //log_i("Read %d samples", samples_read);
+        // log_i("Read %d samples", samples_read);
         out_sample(samples, samples_read);
-        //log_i("Played samples");
+        // log_i("Played samples");
     }
     DAC_stop();
     fclose(fp);
     delete wav;
     free(samples);
+    is_stop = true;
+    is_play = false;
     log_i("Finished playing");
 }
