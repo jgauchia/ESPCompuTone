@@ -1,9 +1,9 @@
-ESP32 Based Digital recorder.
+# ESP32 Based Digital recorder.
 * Note: Under development
 
 
 
-## Specifications
+### Specifications
 
 *   ESP32-S2 (WROVER or WROOM)
 *   SD Card
@@ -13,7 +13,7 @@ ESP32 Based Digital recorder.
 
 
 
-## Wiring
+### Wiring
 
     Pinout (ESP32)
 
@@ -33,7 +33,7 @@ ESP32 Based Digital recorder.
                                                                             
 
 
-## Firmware install
+### Firmware install
 
 Please install first [PlatformIO](http://platformio.org/) open source ecosystem for IoT development compatible with **Arduino** IDE and its command line tools (Windows, MacOs and Linux). Also, you may need to install [git](http://git-scm.com/) in your system. 
 
@@ -44,7 +44,7 @@ pio run --target uploadfs
 ```
 
 
-## TODO
+### TODO
 
 - [ ] Recording (Wav Format)
 - [ ] File transfer over WiFi
@@ -54,6 +54,6 @@ pio run --target uploadfs
 - [ ] PSRAM support
 
 
-## Credits
+### Credits
 
 *   [ESP32 SDCard Wave File Example](https://github.com/atomic14/esp32_sdcard_audio) thanks to [@atomic14](https://github.com/atomic14)
