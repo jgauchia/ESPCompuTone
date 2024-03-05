@@ -4,7 +4,7 @@
 
 Prototype:
 
-<img src="ESPCompuTone.jpg" width="25%" height="25%">
+<img src="images/ESPCompuTone.jpg" width="50%" height="50%">
 
 
 
