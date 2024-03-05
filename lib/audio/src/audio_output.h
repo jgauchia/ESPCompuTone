@@ -66,7 +66,10 @@ void play_wav(const char *fname)
             break;
         }
         // log_i("Read %d samples", samples_read);
-        out_sample(samples, samples_read);
+        if (!is_pause)
+            out_sample(samples, samples_read);
+        if (is_stop)
+            break;
         // log_i("Played samples");
     }
     DAC_stop();
