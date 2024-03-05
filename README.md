@@ -1,4 +1,7 @@
 # ESP32 Based Digital recorder
+
+This project aims to be a replacement for cassette recorders for retro computers, as well as a digital recorder.
+
 * Note: Under development
 
 
