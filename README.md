@@ -52,7 +52,7 @@ pio run --target uploadfs
 ```
 
 
-### TODO
+### TO DO
 
 - [x] Play (WAV Format)
 - [ ] Record (WAV Format)
@@ -61,6 +61,8 @@ pio run --target uploadfs
 - [ ] Configuration Screen
 - [ ] Splash screen
 - [ ] PSRAM support (WROVER)
+- [ ] PCB
+- [ ] 3D Printed case
 
 
 ### Credits
