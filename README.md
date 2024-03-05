@@ -2,7 +2,9 @@
 * Note: Under development
 
 
-<img src="ESPCompuTone" width="25%" height="25%">
+Prototype:
+
+<img src="ESPCompuTone.jpg" width="25%" height="25%">
 
 
 
