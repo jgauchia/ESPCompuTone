@@ -1,4 +1,4 @@
-# ESP32 Based Digital recorder.
+# ESP32 Based Digital recorder
 * Note: Under development
 
 
