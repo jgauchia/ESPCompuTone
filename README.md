@@ -18,6 +18,8 @@ Prototype:
 *   ILI9341 TFT with touch
 *   PCM5102 DAC
 *   PCM1808 ADC
+*   LovyanGFX
+*   LVGL 9
 
 
 
