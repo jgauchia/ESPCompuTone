@@ -13,7 +13,7 @@ Prototype:
 
 ### Specifications
 
-*   ESP32-S2 (WROVER or WROOM)
+*   ESP32-S (WROOM)
 *   SD Card
 *   ILI9341 TFT with touch
 *   PCM5102 DAC
@@ -45,7 +45,7 @@ Prototype:
 
 Please install first [PlatformIO](http://platformio.org/) open source ecosystem for IoT development compatible with **Arduino** IDE and its command line tools (Windows, MacOs and Linux). Also, you may need to install [git](http://git-scm.com/) in your system. 
 
-After the first run, load the icons and assets with:
+Before the first run, load the icons and assets with:
 
 ```bash
 pio run --target uploadfs
@@ -54,12 +54,13 @@ pio run --target uploadfs
 
 ### TODO
 
-- [ ] Recording (Wav Format)
+- [x] Play (WAV Format)
+- [ ] Record (WAV Format)
 - [ ] File transfer over WiFi
 - [ ] Other file support (MP3, TAP, TZX...)
 - [ ] Configuration Screen
 - [ ] Splash screen
-- [ ] PSRAM support
+- [ ] PSRAM support (WROVER)
 
 
 ### Credits
