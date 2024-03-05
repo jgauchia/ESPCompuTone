@@ -62,6 +62,8 @@ pio run --target uploadfs
 - [ ] Splash screen
 - [ ] PSRAM support (WROVER)
 - [ ] PCB
+- [ ] Battery Support
+- [ ] Internal Speaker
 - [ ] 3D Printed case
 
 
