@@ -1,3 +1,18 @@
+ESP32 Based Digital recorder.
+* Note: Under development
+
+
+
+## Specifications
+
+*   ESP32-S2 (WROVER or WROOM)
+*   SD Card
+*   ILI9341 TFT with touch
+*   PCM5102 DAC
+*   PCM1808 ADC
+
+
+
 ## Wiring
 
     Pinout (ESP32)
@@ -16,3 +31,29 @@
                                                                             TCS    GPIO18   
                                                                             TIRQ   GPIO5
                                                                             
+
+
+## Firmware install
+
+Please install first [PlatformIO](http://platformio.org/) open source ecosystem for IoT development compatible with **Arduino** IDE and its command line tools (Windows, MacOs and Linux). Also, you may need to install [git](http://git-scm.com/) in your system. 
+
+After the first run, load the icons and assets with:
+
+```bash
+pio run --target uploadfs
+```
+
+
+## TODO
+
+- [ ] Recording (Wav Format)
+- [ ] File transfer over WiFi
+- [ ] Other file support (MP3, TAP, TZX...)
+- [ ] Configuration Screen
+- [ ] Splash screen
+- [ ] PSRAM support
+
+
+## Credits
+
+*   [ESP32 SDCard Wave File Example](https://github.com/atomic14/esp32_sdcard_audio) thanks to [@atomic14](https://github.com/atomic14)
