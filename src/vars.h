@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief Main program variables
  * @version 0.1
- * @date 2024-02-26
+ * @date 2024-03
  */
 
 /**

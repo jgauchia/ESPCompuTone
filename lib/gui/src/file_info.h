@@ -1,9 +1,9 @@
 /**
  * @file file_info.h
- * @author Jordi Gauchia
+ * @author Jordi Gauchía
  * @brief LVGL - File info
  * @version 0.1
- * @date 2024-03-03
+ * @date 2024-03
  */
 
 /**

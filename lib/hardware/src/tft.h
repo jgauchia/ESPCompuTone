@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief TFT definition and functions
  * @version 0.1
- * @date 2024-03-01
+ * @date 2024-03
  */
 
 /**

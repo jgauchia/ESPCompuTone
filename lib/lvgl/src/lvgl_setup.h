@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief LVGL Screen implementation
  * @version 0.1
- * @date 2024-02-29
+ * @date 2024-03
  */
 
 #include <lvgl.h>

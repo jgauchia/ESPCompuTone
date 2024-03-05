@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief Core Tasks functions
  * @version 0.1
- * @date 2024-02-29
+ * @date 2024-03
  *
  * @copyright Copyright (c) 2024
  *

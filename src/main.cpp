@@ -1,9 +1,9 @@
 /**
  * @file main.cpp
- * @author Jordi Gauchia
+ * @author Jordi Gauchía
  * @brief ESP Digital recorder
  * @version 0.1
- * @date 2024-02-21
+ * @date 2024-03
  */
 
 #include "Arduino.h"
@@ -62,9 +62,6 @@ void setup()
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());
   log_i("SPIFFS: Total %d - Free %d", SPIFFS.totalBytes(), (SPIFFS.totalBytes() - SPIFFS.usedBytes()));
   log_i("FLASH: Total %d - Free %d", ESP.getFlashChipSize(), ESP.getFreeSketchSpace());
-
-  //play_wav("/sdcard/CUSTOM/Apple_logo_HIRES.wav");
-  //play_wav("/sdcard/Applevision.wav");
 }
 
 void loop()
@@ -85,19 +82,14 @@ void loop()
     {
       gif.playFrame(true, NULL);
     }
-    // if (is_play)
-    // {
-    //   char file_info[LV_FILE_EXPLORER_PATH_MAX_LEN];
-    //   strcpy(file_info, "/sdcard/");
-    //   strcat(file_info, file_name);
-    //   log_i("%s",file_info);
-    //    play_wav("/sdcard/CUSTOM/Apple_logo_HIRES.wav");
-    // }
   }
   else
   {
-    is_mainscreen = false;
-    lv_screen_load(fileExplorer);
+    if (sdloaded)
+    {
+      is_mainscreen = false;
+      lv_screen_load(fileExplorer);
+    }
   }
 
   lv_timer_handler();

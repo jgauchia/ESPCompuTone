@@ -1,9 +1,9 @@
 /**
  * @file sdcard.h
- * @author Jordi Gauchia
+ * @author Jordi Gauchía
  * @brief SD Card definition and functions
  * @version 0.1
- * @date 2024-02-21
+ * @date 2024-03
  */
 
 SPIClass spiSD = SPIClass(VSPI);

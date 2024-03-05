@@ -1,9 +1,9 @@
 /**
  * @file keys_def.h
- * @author Jordi Gauchia
+ * @author Jordi Gauchía
  * @brief  Key definitions
  * @version 0.1
- * @date 2024-02-26
+ * @date 2024-03
  */
 
 /**

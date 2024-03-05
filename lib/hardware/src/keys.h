@@ -1,9 +1,9 @@
 /**
  * @file keys.h
- * @author Jordi Gauchia
+ * @author Jordi Gauchía
  * @brief Keys imput routines
  * @version 0.1
- * @date 2024-02-26
+ * @date 2024-03
  */
 
 /**

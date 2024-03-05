@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief  Audio Output Routines.
  * @version 0.1
- * @date 2024-02-23
+ * @date 2024-03
  */
 
 const int NUM_FRAMES_TO_SEND = 256;

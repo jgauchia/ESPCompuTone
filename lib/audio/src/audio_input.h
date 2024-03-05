@@ -1,9 +1,9 @@
 /**
  * @file audio_input.h
- * @author Jordi Gauchia
+ * @author Jordi Gauchía
  * @brief Audio Input Routines
  * @version 0.1
- * @date 2024-02-23
+ * @date 2024-03
  */
 
 /**
