@@ -2,7 +2,7 @@
  * @file i2s.h
  * @author Jordi Gauchía
  * @brief I2S Routines
- * @version 0.1
+ * @version 0.2
  * @date 2024-03
  */
 
@@ -34,22 +34,23 @@ i2s_pin_config_t i2s_dac_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_L
  *
  * @param sample_rate
  * @param num_channels
+ * @param bit_depth
  */
 void DAC_start(int sample_rate, int num_channels, int bit_depth)
 {
     i2s_dac_config.sample_rate = sample_rate;
-    i2s_dac_config.fixed_mclk =  sample_rate * 384;
-    bit_depth = bit_depth + 8;
-    i2s_dac_config.bits_per_sample = (i2s_bits_per_sample_t)bit_depth;
+    i2s_dac_config.fixed_mclk = sample_rate * 384;
+    i2s_dac_config.bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT;
+
     if (num_channels == 1)
         i2s_dac_config.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
     i2s_driver_install(I2S_NUM_0, &i2s_dac_config, 0, NULL);
     i2s_set_pin(I2S_NUM_0, &i2s_dac_pin_config);
     i2s_set_sample_rates(I2S_NUM_0, sample_rate);
-    //i2s_set_clk(I2S_NUM_0, sample_rate, (i2s_bits_per_sample_t)bit_depth, (i2s_channel_t)num_channels);
+    i2s_set_clk(I2S_NUM_0, sample_rate, I2S_BITS_PER_SAMPLE_16BIT, (i2s_channel_t)num_channels);
     i2s_start(I2S_NUM_0);
-    PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO0_U, FUNC_GPIO0_CLK_OUT1);
-    WRITE_PERI_REG(PIN_CTRL, 0xFFF0);
+    // PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO0_U, FUNC_GPIO0_CLK_OUT1);
+    // WRITE_PERI_REG(PIN_CTRL, 0xFFF0);
 }
 
 /**
@@ -85,12 +86,30 @@ i2s_config_t i2s_adc_config = {
  */
 i2s_pin_config_t i2s_adc_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_LRC, .data_out_num = I2S_PIN_NO_CHANGE, .data_in_num = I2S_DIN};
 
-void ADC_start()
+/**
+ * @brief Start ADC
+ *
+ * @param sample_rate
+ * @param num_channels
+ * @param bit_depth
+ */
+void ADC_start(int sample_rate, int num_channels, int bit_depth)
 {
+    i2s_adc_config.sample_rate = sample_rate;
+    i2s_adc_config.fixed_mclk = sample_rate * 384;
+    bit_depth = bit_depth + 8;
+    i2s_adc_config.bits_per_sample = (i2s_bits_per_sample_t)bit_depth;
+    if (num_channels == 1)
+        i2s_adc_config.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
     i2s_driver_install(I2S_NUM_0, &i2s_adc_config, 0, NULL);
     i2s_set_pin(I2S_NUM_0, &i2s_adc_pin_config);
+    // i2s_set_sample_rates(I2S_NUM_0, sample_rate);
 }
 
+/**
+ * @brief Stop ADC
+ *
+ */
 void ADC_stop()
 {
     i2s_driver_uninstall(I2S_NUM_0);

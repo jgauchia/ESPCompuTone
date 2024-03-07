@@ -69,6 +69,3 @@ pio run --target uploadfs
 - [ ] 3D Printed case
 
 
-### Credits
-
-*   WAV Play & Record ([ESP32 SDCard Wave File Example](https://github.com/atomic14/esp32_sdcard_audio)) thanks to [@atomic14](https://github.com/atomic14)

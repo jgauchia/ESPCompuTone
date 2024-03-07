@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Jordi Gauchía
  * @brief ESP Digital recorder
- * @version 0.1
+* @version 0.2
  * @date 2024-03
  */
 
@@ -23,15 +23,12 @@
 #include <GIFFile.h>
 #include <lvgl_setup.h>
 #include "driver/i2s.h"
-#include <WAVFileReader.h>
-#include <WAVFileWriter.h>
 #include <hal.h>
 #include <sdcard.h>
 #include <i2s.h>
 #include <keys_def.h>
 #include <keys.h>
-#include <audio_output.h>
-#include <audio_input.h>
+#include <play_wav.h>
 #include <tasks.h>
 
 unsigned long millis_actual = 0;
