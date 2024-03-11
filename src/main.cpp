@@ -29,6 +29,7 @@
 #include <keys_def.h>
 #include <keys.h>
 #include <play_wav.h>
+#include <rec_wav.h>
 #include <tasks.h>
 
 unsigned long millis_actual = 0;

@@ -23,8 +23,8 @@ bool REPEAT_CAL = false;
  * @brief Sampling rate and buffer recording
  *
  */
-#define SAMPLING_RATE 8000
-#define BUFFER 1024
+#define SAMPLING_RATE 44100
+#define BUFFER 256
 
 #define TFT_WIDTH 320
 #define TFT_HEIGHT 240
@@ -92,6 +92,8 @@ static char *file_name;
  * @brief Default Recording
  *
  */
-int def_sample_rate = 44100;
-int def_num_channels = 2;
-int def_bit_depth = 16;
+uint32_t sample_rate = 44100;
+uint8_t num_channels = 2;
+uint8_t bit_depth = 16;
+
+    size_t bytes_written = 0;

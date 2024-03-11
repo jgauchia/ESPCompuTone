@@ -41,7 +41,6 @@ void DAC_start(int sample_rate, int num_channels, int bit_depth)
     i2s_dac_config.sample_rate = sample_rate;
     i2s_dac_config.fixed_mclk = sample_rate * 384;
     i2s_dac_config.bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT;
-
     if (num_channels == 1)
         i2s_dac_config.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
     i2s_driver_install(I2S_NUM_0, &i2s_dac_config, 0, NULL);
@@ -97,8 +96,6 @@ void ADC_start(int sample_rate, int num_channels, int bit_depth)
 {
     i2s_adc_config.sample_rate = sample_rate;
     i2s_adc_config.fixed_mclk = sample_rate * 384;
-    bit_depth = bit_depth + 8;
-    i2s_adc_config.bits_per_sample = (i2s_bits_per_sample_t)bit_depth;
     if (num_channels == 1)
         i2s_adc_config.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
     i2s_driver_install(I2S_NUM_0, &i2s_adc_config, 0, NULL);
