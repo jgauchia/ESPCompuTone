@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Jordi Gauchía
  * @brief ESP Digital recorder
-* @version 0.2
+ * @version 0.2
  * @date 2024-03
  */
 
@@ -51,12 +51,6 @@ void setup()
   init_LVGL();
   init_tasks();
 
-  // Serial.begin(115200);
-  //  play_wav("/sdcard/test.wav");
-  //  rec_wav("/sdcard/input.wav");
-  //  play_wav("/sdcard/input.wav");
-  //
-
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());
   log_i("SPIFFS: Total %d - Free %d", SPIFFS.totalBytes(), (SPIFFS.totalBytes() - SPIFFS.usedBytes()));
   log_i("FLASH: Total %d - Free %d", ESP.getFlashChipSize(), ESP.getFreeSketchSpace());
@@ -64,7 +58,7 @@ void setup()
 
 void loop()
 {
-  if (!fileopen)
+  if (!fileopen && !filesave)
   {
     if (!is_mainscreen)
     {
@@ -81,13 +75,20 @@ void loop()
       gif.playFrame(true, NULL);
     }
   }
-  else
+  else if (fileopen && !filesave)
   {
+    // Call file open screen
     if (sdloaded)
     {
       is_mainscreen = false;
       lv_screen_load(fileExplorer);
     }
+  }
+  else if (filesave && !fileopen)
+  {
+    // Call file save screen
+    is_mainscreen = false;
+    lv_screen_load(fileSave);
   }
 
   lv_timer_handler();

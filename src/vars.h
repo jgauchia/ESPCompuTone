@@ -80,6 +80,7 @@ bool sdloaded = false;
 bool fileopen = false;
 bool is_mainscreen = true;
 bool fileload = false;
+bool filesave = false;
 
 /**
  * @brief File explorer vars

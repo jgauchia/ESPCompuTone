@@ -2,12 +2,12 @@
  * @file file_open.h
  * @author Jordi Gauchía
  * @brief LVGL - File Explorer
-* @version 0.2
+ * @version 0.2
  * @date 2024-03
  */
 
 /**
- * @brief Notify Bar Screen
+ * @brief File explorer Screen
  *
  */
 static lv_obj_t *fileExplorer;
@@ -44,7 +44,6 @@ static void get_file(lv_event_t *e)
  */
 void create_file_explorer()
 {
-
     fileExplorer = lv_file_explorer_create(NULL);
     lv_file_explorer_set_sort(fileExplorer, LV_EXPLORER_SORT_NONE);
     lv_file_explorer_open_dir(fileExplorer, "S:/");

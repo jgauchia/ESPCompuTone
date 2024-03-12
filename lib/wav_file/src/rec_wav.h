@@ -8,14 +8,13 @@
 
 #include <stdio.h>
 
-
 /**
  * @brief Record WAV
- * 
- * @param file_name 
- * @param sample_rate 
- * @param channels 
- * @param bits_per_sample 
+ *
+ * @param file_name
+ * @param sample_rate
+ * @param channels
+ * @param bits_per_sample
  */
 void rec_wav(const char *file_name, uint32_t sample_rate, uint8_t channels, uint8_t bits_per_sample)
 {
@@ -73,16 +72,21 @@ void rec_wav(const char *file_name, uint32_t sample_rate, uint8_t channels, uint
         wav_bytes_written += sizeof(int16_t) * samples_read;
 
         if (ferror(wav_file) == 1)
+        {
             log_e("error");
+            lv_label_set_text(file, "Recording Error");
+            lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
+            break;
+        }
         // else
         //     log_i("%d bytes read, %d samples , %d bytes", bytes_read, samples_read, bytes_written);
     }
-    // Write Header ChunkSize 
+    // Write Header ChunkSize
     fseek(wav_file, 4, SEEK_SET);
     uint32_t chunk_size = wav_bytes_written + 36;
     fwrite(&chunk_size, sizeof(uint32_t), 1, wav_file);
 
-// Write Header Subchunk2Size 
+    // Write Header Subchunk2Size
     fseek(wav_file, 40, SEEK_SET);
     uint32_t subchunk2_size = wav_bytes_written;
     fwrite(&subchunk2_size, sizeof(uint32_t), 1, wav_file);
@@ -99,4 +103,5 @@ void rec_wav(const char *file_name, uint32_t sample_rate, uint8_t channels, uint
 
     is_record = false;
     is_stop = true;
+    filesave = true;
 }

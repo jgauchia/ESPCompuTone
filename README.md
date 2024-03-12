@@ -57,7 +57,7 @@ pio run --target uploadfs
 ### TO DO
 
 - [x] Play (WAV Format)
-- [ ] Record (WAV Format)
+- [x] Record (WAV Format)
 - [ ] File transfer over WiFi
 - [ ] Other file support (MP3, TAP, TZX...)
 - [ ] Configuration Screen
