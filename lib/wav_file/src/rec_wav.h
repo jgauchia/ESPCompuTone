@@ -18,6 +18,8 @@
  */
 void rec_wav(const char *file_name, uint32_t sample_rate, uint8_t channels, uint8_t bits_per_sample)
 {
+    is_file_error = false;
+
     // Configure and start ADC
     ADC_start(sample_rate, channels, bits_per_sample);
 
@@ -73,7 +75,8 @@ void rec_wav(const char *file_name, uint32_t sample_rate, uint8_t channels, uint
 
         if (ferror(wav_file) == 1)
         {
-            log_e("error");
+            log_e("Recording Error");
+            is_file_error = true;
             lv_label_set_text(file, "Recording Error");
             lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
             break;
@@ -93,6 +96,10 @@ void rec_wav(const char *file_name, uint32_t sample_rate, uint8_t channels, uint
 
     // Close WAV file
     fclose(wav_file);
+
+    // Delete file if has Write error
+    if (is_file_error)
+       remove(file_name);
 
     // Free Audio Buffers
     free(wav_data_in);
