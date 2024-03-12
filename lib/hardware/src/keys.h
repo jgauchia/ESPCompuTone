@@ -2,7 +2,7 @@
  * @file keys.h
  * @author Jordi Gauchía
  * @brief Keys imput routines
- * @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 

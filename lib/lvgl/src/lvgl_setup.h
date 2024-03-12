@@ -2,7 +2,7 @@
  * @file lvgl_setup.h
  * @author Jordi Gauchía
  * @brief LVGL Screen implementation
-* @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 
@@ -18,7 +18,6 @@ static lv_obj_t *mainScr;
 #include <file_info.h>
 #include <file_open.h>
 #include <file_save.h>
-
 
 /**
  * @brief Default display driver definition

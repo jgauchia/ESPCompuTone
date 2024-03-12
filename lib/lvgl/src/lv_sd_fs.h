@@ -1,8 +1,8 @@
 /**
  * @file lv_sd_fs.h
- * @author Jordi Gauchía 
+ * @author Jordi Gauchía
  * @brief  SD file functions for LVGL
-* @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 
@@ -207,14 +207,14 @@ static lv_fs_res_t sd_dir_read(lv_fs_drv_t *drv, void *dir_p, char *fn, uint32_t
         {
             if (file.isDirectory())
             {
-                log_i("  DIR : %s",file.name());
+                log_i("  DIR : %s", file.name());
                 fn[0] = '/';
                 strcpy(&fn[1], file.name());
             }
             else
             {
-                log_i("  FILE: %s",file.name());
-                log_i("  SIZE: %d",file.size());
+                log_i("  FILE: %s", file.name());
+                log_i("  SIZE: %d", file.size());
                 strcpy(fn, file.name());
             }
             break;

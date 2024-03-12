@@ -2,7 +2,7 @@
  * @file file_save.h
  * @author Jordi Gauchía
  * @brief LVGL - File Save
- * @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 

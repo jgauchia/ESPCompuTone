@@ -2,7 +2,7 @@
  * @file rec_wav.h
  * @author Jordi Gauchía
  * @brief WAV Record routines
- * @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 

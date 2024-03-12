@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Jordi Gauchía
  * @brief ESP Digital recorder
- * @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 

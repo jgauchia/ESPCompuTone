@@ -2,7 +2,7 @@
  * @file file_info.h
  * @author Jordi Gauchía
  * @brief LVGL - File info
-* @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 

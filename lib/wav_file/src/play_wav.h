@@ -2,7 +2,7 @@
  * @file play_wav.h
  * @author Jordi Gauchía
  * @brief WAV Play routines
- * @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 
@@ -10,8 +10,8 @@
 
 /**
  * @brief Play WAV
- * 
- * @param file_name 
+ *
+ * @param file_name
  */
 void play_wav(const char *file_name)
 {

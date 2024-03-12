@@ -2,7 +2,7 @@
  * @file hal.h
  * @author Jordi Gauchía
  * @brief  Pin definitions
-* @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 
@@ -17,7 +17,7 @@
 
 /**
  * @brief I2S pin definition
- * 
+ *
  */
 #define I2S_BCK 26
 #define I2S_LRC 33

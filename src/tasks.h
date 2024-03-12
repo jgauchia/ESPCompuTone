@@ -2,11 +2,8 @@
  * @file tasks.h
  * @author Jordi Gauchía
  * @brief Core Tasks functions
-* @version 0.2
+ * @version 0.3
  * @date 2024-03
- *
- * @copyright Copyright (c) 2024
- *
  */
 
 /**
@@ -38,13 +35,13 @@ void Audio_task(void *pvParameters)
             strcat(file_info, file_name);
             log_i("%s", file_info);
             play_wav(file_info);
-            //play_wav("/sdcard/temp.wav");
+            // play_wav("/sdcard/temp.wav");
             select_obj(playBtn, false);
             lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
         }
         if (is_record)
         {
-            rec_wav("/sdcard/temp.wav",sample_rate,num_channels,bit_depth);      
+            rec_wav("/sdcard/temp.wav", sample_rate, num_channels, bit_depth);
         }
         delay(1);
     }

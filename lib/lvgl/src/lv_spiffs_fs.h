@@ -1,8 +1,8 @@
 /**
  * @file lv_spiffs_fs.h
- * @author Jordi Gauchía 
+ * @author Jordi Gauchía
  * @brief  SPIFFS file functions for LVGL
-* @version 0.2
+ * @version 0.3
  * @date 2024-03
  */
 
@@ -32,12 +32,12 @@ static void *spiffs_fs_open(lv_fs_drv_t *drv, const char *path, lv_fs_mode_t mod
     File f = SPIFFS.open(path, flags);
     if (!f)
     {
-        log_e("Failed to open file! %s",path);
-        return NULL;      
+        log_e("Failed to open file! %s", path);
+        return NULL;
     }
 
     File *lf = new File{f};
-   
+
     // make sure at the beginning
     // fp->seek(0);
 
@@ -208,14 +208,14 @@ static lv_fs_res_t spiffs_dir_read(lv_fs_drv_t *drv, void *dir_p, char *fn, uint
         {
             if (file.isDirectory())
             {
-                log_i("  DIR : %s",file.name());
+                log_i("  DIR : %s", file.name());
                 fn[0] = '/';
                 strcpy(&fn[1], file.name());
             }
             else
             {
-                log_i("  FILE: %s",file.name());
-                log_i("  SIZE: %d",file.size());
+                log_i("  FILE: %s", file.name());
+                log_i("  SIZE: %d", file.size());
                 strcpy(fn, file.name());
             }
             break;
