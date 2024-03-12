@@ -37,14 +37,14 @@ void Audio_task(void *pvParameters)
             strcat(file_info, file_path + 3);
             strcat(file_info, file_name);
             log_i("%s", file_info);
-            //play_wav(file_info);
-            play_wav("/sdcard/test.wav");
+            play_wav(file_info);
+            //play_wav("/sdcard/temp.wav");
             select_obj(playBtn, false);
             lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
         }
         if (is_record)
         {
-            rec_wav("/sdcard/test.wav",44100,2,16);      
+            rec_wav("/sdcard/temp.wav",sample_rate,num_channels,bit_depth);      
         }
         delay(1);
     }

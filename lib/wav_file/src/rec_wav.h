@@ -8,13 +8,21 @@
 
 #include <stdio.h>
 
-#define FILE_NAME_SIZE 128
-// Función para grabar audio en un archivo WAV con parámetros personalizables
+
+/**
+ * @brief Record WAV
+ * 
+ * @param file_name 
+ * @param sample_rate 
+ * @param channels 
+ * @param bits_per_sample 
+ */
 void rec_wav(const char *file_name, uint32_t sample_rate, uint8_t channels, uint8_t bits_per_sample)
 {
+    // Configure and start ADC
     ADC_start(sample_rate, channels, bits_per_sample);
 
-    // Abrir el archivo WAV
+    // Open WAV file
     FILE *wav_file = fopen(file_name, "wb");
     if (wav_file == NULL)
     {
@@ -42,49 +50,53 @@ void rec_wav(const char *file_name, uint32_t sample_rate, uint8_t channels, uint
 
     // Input Buffer for Audio input
     const size_t buffer_size = 1024;
-    int32_t *i2s_data_in = (int32_t *)malloc(sizeof(int32_t) * buffer_size);
-    int16_t *i2s_data_out = (int16_t *)malloc(sizeof(int16_t) * buffer_size);
+    int32_t *wav_data_in = (int32_t *)malloc(sizeof(int32_t) * buffer_size);
+    int16_t *wav_data_16bits = (int16_t *)malloc(sizeof(int16_t) * buffer_size);
     size_t bytes_read;
 
     while (!is_stop)
     {
-        // Escribir datos de audio en el controlador I2S
-        i2s_read(I2S_NUM_0, i2s_data_in, sizeof(int32_t) * buffer_size, &bytes_read, portMAX_DELAY);
-        // i2s_adc_data_scale(i2s_data_write, i2s_data, buffer_size);
-        //  Escribir datos de audio en el archivo WAV
+        // read data from ADC
+        i2s_read(I2S_NUM_0, wav_data_in, sizeof(int32_t) * buffer_size, &bytes_read, portMAX_DELAY);
+
+        // calculate total samples
         int samples_read = bytes_read / sizeof(int32_t);
 
+        // convert 24bit audio to 16bit
         for (int i = 0; i < samples_read; i++)
         {
-            i2s_data_out[i] = (i2s_data_in[i] & 0xFFFFFF00) >> 11;
+            wav_data_16bits[i] = (wav_data_in[i]) >> 11;
         }
 
-        fwrite(i2s_data_out, sizeof(int16_t), samples_read, wav_file);
-        taskYIELD();
-        bytes_written += sizeof(int16_t) * samples_read;
+        // Write WAV samples
+        fwrite(wav_data_16bits, sizeof(int16_t), samples_read, wav_file);
+        wav_bytes_written += sizeof(int16_t) * samples_read;
 
         if (ferror(wav_file) == 1)
             log_e("error");
-        else
-            log_i("%d bytes read, %d samples , %d bytes", bytes_read, samples_read, bytes_written);
+        // else
+        //     log_i("%d bytes read, %d samples , %d bytes", bytes_read, samples_read, bytes_written);
     }
-
-    log_i("size %d", bytes_written);
-    // Actualizar los campos ChunkSize y Subchunk2Size en el encabezado del archivo WAV
+    // Write Header ChunkSize 
     fseek(wav_file, 4, SEEK_SET);
-    uint32_t chunk_size = bytes_written + 36;
+    uint32_t chunk_size = wav_bytes_written + 36;
     fwrite(&chunk_size, sizeof(uint32_t), 1, wav_file);
 
+// Write Header Subchunk2Size 
     fseek(wav_file, 40, SEEK_SET);
-    uint32_t subchunk2_size = bytes_written;
+    uint32_t subchunk2_size = wav_bytes_written;
     fwrite(&subchunk2_size, sizeof(uint32_t), 1, wav_file);
-    // Cerrar el archivo WAV y liberar la memoria
-    fclose(wav_file);
-    free(i2s_data_in);
-    free(i2s_data_out);
 
-    // Desinstalar el controlador I2S
+    // Close WAV file
+    fclose(wav_file);
+
+    // Free Audio Buffers
+    free(wav_data_in);
+    free(wav_data_16bits);
+
+    // Stop ADC
     ADC_stop();
+
     is_record = false;
     is_stop = true;
 }

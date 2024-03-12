@@ -2,7 +2,7 @@
  * @file vars.h
  * @author Jordi Gauchía
  * @brief Main program variables
-* @version 0.2
+ * @version 0.2
  * @date 2024-03
  */
 
@@ -92,8 +92,12 @@ static char *file_name;
  * @brief Default Recording
  *
  */
-uint32_t sample_rate = 44100;
+uint32_t sample_rate = 18000;
 uint8_t num_channels = 2;
 uint8_t bit_depth = 16;
 
-    size_t bytes_written = 0;
+/**
+ * @brief Total size of WAV samples in bytes
+ * 
+ */
+size_t wav_bytes_written = 0;

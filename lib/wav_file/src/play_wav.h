@@ -8,6 +8,11 @@
 
 #include <stdio.h>
 
+/**
+ * @brief Play WAV
+ * 
+ * @param file_name 
+ */
 void play_wav(const char *file_name)
 {
     // WAV File open
@@ -58,7 +63,7 @@ void play_wav(const char *file_name)
             for (size_t i = 0; i < bytes_read; i++)
             {
                 // Convert 8 bit per sample to 16 for the DAC
-                wav_data_16bits[i] = (int16_t)((wav_data[i] - 0x80) << 8 );
+                wav_data_16bits[i] = (int16_t)((wav_data[i] - 0x80) << 8);
             }
             if (!is_pause)
                 // Out I2S data
