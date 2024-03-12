@@ -61,6 +61,7 @@ pio run --target uploadfs
 - [ ] File transfer over WiFi
 - [ ] Other file support (MP3, TAP, TZX...)
 - [ ] Configuration Screen
+- [ ] File Utilities
 - [ ] Splash screen
 - [ ] PSRAM support (WROVER)
 - [ ] PCB
