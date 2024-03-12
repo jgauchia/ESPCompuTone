@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Jordi Gauchía
  * @brief ESP Digital recorder
- * @version 0.1
+ * @version 0.2
  * @date 2024-03
  */
 
@@ -23,15 +23,13 @@
 #include <GIFFile.h>
 #include <lvgl_setup.h>
 #include "driver/i2s.h"
-#include <WAVFileReader.h>
-#include <WAVFileWriter.h>
 #include <hal.h>
 #include <sdcard.h>
 #include <i2s.h>
 #include <keys_def.h>
 #include <keys.h>
-#include <audio_output.h>
-#include <audio_input.h>
+#include <play_wav.h>
+#include <rec_wav.h>
 #include <tasks.h>
 
 unsigned long millis_actual = 0;
@@ -53,12 +51,6 @@ void setup()
   init_LVGL();
   init_tasks();
 
-  // Serial.begin(115200);
-  //  play_wav("/sdcard/test.wav");
-  //  rec_wav("/sdcard/input.wav");
-  //  play_wav("/sdcard/input.wav");
-  //
-
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());
   log_i("SPIFFS: Total %d - Free %d", SPIFFS.totalBytes(), (SPIFFS.totalBytes() - SPIFFS.usedBytes()));
   log_i("FLASH: Total %d - Free %d", ESP.getFlashChipSize(), ESP.getFreeSketchSpace());
@@ -66,7 +58,7 @@ void setup()
 
 void loop()
 {
-  if (!fileopen)
+  if (!fileopen && !filesave)
   {
     if (!is_mainscreen)
     {
@@ -83,13 +75,20 @@ void loop()
       gif.playFrame(true, NULL);
     }
   }
-  else
+  else if (fileopen && !filesave)
   {
+    // Call file open screen
     if (sdloaded)
     {
       is_mainscreen = false;
       lv_screen_load(fileExplorer);
     }
+  }
+  else if (filesave && !fileopen)
+  {
+    // Call file save screen
+    is_mainscreen = false;
+    lv_screen_load(fileSave);
   }
 
   lv_timer_handler();

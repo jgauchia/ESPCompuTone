@@ -2,7 +2,7 @@
  * @file lvgl_setup.h
  * @author Jordi Gauchía
  * @brief LVGL Screen implementation
- * @version 0.1
+* @version 0.2
  * @date 2024-03
  */
 
@@ -17,6 +17,7 @@ static lv_obj_t *mainScr;
 #include <notify_bar.h>
 #include <file_info.h>
 #include <file_open.h>
+#include <file_save.h>
 
 
 /**
@@ -87,6 +88,7 @@ void init_LVGL()
     create_notify_bar();
     create_button_bar_scr();
     create_file_explorer();
+    create_file_save();
     create_file_info_bar();
 
     lv_screen_load(mainScr);

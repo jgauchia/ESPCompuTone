@@ -57,10 +57,11 @@ pio run --target uploadfs
 ### TO DO
 
 - [x] Play (WAV Format)
-- [ ] Record (WAV Format)
+- [x] Record (WAV Format)
 - [ ] File transfer over WiFi
 - [ ] Other file support (MP3, TAP, TZX...)
 - [ ] Configuration Screen
+- [ ] File Utilities
 - [ ] Splash screen
 - [ ] PSRAM support (WROVER)
 - [ ] PCB
@@ -69,6 +70,5 @@ pio run --target uploadfs
 - [ ] 3D Printed case
 
 
-### Credits
 
-*   WAV Play & Record ([ESP32 SDCard Wave File Example](https://github.com/atomic14/esp32_sdcard_audio)) thanks to [@atomic14](https://github.com/atomic14)
+

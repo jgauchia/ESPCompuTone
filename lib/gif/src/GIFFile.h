@@ -2,7 +2,7 @@
  * @file GIFFile.h
  * @author Jordi Gauchía
  * @brief GIF File callback functions
- * @version 0.1
+* @version 0.2
  * @date 2024-03
  */
 

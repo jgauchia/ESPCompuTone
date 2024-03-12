@@ -2,7 +2,7 @@
  * @file keys.h
  * @author Jordi Gauchía
  * @brief Keys imput routines
- * @version 0.1
+ * @version 0.2
  * @date 2024-03
  */
 
@@ -84,6 +84,8 @@ void Check_keys()
             lv_obj_send_event(recBtn, LV_EVENT_REFRESH, NULL);
             select_obj(playBtn, true);
             lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
+            lv_label_set_text(file, "Audio Recording");
+            lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
         }
         break;
     case REW:
@@ -122,7 +124,9 @@ void Check_keys()
             log_i("EJECT");
             is_stop = false;
             is_eject = true;
-            fileopen = true;
+            if (!filesave)
+                fileopen = true;
+            // filesave = false;
             fileload = false;
         }
         else
@@ -131,6 +135,7 @@ void Check_keys()
             is_stop = true;
             is_eject = false;
             fileopen = false;
+            filesave = false;
             select_obj(rewBtn, false);
             lv_obj_send_event(rewBtn, LV_EVENT_REFRESH, NULL);
             select_obj(ffwBtn, false);
