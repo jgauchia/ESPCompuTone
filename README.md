@@ -60,6 +60,7 @@ pio run --target uploadfs
 - [x] Record (WAV Format)
 - [ ] File transfer over WiFi
 - [ ] Other file support (MP3, TAP, TZX...)
+- [ ] Add 24bit. WAV support 
 - [ ] Configuration Screen
 - [ ] File Utilities
 - [ ] Splash screen
