@@ -94,7 +94,7 @@ static char *file_name;
  * @brief Default Recording
  *
  */
-uint32_t sample_rate = 18000;
+uint32_t sample_rate = 22050;
 uint8_t num_channels = 2;
 uint8_t bit_depth = 16;
 
