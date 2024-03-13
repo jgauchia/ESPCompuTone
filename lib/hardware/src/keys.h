@@ -38,7 +38,7 @@ int Read_Keys()
         return PAUSE;
         break;
     default:
-        return NONE;
+        return NOKEY;
         break;
     }
 }

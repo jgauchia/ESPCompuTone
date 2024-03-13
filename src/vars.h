@@ -82,6 +82,7 @@ bool is_mainscreen = true;
 bool fileload = false;
 bool filesave = false;
 bool is_file_error = false;
+bool is_config = false;
 
 /**
  * @brief File explorer vars

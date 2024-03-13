@@ -36,11 +36,17 @@ void create_notify_bar()
     lv_style_set_border_opa(&style_bar, LV_OPA_0);
     lv_obj_add_style(notifyBar, &style_bar, LV_PART_MAIN);
 
-    lv_obj_t *label;
-
-    label = lv_label_create(notifyBar);
+    // SD Icon
+    sdcard = lv_label_create(notifyBar);
     if (sdloaded)
-        lv_label_set_text_static(label, LV_SYMBOL_SD_CARD);
+        lv_label_set_text_static(sdcard, LV_SYMBOL_SD_CARD);
     else
-        lv_label_set_text_static(label, " ");
+        lv_label_set_text_static(sdcard, " ");
+
+    // Wifi Icon
+    wifiBtn = lv_label_create(notifyBar);
+    lv_label_set_text(wifiBtn,LV_SYMBOL_WIFI);
+    lv_obj_add_flag(wifiBtn,LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(wifiBtn, wifi_event, LV_EVENT_ALL, NULL);
+
 }

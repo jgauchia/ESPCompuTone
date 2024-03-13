@@ -16,6 +16,7 @@
 #include <FS.h>
 #include <SD.h>
 #include <AnimatedGIF.h>
+#include <network.h>
 #include <lvgfx.hpp>
 #include <LGFX_TFT_eSPI.hpp>
 #include <vars.h>
@@ -65,14 +66,17 @@ void loop()
       is_mainscreen = true;
       lv_screen_load(mainScr);
     }
-    if (is_stop || is_pause)
+    if (!is_config)
     {
-      gif.playFrame(true, &maxGifDuration);
-      gif.reset();
-    }
-    else
-    {
-      gif.playFrame(true, NULL);
+      if (is_stop || is_pause)
+      {
+        gif.playFrame(true, &maxGifDuration);
+        gif.reset();
+      }
+      else
+      {
+        gif.playFrame(true, NULL);
+      }
     }
   }
   else if (fileopen && !filesave)

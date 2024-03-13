@@ -19,11 +19,11 @@ enum key_def
     ADV,
     STOP_EJ,
     PAUSE,
-    NONE,
+    NOKEY,
 };
 
 /**
  * @brief Returns key pressed
  *
  */
-int key_pressed = NONE;
+int key_pressed = NOKEY;
