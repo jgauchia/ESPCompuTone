@@ -64,8 +64,10 @@ pio run --target uploadfs
 - [ ] File Utilities
 - [ ] Splash screen
 - [ ] PSRAM support (WROVER)
+- [ ] Review Audio Task
 - [ ] PCB
-- [ ] Battery Support
+- [x] Battery Support
+- [ ] Remote connector support
 - [ ] Internal Speaker
 - [ ] 3D Printed case
 

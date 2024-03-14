@@ -23,6 +23,7 @@ typedef enum
 } Network_Status_t;
 Network_Status_t networkStatus = NONE;
 
+static int totalWificount = 0;
 static int foundNetworks = 0;
 unsigned long networkTimeout = 10 * 1000;
 String ssidName, ssidPW;
@@ -35,6 +36,11 @@ std::vector<String> foundWifiList;
  *
  */
 
+/**
+ * @brief Scan Wifi Task
+ *
+ * @param pvParameters
+ */
 static void scanWIFITask(void *pvParameters)
 {
     while (1)
@@ -52,6 +58,16 @@ static void scanWIFITask(void *pvParameters)
     }
 }
 
+static void networkScanner()
+{
+    xTaskCreate(scanWIFITask, "ScanWIFITask", 4096, NULL, 1, &ntScanTaskHandler);
+}
+
+/**
+ * @brief Connect Wifi Task
+ *
+ * @param pvParameters
+ */
 void beginWIFITask(void *pvParameters)
 {
 
@@ -69,34 +85,19 @@ void beginWIFITask(void *pvParameters)
     if (WiFi.status() == WL_CONNECTED)
     {
         networkStatus = NETWORK_CONNECTED_POPUP;
-       // saveWIFICredentialEEPROM(1, ssidName + " " + ssidPW);
+        log_i("%s",WiFi.localIP().toString());
+        // saveWIFICredentialEEPROM(1, ssidName + " " + ssidPW);
     }
     else
     {
         networkStatus = NETWORK_CONNECT_FAILED;
-        //saveWIFICredentialEEPROM(0, "");
+        // saveWIFICredentialEEPROM(0, "");
     }
 
     vTaskDelete(NULL);
 }
 
-static void networkScanner()
-{
-    xTaskCreate(scanWIFITask,
-                "ScanWIFITask",
-                4096,
-                NULL,
-                1,
-                &ntScanTaskHandler);
-}
-
 static void networkConnector()
 {
-    xTaskCreate(beginWIFITask,
-                "beginWIFITask",
-                2048,
-                NULL,
-                1,
-                &ntConnectTaskHandler);
+    xTaskCreate(beginWIFITask,"beginWIFITask",2048,NULL,1,&ntConnectTaskHandler);
 }
-
