@@ -36,3 +36,16 @@ void select_obj(_lv_obj_t *obj, bool sel)
         lv_obj_add_style(obj, &style_btn2, 0);
     }
 }
+
+/**
+ * @brief Clear table
+ *
+ * @param obj
+ */
+void lv_table_clear(_lv_obj_t *obj)
+{
+    if (lv_table_get_row_count(obj) != 0)
+        for (int i = 0; i < lv_table_get_row_count(obj); i++)
+            lv_table_set_cell_value(obj, i, 0, "");
+    lv_table_set_row_count(obj, 0);
+}

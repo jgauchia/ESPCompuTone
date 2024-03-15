@@ -83,7 +83,7 @@ static void makeKeyboard()
     lv_obj_add_flag(keyboard, LV_OBJ_FLAG_HIDDEN);
 }
 /**
- * @brief SHow Wifi List
+ * @brief Show Wifi List
  *
  */
 static void showingFoundWiFiList()
@@ -91,7 +91,7 @@ static void showingFoundWiFiList()
     if (foundWifiList.size() == 0 || foundNetworks == foundWifiList.size())
         return;
 
-    // lv_obj_clean(wifiList);
+    lv_table_clear(wifiList);
     totalWificount = 0;
     for (std::vector<String>::iterator item = foundWifiList.begin(); item != foundWifiList.end(); ++item)
     {
@@ -122,7 +122,7 @@ static void timerForNetwork(lv_timer_t *timer)
     case NETWORK_CONNECTED_POPUP:
         // popupMsgBox("WiFi Connected!", "Now you'll get the current time soon.");
         networkStatus = NETWORK_CONNECTED;
-        lv_label_set_text_fmt(ip, "%s",WiFi.localIP().toString());
+        lv_label_set_text_fmt(ip, "%s", WiFi.localIP().toString());
         lv_obj_send_event(ip, LV_EVENT_REFRESH, NULL);
         break;
 
@@ -211,12 +211,14 @@ static void wifi_event(lv_event_t *e)
                         vTaskDelete(ntScanTaskHandler);
                         ntScanTaskHandler = NULL;
                         lv_timer_del(timer);
-                        // lv_obj_clean(wifiList);
+                        lv_table_clear(wifiList);
                     }
 
                     if (WiFi.status() == WL_CONNECTED)
                     {
                         WiFi.disconnect(true);
+                        lv_label_set_text_fmt(ip, "%s", WiFi.localIP().toString());
+                        lv_obj_send_event(ip, LV_EVENT_REFRESH, NULL);
                     }
                 }
             }
