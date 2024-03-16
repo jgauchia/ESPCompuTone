@@ -6,6 +6,11 @@
  * @date 2024-03
  */
 
+#ifndef WIFI_SELECT_H
+#define WIFI_SELECT_H
+
+#include <network.h>
+
 static lv_obj_t *ip;
 static lv_obj_t *wifiBtn;
 static lv_obj_t *wifiSettings;
@@ -290,3 +295,5 @@ static void create_wifi_screen()
     keyboard = lv_keyboard_create(mboxConnect);
     lv_obj_add_flag(keyboard, LV_OBJ_FLAG_HIDDEN);
 }
+
+#endif

@@ -6,6 +6,9 @@
  * @date 2024-03
  */
 
+#ifndef HAL_H
+#define HAL_H
+
 /**
  * @brief SD pin definition
  *
@@ -24,3 +27,5 @@
 #define I2S_DIN 35
 #define I2S_DOUT 25
 #define I2S_MCK 0
+
+#endif

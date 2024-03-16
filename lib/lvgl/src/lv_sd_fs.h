@@ -6,7 +6,12 @@
  * @date 2024-03
  */
 
+#ifndef LV_SD_FS_H
+#define LV_SD_FS_H
+
 #include "lvgl.h"
+#include <FS.h>
+#include <SD.h>
 
 /**
  * @brief SD Open LVGL CallBack
@@ -276,3 +281,5 @@ static void lv_port_sd_fs_init(void)
 
     lv_fs_drv_register(&fs_drv);
 }
+
+#endif

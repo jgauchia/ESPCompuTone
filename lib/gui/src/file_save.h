@@ -6,6 +6,9 @@
  * @date 2024-03
  */
 
+#ifndef FILE_SAVE_H
+#define FILE_SAVE_H
+
 /**
  * @brief File save Screen
  *
@@ -74,7 +77,7 @@ static void save_event(lv_event_t *e)
  * @brief Create a file save object
  *
  */
-void create_file_save()
+static void create_file_save()
 {
     fileSave = lv_obj_create(NULL);
 
@@ -87,3 +90,4 @@ void create_file_save()
 
     lv_keyboard_set_textarea(keyboard, textarea);
 }
+#endif

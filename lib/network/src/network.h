@@ -6,6 +6,9 @@
  * @date 2024-03
  */
 
+#ifndef NETWORK_H
+#define NETWORK_H
+
 #include "WiFi.h"
 #include <vector>
 
@@ -21,15 +24,15 @@ typedef enum
     NETWORK_CONNECTED,
     NETWORK_CONNECT_FAILED
 } Network_Status_t;
-Network_Status_t networkStatus = NONE;
+static Network_Status_t networkStatus = NONE;
 
 static int totalWificount = 0;
 static int foundNetworks = 0;
-unsigned long networkTimeout = 10 * 1000;
-String ssidName, ssidPW;
+static unsigned long networkTimeout = 10 * 1000;
+static String ssidName, ssidPW;
 
-TaskHandle_t ntScanTaskHandler, ntConnectTaskHandler;
-std::vector<String> foundWifiList;
+static TaskHandle_t ntScanTaskHandler, ntConnectTaskHandler;
+static std::vector<String> foundWifiList;
 
 /**
  * @brief Network Tasks
@@ -68,7 +71,7 @@ static void networkScanner()
  *
  * @param pvParameters
  */
-void beginWIFITask(void *pvParameters)
+static void beginWIFITask(void *pvParameters)
 {
 
     unsigned long startingTime = millis();
@@ -101,3 +104,5 @@ static void networkConnector()
 {
     xTaskCreate(beginWIFITask,"beginWIFITask",2048,NULL,1,&ntConnectTaskHandler);
 }
+
+#endif

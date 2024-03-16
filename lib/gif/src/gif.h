@@ -1,23 +1,33 @@
 /**
- * @file GIFFile.h
+ * @file gif.h
  * @author Jordi Gauchía
  * @brief GIF File callback functions
 * @version 0.3
  * @date 2024-03
  */
 
+#ifndef GIF_H
+#define GIF_H
+
+#include <AnimatedGIF.h>
+
+/**
+ * @brief GIF object declaration
+ *
+ */
+AnimatedGIF gif;
+
+/**
+ * @brief Max GIF duration (ms)
+ *
+ */
+int maxGifDuration = 0;
+
 /**
  * @brief GIF File holder
  *
  */
 static File FSGifFile;
-
-/**
- * @brief X,Y Offsets to center GIF
- *
- */
-static int xOffset = 0;
-static int yOffset = 0;
 
 /**
  * @brief GIF File open callback
@@ -191,3 +201,5 @@ void init_GIF(const char *gifPath)
   xOffset = (tft.width() - w) / 2;
   yOffset = (tft.height() - h) / 2;
 }
+
+#endif

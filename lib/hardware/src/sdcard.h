@@ -6,6 +6,9 @@
  * @date 2024-03
  */
 
+#ifndef SDCARD_H
+#define SDCARD_H
+
 SPIClass spiSD = SPIClass(VSPI);
 uint32_t sd_freq = 40000000;
 
@@ -41,3 +44,5 @@ void init_SPIFFS()
   else
     log_i("SPIFFS Mounted");
 }
+
+#endif

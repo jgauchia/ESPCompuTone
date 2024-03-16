@@ -15,28 +15,23 @@
 #include <SPI.h>
 #include <FS.h>
 #include <SD.h>
-#include <AnimatedGIF.h>
-#include <network.h>
-#include <lvgfx.hpp>
-#include <LGFX_TFT_eSPI.hpp>
-#include <vars.h>
-#include <tft.h>
-#include <GIFFile.h>
-#include <lvgl_setup.h>
-#include "driver/i2s.h"
+
+
 #include <hal.h>
+#include <vars.h>
+#include <network.h>
 #include <sdcard.h>
-#include <i2s.h>
-#include <keys_def.h>
+#include <tft.h>
+#include <gif.h>
+#include <lvgl_setup.h>
 #include <keys.h>
-#include <play_wav.h>
-#include <rec_wav.h>
+#include <i2s.h>
 #include <tasks.h>
+
+
 
 unsigned long millis_actual = 0;
 static ulong lvgl_tick_millis = millis();
-
-static lv_obj_t *test;
 
 void setup()
 {

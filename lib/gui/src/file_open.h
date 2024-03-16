@@ -6,6 +6,9 @@
  * @date 2024-03
  */
 
+#ifndef FILE_OPEN_H
+#define FILE_OPEN_H
+
 /**
  * @brief File explorer Screen
  *
@@ -42,10 +45,12 @@ static void get_file(lv_event_t *e)
  * @brief Create a file explorer screen
  *
  */
-void create_file_explorer()
+static void create_file_explorer()
 {
     fileExplorer = lv_file_explorer_create(NULL);
     lv_file_explorer_set_sort(fileExplorer, LV_EXPLORER_SORT_NONE);
     lv_file_explorer_open_dir(fileExplorer, "S:/");
     lv_obj_add_event_cb(fileExplorer, get_file, LV_EVENT_ALL, NULL);
 }
+
+#endif

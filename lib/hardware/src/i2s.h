@@ -6,11 +6,18 @@
  * @date 2024-03
  */
 
+#ifndef I2S_H
+#define I2S_H
+
+#include "driver/i2s.h"
+#include <vars.h>
+#include <hal.h>
+
 /**
  * @brief I2S DAC Port Configuration
  *
  */
-i2s_config_t i2s_dac_config = {
+static i2s_config_t i2s_dac_config = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_TX),
     .sample_rate = SAMPLING_RATE,
     .bits_per_sample = I2S_BITS_PER_SAMPLE_24BIT,
@@ -27,7 +34,7 @@ i2s_config_t i2s_dac_config = {
  * @brief I2S DAC Pin Configuration
  *
  */
-i2s_pin_config_t i2s_dac_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_LRC, .data_out_num = I2S_DOUT, .data_in_num = I2S_PIN_NO_CHANGE};
+static i2s_pin_config_t i2s_dac_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_LRC, .data_out_num = I2S_DOUT, .data_in_num = I2S_PIN_NO_CHANGE};
 
 /**
  * @brief Start DAC
@@ -36,7 +43,7 @@ i2s_pin_config_t i2s_dac_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_L
  * @param num_channels
  * @param bit_depth
  */
-void DAC_start(int sample_rate, int num_channels, int bit_depth)
+static void DAC_start(int sample_rate, int num_channels, int bit_depth)
 {
     i2s_dac_config.sample_rate = sample_rate;
     i2s_dac_config.fixed_mclk = sample_rate * 384;
@@ -56,7 +63,7 @@ void DAC_start(int sample_rate, int num_channels, int bit_depth)
  * @brief Stop DAC
  *
  */
-void DAC_stop()
+static void DAC_stop()
 {
     i2s_stop(I2S_NUM_0);
     i2s_driver_uninstall(I2S_NUM_0);
@@ -66,7 +73,7 @@ void DAC_stop()
  * @brief I2S ADC Port Configuration
  *
  */
-i2s_config_t i2s_adc_config = {
+static i2s_config_t i2s_adc_config = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX),
     .sample_rate = SAMPLING_RATE,
     .bits_per_sample = I2S_BITS_PER_SAMPLE_24BIT,
@@ -83,7 +90,7 @@ i2s_config_t i2s_adc_config = {
  * @brief I2S ADC Pin Configuration
  *
  */
-i2s_pin_config_t i2s_adc_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_LRC, .data_out_num = I2S_PIN_NO_CHANGE, .data_in_num = I2S_DIN};
+static i2s_pin_config_t i2s_adc_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_LRC, .data_out_num = I2S_PIN_NO_CHANGE, .data_in_num = I2S_DIN};
 
 /**
  * @brief Start ADC
@@ -92,7 +99,7 @@ i2s_pin_config_t i2s_adc_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_L
  * @param num_channels
  * @param bit_depth
  */
-void ADC_start(int sample_rate, int num_channels, int bit_depth)
+static void ADC_start(int sample_rate, int num_channels, int bit_depth)
 {
     i2s_adc_config.sample_rate = sample_rate;
     i2s_adc_config.fixed_mclk = sample_rate * 384;
@@ -107,7 +114,9 @@ void ADC_start(int sample_rate, int num_channels, int bit_depth)
  * @brief Stop ADC
  *
  */
-void ADC_stop()
+static void ADC_stop()
 {
     i2s_driver_uninstall(I2S_NUM_0);
 }
+
+#endif

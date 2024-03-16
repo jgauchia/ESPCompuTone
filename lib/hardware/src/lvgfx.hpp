@@ -6,6 +6,9 @@
  * @date 2023-06-14
  */
 
+#ifndef LVGFX_HPP
+#define LVGFX_HPP
+
 #define LGFX_USE_V1
 
 #include "LovyanGFX.hpp"
@@ -79,3 +82,5 @@ public:
         setPanel(&_panel_instance);
     }
 };
+
+#endif

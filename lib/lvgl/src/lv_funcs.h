@@ -6,12 +6,15 @@
  * @date 2024-03
  */
 
+#ifndef LV_FUNCS_H
+#define LV_FUNCS_H
+
 /**
  * @brief Custom LVGL function to select button
  *
  * @param obj
  */
-void select_obj(_lv_obj_t *obj, bool sel)
+static void select_obj(_lv_obj_t *obj, bool sel)
 {
     if (sel)
     {
@@ -42,10 +45,12 @@ void select_obj(_lv_obj_t *obj, bool sel)
  *
  * @param obj
  */
-void lv_table_clear(_lv_obj_t *obj)
+static void lv_table_clear(_lv_obj_t *obj)
 {
     if (lv_table_get_row_count(obj) != 0)
         for (int i = 0; i < lv_table_get_row_count(obj); i++)
             lv_table_set_cell_value(obj, i, 0, "");
     lv_table_set_row_count(obj, 0);
 }
+
+#endif

@@ -6,7 +6,11 @@
  * @date 2024-03
  */
 
+#ifndef LVGL_SETUP_H
+#define LVGL_SETUP_H
+
 #include <lvgl.h>
+#include <tft.h>
 
 static lv_obj_t *mainScr;
 
@@ -29,13 +33,13 @@ static lv_obj_t *mainScr;
 static lv_display_t *display;
 static lv_indev_t *indev_drv;
 #define DRAW_BUF_SIZE (TFT_WIDTH * TFT_HEIGHT / 10 * (LV_COLOR_DEPTH / 8))
-uint32_t draw_buf[DRAW_BUF_SIZE / 4];
+static uint32_t draw_buf[DRAW_BUF_SIZE / 4];
 
 /**
  * @brief LVGL display update
  *
  */
-void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
+static void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
 {
     uint32_t w = (area->x2 - area->x1 + 1);
     uint32_t h = (area->y2 - area->y1 + 1);
@@ -50,7 +54,7 @@ void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
  * @brief LVGL touch read
  *
  */
-void touchpad_read(lv_indev_t *indev_driver, lv_indev_data_t *data)
+static void touchpad_read(lv_indev_t *indev_driver, lv_indev_data_t *data)
 {
     uint16_t touchX, touchY;
     bool touched = tft.getTouch(&touchX, &touchY);
@@ -68,7 +72,7 @@ void touchpad_read(lv_indev_t *indev_driver, lv_indev_data_t *data)
  * @brief Init LVGL
  *
  */
-void init_LVGL()
+static void init_LVGL()
 {
     lv_init();
 
@@ -95,3 +99,5 @@ void init_LVGL()
 
     lv_screen_load(mainScr);
 }
+
+#endif

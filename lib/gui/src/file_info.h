@@ -6,6 +6,9 @@
  * @date 2024-03
  */
 
+#ifndef FILE_INFO_H
+#define FILE_INFO_H
+
 /**
  * @brief File Info Bar Screen
  *
@@ -22,7 +25,7 @@ static lv_obj_t *file;
  * @brief Create a file info bar
  *
  */
-void create_file_info_bar()
+static void create_file_info_bar()
 {
     fileBar = lv_obj_create(mainScr);
     lv_obj_set_size(fileBar, 256, 50);
@@ -63,3 +66,4 @@ void create_file_info_bar()
     lv_style_set_border_opa(&style_file, LV_OPA_100);
     lv_obj_add_style(file, &style_file, LV_PART_MAIN);
 }
+#endif

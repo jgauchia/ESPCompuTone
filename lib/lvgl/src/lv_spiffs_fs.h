@@ -6,7 +6,13 @@
  * @date 2024-03
  */
 
+#ifndef LV_SPIFFS_FS_H
+#define LV_SPIFFS_FS_H
+
 #include "lvgl.h"
+#include <FS.h>
+#include <SPIFFS.h>
+
 
 /**
  * @brief SPIFFS Open LVGL CallBack
@@ -277,3 +283,5 @@ static void lv_port_spiffs_fs_init(void)
 
     lv_fs_drv_register(&fs_drv);
 }
+
+#endif

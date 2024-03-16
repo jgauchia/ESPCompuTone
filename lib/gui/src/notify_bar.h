@@ -6,6 +6,9 @@
  * @date 2024-03
  */
 
+#ifndef NOTIFY_BAR_H
+#define NOTIFY_BAR_H
+
 /**
  * @brief Notify Bar Screen
  *
@@ -22,7 +25,7 @@ static lv_obj_t *sdcard;
  * @brief Create a notify bar
  *
  */
-void create_notify_bar()
+static void create_notify_bar()
 {
     notifyBar = lv_obj_create(mainScr);
     lv_obj_set_size(notifyBar, TFT_WIDTH, 22);
@@ -53,3 +56,5 @@ void create_notify_bar()
     else
         lv_label_set_text_static(sdcard, " ");
 }
+
+#endif

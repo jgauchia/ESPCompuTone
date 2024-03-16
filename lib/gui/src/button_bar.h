@@ -6,6 +6,9 @@
  * @date 2024-03
  */
 
+#ifndef BUTTON_BAR_H
+#define BUTTON_BAR_H
+
 static lv_obj_t *buttonBar;
 static lv_obj_t *recBtn;
 static lv_obj_t *playBtn;
@@ -18,7 +21,7 @@ static lv_obj_t *pauseBtn;
  * @brief Create button bar screen
  *
  */
-void create_button_bar_scr()
+static void create_button_bar_scr()
 {
     // Button Bar
     buttonBar = lv_obj_create(mainScr);
@@ -70,3 +73,5 @@ void create_button_bar_scr()
     lv_obj_set_size(pauseBtn, 48, 48);
     select_obj(pauseBtn, false);
 }
+
+#endif

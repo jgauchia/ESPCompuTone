@@ -6,11 +6,35 @@
  * @date 2024-03
  */
 
+#ifndef TFT_H
+#define TFT_H
+
+#include <lvgfx.hpp>
+#include <LGFX_TFT_eSPI.hpp>
+#include <SPIFFS.h>
+#include <SPI.h>
+#include <FS.h>
+#include <SD.h>
+
+/**
+ * @brief TFT Calibration
+ *
+ */
+#define CALIBRATION_FILE "/TouchCalData1"
+static bool REPEAT_CAL = false;
+
+/**
+ * @brief TFT object declaration
+ *
+ */
+static TFT_eSPI tft;
+
+
 /**
  * @brief Touch calibrate
  *
  */
-void touch_calibrate()
+static void touch_calibrate()
 {
     uint16_t calData[8];
     uint8_t calDataOK = 0;
@@ -61,10 +85,12 @@ void touch_calibrate()
  * @brief Init tft display
  *
  */
-void init_tft()
+static void init_tft()
 {
     tft.init();
     tft.setRotation(1);
     touch_calibrate();
     tft.initDMA();
 }
+
+#endif

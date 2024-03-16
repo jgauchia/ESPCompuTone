@@ -6,6 +6,48 @@
  * @date 2024-03
  */
 
+#ifndef KEYS_H
+#define KEYS_H
+
+#include <PCF8574.h>
+#include <MyDelay.h>
+
+/**
+ * @brief PCF8574 Object declaration
+ *
+ */
+PCF8574 keys(0x20);
+
+/**
+ * @brief Keys read delay
+ *
+ */
+#define KEYS_UPDATE_TIME 135
+MyDelay keys_delay(KEYS_UPDATE_TIME);
+
+
+/**
+ * @brief Keys enum
+ *
+ */
+enum key_def
+{
+    REC,
+    PLAY,
+    REC_PLAY,
+    REW,
+    ADV,
+    STOP_EJ,
+    PAUSE,
+    NOKEY,
+};
+
+/**
+ * @brief Returns key pressed
+ *
+ */
+int key_pressed = NOKEY;
+
 /**
  * @brief Read keys
  *
@@ -175,3 +217,5 @@ void Check_keys()
         break;
     }
 }
+
+#endif
