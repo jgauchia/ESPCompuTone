@@ -11,9 +11,13 @@
 
 #include <Arduino.h>
 #include <stdio.h>
-#include <i2s.h>
-#include <vars.h>
+#include "driver/i2s.h"
 #include <events.h>
+
+extern void DAC_start(int sampleRate, int numChannels, int bitDepth);
+extern void DAC_stop();
+extern void ADC_start(int sampleRate, int numChannels, int bitDepth);
+extern void ADC_stop();
 
 /**
  * @brief WAV audio class

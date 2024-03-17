@@ -10,7 +10,10 @@
 #define TASKS_H
 
 #include <wav.hpp>
-#include <events.h>
+//#include <events.h>
+
+extern bool isRecord;
+//extern enum class tapeEvent;
 
 WAV audioWAV;
 
@@ -36,12 +39,12 @@ void Audio_task(void *pvParameters)
     log_i("Task running on core %d", xPortGetCoreID());
     for (;;)
     {
-        if (is_play)
+        if (isPlay)
         {
             char file_info[LV_FILE_EXPLORER_PATH_MAX_LEN];
             strcpy(file_info, "/sdcard");
-            strcat(file_info, file_path + 3);
-            strcat(file_info, file_name);
+            strcat(file_info, filePath + 3);
+            strcat(file_info, fileName);
             log_i("%s", file_info);
 
             err = audioWAV.play(file_info, TapeEvent);
@@ -49,8 +52,8 @@ void Audio_task(void *pvParameters)
 
             if (TapeEvent() == tapeEvent::STOP || !err)
             {
-                is_stop = true;
-                is_play = false;
+                isStop = true;
+                isPlay = false;
             }
             if (err)
             {
@@ -58,14 +61,14 @@ void Audio_task(void *pvParameters)
                 lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
             }
         }
-        if (is_record)
+        if (isRecord)
         {
-            err = audioWAV.rec("/sdcard/temp.wav", sample_rate, num_channels, bit_depth, TapeEvent);
+            err = audioWAV.rec("/sdcard/temp.wav", sampleRate, numChannels, bitDepth, TapeEvent);
             if (TapeEvent() == tapeEvent::STOP)
             {
-                is_record = false;
-                is_stop = true;
-                filesave = true;
+                isRecord = false;
+                isStop = true;
+                fileSave = true;
             }
             if (err)
             {

@@ -24,7 +24,6 @@ static lv_obj_t *mainScr;
 #include <file_open.h>
 #include <file_save.h>
 
-
 /**
  * @brief Default display driver definition
  *
@@ -34,6 +33,7 @@ static lv_display_t *display;
 static lv_indev_t *indev_drv;
 #define DRAW_BUF_SIZE (TFT_WIDTH * TFT_HEIGHT / 10 * (LV_COLOR_DEPTH / 8))
 static uint32_t draw_buf[DRAW_BUF_SIZE / 4];
+
 
 /**
  * @brief LVGL display update

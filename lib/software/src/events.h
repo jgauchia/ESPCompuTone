@@ -9,7 +9,16 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 
-#include <vars.h>
+//#include <vars.h>
+
+extern bool isRecord;
+extern bool isPlay;
+extern bool isRewind;
+extern bool isAdvance;
+extern bool isStop;
+extern bool isEject;
+extern bool isPause;
+
 
 enum class tapeEvent
 {
@@ -22,13 +31,13 @@ enum class tapeEvent
 
 static tapeEvent TapeEvent()
 {
-    if (is_pause)
+    if (isPause)
         return tapeEvent::PAUSE;
-    if (is_play)
+    if (isPlay)
         return tapeEvent::PLAY;
-    if (is_stop)
+    if (isStop)
         return tapeEvent::STOP;
-    if (is_record)
+    if (isRecord)
         return tapeEvent::RECORD;
     return tapeEvent::NO_KEY;
 };

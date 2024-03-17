@@ -54,16 +54,16 @@ void setup()
 
 void loop()
 {
-  if (!fileopen && !filesave)
+  if (!fileOpen && !fileSave)
   {
-    if (!is_mainscreen)
+    if (!isMainScreen)
     {
-      is_mainscreen = true;
+      isMainScreen= true;
       lv_screen_load(mainScr);
     }
-    if (!is_config)
+    if (!isConfig)
     {
-      if (is_stop || is_pause)
+      if (isStop || isPause)
       {
         gif.playFrame(true, &maxGifDuration);
         gif.reset();
@@ -74,20 +74,20 @@ void loop()
       }
     }
   }
-  else if (fileopen && !filesave)
+  else if (fileOpen && !fileSave)
   {
     // Call file open screen
-    if (sdloaded)
+    if (sdLoaded)
     {
-      is_mainscreen = false;
+      isMainScreen= false;
       lv_screen_load(fileExplorer);
     }
   }
-  else if (filesave && !fileopen)
+  else if (fileSave && !fileOpen)
   {
     // Call file save screen
-    is_mainscreen = false;
-    lv_screen_load(fileSave);
+    isMainScreen= false;
+    lv_screen_load(fileSaveScr);
   }
 
   lv_timer_handler();

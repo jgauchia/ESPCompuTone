@@ -27,16 +27,16 @@ static void get_file(lv_event_t *e)
 
     if (code == LV_EVENT_VALUE_CHANGED)
     {
-        file_path = (char *)lv_file_explorer_get_current_path(obj);
-        file_name = (char *)lv_file_explorer_get_selected_file_name(obj);
-        log_i("PATH: %s , FILE: %s", file_path, file_name);
-        is_mainscreen = true;
-        is_stop = true;
-        is_eject = false;
-        fileopen = false;
-        fileload = true;
+        filePath = (char *)lv_file_explorer_get_current_path(obj);
+        fileName = (char *)lv_file_explorer_get_selected_file_name(obj);
+        log_i("PATH: %s , FILE: %s", filePath, fileName);
+        isMainScreen= true;
+        isStop = true;
+        isEject = false;
+        fileOpen = false;
+        fileLoad = true;
         lv_screen_load(mainScr);
-        lv_label_set_text(file, file_name);
+        lv_label_set_text(file, fileName);
         lv_obj_send_event(file,LV_EVENT_REFRESH,NULL);
     }
 }

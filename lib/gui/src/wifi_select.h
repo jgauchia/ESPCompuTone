@@ -155,14 +155,14 @@ static void wifi_event(lv_event_t *e)
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t *btn = (lv_obj_t *)lv_event_get_target(e);
 
-    if (is_stop)
+    if (isStop)
     {
         if (code == LV_EVENT_CLICKED)
         {
             if (btn == wifiBtn)
             {
                 // Open Wifi settings label
-                is_config = true;
+                isConfig = true;
                 lv_obj_clear_flag(wifiSettings, LV_OBJ_FLAG_HIDDEN);
                 lv_obj_add_flag(fileBar, LV_OBJ_FLAG_HIDDEN);
                 lv_obj_add_flag(buttonBar, LV_OBJ_FLAG_HIDDEN);
@@ -170,7 +170,7 @@ static void wifi_event(lv_event_t *e)
             else if (btn == wifiSettingCloseBtn)
             {
                 // Close Wifi settings label
-                is_config = false;
+                isConfig = false;
                 lv_obj_add_flag(wifiSettings, LV_OBJ_FLAG_HIDDEN);
                 lv_obj_add_flag(mboxConnect, LV_OBJ_FLAG_HIDDEN);
                 lv_obj_clear_flag(fileBar, LV_OBJ_FLAG_HIDDEN);

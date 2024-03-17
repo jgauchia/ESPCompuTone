@@ -51,7 +51,7 @@ static void create_notify_bar()
 
     // SD Icon
     sdcard = lv_label_create(notifyBar);
-    if (sdloaded)
+    if (sdLoaded)
         lv_label_set_text_static(sdcard, LV_SYMBOL_SD_CARD);
     else
         lv_label_set_text_static(sdcard, " ");

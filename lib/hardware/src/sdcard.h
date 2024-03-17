@@ -29,7 +29,7 @@ void init_sd()
   else
   {
     log_i("SD Card Mounted");
-    sdloaded = true;
+    sdLoaded = true;
   }
 }
 

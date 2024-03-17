@@ -91,6 +91,17 @@ bool WAV::play(const char *fileName, eventCallback event)
     return false;
 }
 
+/**
+ * @brief Record WAV
+ * 
+ * @param fileName 
+ * @param sampleRate 
+ * @param numChannels 
+ * @param bitsPerSample 
+ * @param event 
+ * @return true 
+ * @return false 
+ */
 bool WAV::rec(const char *fileName, uint32_t sampleRate, uint8_t numChannels, uint8_t bitsPerSample, eventCallback event)
 {
     bool file_write_error = false;
