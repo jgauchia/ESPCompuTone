@@ -41,37 +41,37 @@ static void create_button_bar_scr()
     recBtn = lv_img_create(buttonBar);
     lv_img_set_src(recBtn, "F:/rec.bin");
     lv_obj_set_size(recBtn, 48, 48);
-    select_obj(recBtn, false);
+    selectTapeKey(recBtn, false);
 
     // Play Button
     playBtn = lv_img_create(buttonBar);
     lv_img_set_src(playBtn, "F:/play.bin");
     lv_obj_set_size(playBtn, 48, 48);
-    select_obj(playBtn, false);
+    selectTapeKey(playBtn, false);
 
     // Rew Button
     rewBtn = lv_img_create(buttonBar);
     lv_img_set_src(rewBtn, "F:/rew.bin");
     lv_obj_set_size(rewBtn, 48, 48);
-    select_obj(rewBtn, false);
+    selectTapeKey(rewBtn, false);
 
     // Ffw Button
     ffwBtn = lv_img_create(buttonBar);
     lv_img_set_src(ffwBtn, "F:/ffw.bin");
     lv_obj_set_size(ffwBtn, 48, 48);
-    select_obj(ffwBtn, false);
+    selectTapeKey(ffwBtn, false);
 
     // Stop Button
     stopBtn = lv_img_create(buttonBar);
     lv_img_set_src(stopBtn, "F:/stop.bin");
     lv_obj_set_size(stopBtn, 48, 48);
-    select_obj(stopBtn, false);
+    selectTapeKey(stopBtn, false);
 
     // Pause Button
     pauseBtn = lv_img_create(buttonBar);
     lv_img_set_src(pauseBtn, "F:/pause.bin");
     lv_obj_set_size(pauseBtn, 48, 48);
-    select_obj(pauseBtn, false);
+    selectTapeKey(pauseBtn, false);
 }
 
 #endif

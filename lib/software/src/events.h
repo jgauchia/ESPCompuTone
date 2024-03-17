@@ -11,7 +11,7 @@
 
 #include <vars.h>
 
-enum class Tape_event
+enum class tapeEvent
 {
     PLAY,
     PAUSE,
@@ -20,17 +20,17 @@ enum class Tape_event
     NO_KEY,
 };
 
-static Tape_event TapeEvent()
+static tapeEvent TapeEvent()
 {
     if (is_pause)
-        return Tape_event::PAUSE;
+        return tapeEvent::PAUSE;
     if (is_play)
-        return Tape_event::PLAY;
+        return tapeEvent::PLAY;
     if (is_stop)
-        return Tape_event::STOP;
+        return tapeEvent::STOP;
     if (is_record)
-        return Tape_event::RECORD;
-    return Tape_event::NO_KEY;
+        return tapeEvent::RECORD;
+    return tapeEvent::NO_KEY;
 };
 
 #endif

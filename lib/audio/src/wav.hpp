@@ -22,13 +22,14 @@
 class WAV
 {
 private:
-    FILE *wav_file;
-    const size_t buffer_size = 1024;
+    FILE *wavFile;
+    const size_t bufferSize = 1024;
+    size_t bytesWritten;
 
 public:
-    using eventCallback = Tape_event (*)();
-    bool play(const char *file_name, eventCallback event);
-    bool rec(const char *file_name, uint32_t sample_rate, uint8_t channels, uint8_t bits_per_sample, eventCallback event);
+    using eventCallback = tapeEvent (*)();
+    bool play(const char *fileName, eventCallback event);
+    bool rec(const char *fileName, uint32_t sampleRate, uint8_t numChannels, uint8_t bitsPerSample, eventCallback event);
 };
 
 #endif

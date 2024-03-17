@@ -47,24 +47,21 @@ void Audio_task(void *pvParameters)
             err = audioWAV.play(file_info, TapeEvent);
             // audioWAV.play("/sdcard/temp.wav", KeyEvent);
 
-            if (TapeEvent() == Tape_event::STOP || !err)
+            if (TapeEvent() == tapeEvent::STOP || !err)
             {
                 is_stop = true;
                 is_play = false;
-                select_obj(playBtn, false);
-                lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
             }
             if (err)
             {
                 lv_label_set_text(file, "Playback Error");
                 lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
-            
             }
         }
         if (is_record)
         {
             err = audioWAV.rec("/sdcard/temp.wav", sample_rate, num_channels, bit_depth, TapeEvent);
-            if (TapeEvent() == Tape_event::STOP)
+            if (TapeEvent() == tapeEvent::STOP)
             {
                 is_record = false;
                 is_stop = true;
