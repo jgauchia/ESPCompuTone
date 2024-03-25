@@ -40,12 +40,12 @@ void setup()
 
   Wire.begin();
   keys.begin();
-  keys_delay.start();
+  keysDelay.start();
 
   init_tft();
   init_GIF("/k7.gif");
   init_LVGL();
-  init_tasks();
+  initTasks();
 
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());
   log_i("SPIFFS: Total %d - Free %d", SPIFFS.totalBytes(), (SPIFFS.totalBytes() - SPIFFS.usedBytes()));

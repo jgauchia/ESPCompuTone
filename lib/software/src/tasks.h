@@ -10,10 +10,6 @@
 #define TASKS_H
 
 #include <wav.hpp>
-//#include <events.h>
-
-extern bool isRecord;
-//extern enum class tapeEvent;
 
 WAV audioWAV;
 
@@ -22,40 +18,39 @@ WAV audioWAV;
  *
  * @param pvParameters
  */
-void Keys_task(void *pvParameters)
+void keysTask(void *pvParameters)
 {
     log_i("Task running on core %d", xPortGetCoreID());
     for (;;)
     {
-        if (keys_delay.update())
-            Check_keys();
+        if (keysDelay.update())
+            checkKeys();
         delay(1);
     }
 }
 
-void Audio_task(void *pvParameters)
+void audioTask(void *pvParameters)
 {
-    bool err = false;
+    bool fileError = false;
     log_i("Task running on core %d", xPortGetCoreID());
     for (;;)
     {
         if (isPlay)
         {
-            char file_info[LV_FILE_EXPLORER_PATH_MAX_LEN];
-            strcpy(file_info, "/sdcard");
-            strcat(file_info, filePath + 3);
-            strcat(file_info, fileName);
-            log_i("%s", file_info);
+            char fileInfo[LV_FILE_EXPLORER_PATH_MAX_LEN];
+            strcpy(fileInfo, "/sdcard");
+            strcat(fileInfo, filePath + 3);
+            strcat(fileInfo, fileName);
+            log_i("%s", fileInfo);
 
-            err = audioWAV.play(file_info, TapeEvent);
-            // audioWAV.play("/sdcard/temp.wav", KeyEvent);
+            fileError = audioWAV.play(fileInfo, getTapeEvent);
 
-            if (TapeEvent() == tapeEvent::STOP || !err)
+            if (getTapeEvent() == tapeEvent::STOP || !fileError)
             {
                 isStop = true;
                 isPlay = false;
             }
-            if (err)
+            if (fileError)
             {
                 lv_label_set_text(file, "Playback Error");
                 lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
@@ -63,31 +58,35 @@ void Audio_task(void *pvParameters)
         }
         if (isRecord)
         {
-            err = audioWAV.rec("/sdcard/temp.wav", sampleRate, numChannels, bitDepth, TapeEvent);
-            if (TapeEvent() == tapeEvent::STOP)
+            fileError = audioWAV.rec("/sdcard/temp.wav", sampleRate, numChannels, bitDepth, getTapeEvent);
+            if (getTapeEvent() == tapeEvent::STOP)
             {
                 isRecord = false;
                 isStop = true;
                 fileSave = true;
             }
-            if (err)
+            if (fileError)
             {
+                isRecord = false;
+                isStop = true;
                 lv_label_set_text(file, "Recording Error");
                 lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
             }
         }
-        delay(1);
+        yield();
     }
 }
+
 /**
  * @brief Init Core tasks
  *
  */
-void init_tasks()
+void initTasks()
 {
-    xTaskCreatePinnedToCore(Keys_task, "Keys Read", 16384, NULL, 1, NULL, 1);
+    xTaskCreatePinnedToCore(keysTask, "Keys Read Task", 16384, NULL, 1, NULL, 1);
     delay(500);
-    xTaskCreatePinnedToCore(Audio_task, "Play Audio", 16384, NULL, 1, NULL, 1);
+    xTaskCreatePinnedToCore(audioTask, "Audio Task", 16384, NULL, 1, NULL, 1);
     delay(500);
 }
+
 #endif

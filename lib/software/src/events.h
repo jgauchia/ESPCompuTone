@@ -19,17 +19,16 @@ extern bool isStop;
 extern bool isEject;
 extern bool isPause;
 
-
-enum class tapeEvent
+enum class tapeEvent 
 {
     PLAY,
     PAUSE,
     STOP,
     RECORD,
-    NO_KEY,
+    NO_KEY
 };
 
-static tapeEvent TapeEvent()
+inline tapeEvent getTapeEvent()
 {
     if (isPause)
         return tapeEvent::PAUSE;

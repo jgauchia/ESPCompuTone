@@ -25,7 +25,7 @@ PCF8574 keys(0x20);
  *
  */
 #define KEYS_UPDATE_TIME 135
-MyDelay keys_delay(KEYS_UPDATE_TIME);
+MyDelay keysDelay(KEYS_UPDATE_TIME);
 
 
 /**
@@ -92,7 +92,7 @@ int Read_Keys()
  *
  *
  */
-void Check_keys()
+void checkKeys()
 {
     key_pressed = Read_Keys();
 
