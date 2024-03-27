@@ -51,6 +51,8 @@ void audioTask(void *pvParameters)
             {
                 isStop = true;
                 isPlay = false;
+                selectTapeKey(playBtn, false);
+                lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
             }
             if (fileError)
             {

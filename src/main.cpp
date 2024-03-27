@@ -27,8 +27,6 @@
 #include <i2s.h>
 #include <tasks.h>
 
-
-
 unsigned long millis_actual = 0;
 static ulong lvgl_tick_millis = millis();
 
@@ -57,7 +55,9 @@ void loop()
   {
     if (!isMainScreen)
     {
-      isMainScreen= true;
+      lv_textarea_set_text(textarea, "");
+      lv_obj_send_event(textarea, LV_EVENT_REFRESH, NULL);
+      isMainScreen = true;
       lv_screen_load(mainScr);
     }
     if (!isConfig)
@@ -78,14 +78,14 @@ void loop()
     // Call file open screen
     if (sdLoaded)
     {
-      isMainScreen= false;
+      isMainScreen = false;
       lv_screen_load(fileExplorer);
     }
   }
   else if (fileSave && !fileOpen)
   {
     // Call file save screen
-    isMainScreen= false;
+    isMainScreen = false;
     lv_screen_load(fileSaveScr);
   }
 

@@ -14,6 +14,7 @@
  *
  */
 static lv_obj_t *fileSaveScr;
+static lv_obj_t *textarea;
 
 /**
  * @brief File Save event
@@ -50,6 +51,7 @@ static void save_event(lv_event_t *e)
             isMainScreen = true;
             isStop = true;
             isEject = false;
+            isPlay = false;
             fileOpen = false;
             fileSave = false;
             rename("/sdcard/temp.wav", file_info);
@@ -65,6 +67,7 @@ static void save_event(lv_event_t *e)
         isMainScreen = true;
         isStop = true;
         isEject = false;
+        isPlay = false;
         fileOpen = false;
         fileSave = false;
         remove("/sdcard/temp.wav");
@@ -82,7 +85,7 @@ static void create_file_save()
     fileSaveScr = lv_obj_create(NULL);
 
     lv_obj_t *keyboard = lv_keyboard_create(fileSaveScr);
-    lv_obj_t *textarea = lv_textarea_create(fileSaveScr);
+    textarea = lv_textarea_create(fileSaveScr);
     lv_obj_align(textarea, LV_ALIGN_TOP_MID, 0, 10);
     lv_obj_set_size(textarea, lv_pct(90), 80);
     lv_obj_add_state(textarea, LV_STATE_FOCUSED);
