@@ -9,6 +9,8 @@
 #ifndef VARS_H
 #define VARS_H
 
+#include <Arduino.h>
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -26,51 +28,69 @@ extern "C"
  * @brief Boolean vars for tape status
  *
  */
-bool isRecord = false;
-bool isPlay = false;
-bool isRewind = false;
-bool isAdvance = false;
-bool isStop = true;
-bool isEject = false;
-bool isPause = false;
+extern bool isRecord;
+extern bool isPlay;
+extern bool isRewind;
+extern bool isAdvance;
+extern bool isStop;
+extern bool isEject;
+extern bool isPause;
 
 /**
  * @brief Various boolean flags
  *
  */
-bool sdLoaded = false;
-bool isMainScreen = true;
-bool isConfig = false;
-bool fileOpen = false;
-bool fileLoad = false;
-bool fileSave = false;
+extern bool sdLoaded;
+extern bool isMainScreen;
+extern bool isConfig;
+extern bool fileOpen;
+extern bool fileLoad;
+extern bool fileSave;
 
 /**
  * @brief File explorer vars
  *
  */
-char *filePath;
-char *fileName;
+extern char *filePath;
+extern char *fileName;
 
 /**
  * @brief Default Recording
  *
  */
-uint32_t sampleRate = 22050;
-uint8_t numChannels = 2;
-uint8_t bitDepth = 16;
+extern uint32_t sampleRate;
+extern uint8_t numChannels;
+extern uint8_t bitDepth;
 
 /**
  * @brief X,Y Offsets to center GIF
  *
  */
-int xOffset = 0;
-int yOffset = 0;
+extern int xOffset;
+extern int yOffset;
 
+/**
+ * @brief Network variables
+ * 
+ */
+typedef enum
+{
+    NONE,
+    NETWORK_SEARCHING,
+    NETWORK_CONNECTED_POPUP,
+    NETWORK_CONNECTED,
+    NETWORK_CONNECT_FAILED
+} Network_Status_t;
+extern Network_Status_t networkStatus;
+
+extern int totalWificount;
+extern int foundNetworks;
+extern unsigned long networkTimeout;
 
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif
+
 
 
 #endif

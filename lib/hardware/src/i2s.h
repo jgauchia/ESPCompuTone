@@ -49,7 +49,7 @@ void DAC_start(int sampleRate, int numChannels, int bitDepth)
     i2s_dac_config.fixed_mclk = sampleRate * 384;
     i2s_dac_config.bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT;
     if (numChannels == 1)
-        i2s_dac_config.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
+       i2s_dac_config.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
     i2s_driver_install(I2S_NUM_0, &i2s_dac_config, 0, NULL);
     i2s_set_pin(I2S_NUM_0, &i2s_dac_pin_config);
     i2s_set_sample_rates(I2S_NUM_0, sampleRate);

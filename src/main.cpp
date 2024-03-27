@@ -16,10 +16,9 @@
 #include <FS.h>
 #include <SD.h>
 
-
-#include <hal.h>
 #include <vars.h>
-#include <network.h>
+#include <hal.h>
+#include <network.hpp>
 #include <sdcard.h>
 #include <tft.h>
 #include <gif.h>

@@ -9,7 +9,9 @@
 #ifndef WIFI_SELECT_H
 #define WIFI_SELECT_H
 
-#include <network.h>
+#include <network.hpp>
+
+//extern std::vector<String> foundWifiList;
 
 static lv_obj_t *ip;
 static lv_obj_t *wifiBtn;

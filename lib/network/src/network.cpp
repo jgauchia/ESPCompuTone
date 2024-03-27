@@ -1,38 +1,17 @@
 /**
- * @file network.h
+ * @file network.cpp
  * @author Jordi Gauchía
- * @brief Wifi selector
+ * @brief Network tasks
  * @version 0.3
  * @date 2024-03
  */
 
-#ifndef NETWORK_H
-#define NETWORK_H
 
-#include "WiFi.h"
-#include <vector>
+#include <network.hpp>
 
-/**
- * @brief Network status enum
- *
- */
-typedef enum
-{
-    NONE,
-    NETWORK_SEARCHING,
-    NETWORK_CONNECTED_POPUP,
-    NETWORK_CONNECTED,
-    NETWORK_CONNECT_FAILED
-} Network_Status_t;
-static Network_Status_t networkStatus = NONE;
-
-static int totalWificount = 0;
-static int foundNetworks = 0;
-static unsigned long networkTimeout = 10 * 1000;
-static String ssidName, ssidPW;
-
-static TaskHandle_t ntScanTaskHandler, ntConnectTaskHandler;
-static std::vector<String> foundWifiList;
+String ssidName, ssidPW;
+TaskHandle_t ntScanTaskHandler, ntConnectTaskHandler;
+std::vector<String> foundWifiList;
 
 /**
  * @brief Network Tasks
@@ -44,7 +23,7 @@ static std::vector<String> foundWifiList;
  *
  * @param pvParameters
  */
-static void scanWIFITask(void *pvParameters)
+void scanWIFITask(void *pvParameters)
 {
     while (1)
     {
@@ -61,7 +40,7 @@ static void scanWIFITask(void *pvParameters)
     }
 }
 
-static void networkScanner()
+void networkScanner()
 {
     xTaskCreate(scanWIFITask, "ScanWIFITask", 4096, NULL, 1, &ntScanTaskHandler);
 }
@@ -71,7 +50,7 @@ static void networkScanner()
  *
  * @param pvParameters
  */
-static void beginWIFITask(void *pvParameters)
+void beginWIFITask(void *pvParameters)
 {
 
     unsigned long startingTime = millis();
@@ -79,7 +58,9 @@ static void beginWIFITask(void *pvParameters)
     WiFi.disconnect();
     vTaskDelay(100);
 
+    log_i("%s", ssidName.c_str());
     WiFi.begin(ssidName.c_str(), ssidPW.c_str());
+
     while (WiFi.status() != WL_CONNECTED && (millis() - startingTime) < networkTimeout)
     {
         vTaskDelay(250);
@@ -88,7 +69,7 @@ static void beginWIFITask(void *pvParameters)
     if (WiFi.status() == WL_CONNECTED)
     {
         networkStatus = NETWORK_CONNECTED_POPUP;
-        log_i("%s",WiFi.localIP().toString());
+        log_i("%s", WiFi.localIP().toString());
         // saveWIFICredentialEEPROM(1, ssidName + " " + ssidPW);
     }
     else
@@ -100,9 +81,7 @@ static void beginWIFITask(void *pvParameters)
     vTaskDelete(NULL);
 }
 
-static void networkConnector()
+void networkConnector()
 {
-    xTaskCreate(beginWIFITask,"beginWIFITask",2048,NULL,1,&ntConnectTaskHandler);
+    xTaskCreate(beginWIFITask, "beginWIFITask", 2048, NULL, 1, &ntConnectTaskHandler);
 }
-
-#endif

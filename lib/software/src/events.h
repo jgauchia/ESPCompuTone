@@ -28,7 +28,7 @@ enum class tapeEvent
     NO_KEY
 };
 
-inline tapeEvent getTapeEvent()
+static tapeEvent getTapeEvent()
 {
     if (isPause)
         return tapeEvent::PAUSE;

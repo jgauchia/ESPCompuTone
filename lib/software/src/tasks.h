@@ -11,6 +11,8 @@
 
 #include <wav.hpp>
 
+extern bool isRecord;
+
 WAV audioWAV;
 
 /**
