@@ -43,8 +43,8 @@ bool WAV::play(const char *fileName, eventCallback event)
     fseek(this->wavFile, 44, SEEK_SET);
 
     // Buffer to store WAV data
-    uint8_t *wavData = (uint8_t *)malloc(this->bufferSize);
-    int16_t *wavData16bits = (int16_t *)malloc(this->bufferSize);
+    uint8_t wavData[this->bufferSize];
+    int16_t wavData16bits[this->bufferSize];
 
     tapeEvent currentEvent = tapeEvent::PLAY;
     while (!feof(this->wavFile))
@@ -81,10 +81,6 @@ bool WAV::play(const char *fileName, eventCallback event)
     // Close WAV file
     fclose(this->wavFile);
 
-    // Free Audio Buffers
-    free(wavData);
-    free(wavData16bits);
-
     // Stop DAC
     DAC_stop();
 
@@ -93,14 +89,14 @@ bool WAV::play(const char *fileName, eventCallback event)
 
 /**
  * @brief Record WAV
- * 
- * @param fileName 
- * @param sampleRate 
- * @param numChannels 
- * @param bitsPerSample 
- * @param event 
- * @return true 
- * @return false 
+ *
+ * @param fileName
+ * @param sampleRate
+ * @param numChannels
+ * @param bitsPerSample
+ * @param event
+ * @return true
+ * @return false
  */
 bool WAV::rec(const char *fileName, uint32_t sampleRate, uint8_t numChannels, uint8_t bitsPerSample, eventCallback event)
 {
