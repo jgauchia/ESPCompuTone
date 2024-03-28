@@ -47,15 +47,24 @@ void audioTask(void *pvParameters)
 
             fileError = audioWAV.play(fileInfo, getTapeEvent);
 
-            if (getTapeEvent() == tapeEvent::STOP || !fileError)
+            if (getTapeEvent() == tapeEvent::STOP)
+            {
+                selectTapeKey(playBtn, false);
+                lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
+                isStop = true;
+                isPlay = false;
+            }
+            else if (!fileError)
+            {
+                selectTapeKey(playBtn, false);
+                lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
+                isStop = true;
+                isPlay = false;
+            }
+            else if (fileError)
             {
                 isStop = true;
                 isPlay = false;
-                selectTapeKey(playBtn, false);
-                lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
-            }
-            if (fileError)
-            {
                 lv_label_set_text(file, "Playback Error");
                 lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
             }
@@ -87,7 +96,7 @@ void audioTask(void *pvParameters)
  */
 void initTasks()
 {
-    xTaskCreatePinnedToCore(keysTask, "Keys Read Task", 16384, NULL, 1, NULL, 1);
+    xTaskCreatePinnedToCore(keysTask, "Keys Read Task", 2048, NULL, 1, NULL, 1);
     delay(500);
     xTaskCreatePinnedToCore(audioTask, "Audio Task", 16384, NULL, 1, NULL, 1);
     delay(500);

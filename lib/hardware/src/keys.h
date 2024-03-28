@@ -27,7 +27,6 @@ PCF8574 keys(0x20);
 #define KEYS_UPDATE_TIME 135
 MyDelay keysDelay(KEYS_UPDATE_TIME);
 
-
 /**
  * @brief Keys enum
  *

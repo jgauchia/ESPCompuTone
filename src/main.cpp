@@ -60,6 +60,7 @@ void loop()
       isMainScreen = true;
       lv_screen_load(mainScreen);
     }
+
     if (!isConfig)
     {
       if (isStop || isPause)
