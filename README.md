@@ -63,6 +63,7 @@ pio run --target uploadfs
 - [ ] Configuration Screen
 - [ ] File Utilities
 - [ ] Splash screen
+- [ ] Play Bluetooth Audio
 - [ ] PSRAM support (WROVER)
 - [x] Review Audio Task
 - [ ] PCB

@@ -49,17 +49,16 @@ void audioTask(void *pvParameters)
 
             if (getTapeEvent() == tapeEvent::STOP)
             {
-                selectTapeKey(playBtn, false);
-                lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
                 isStop = true;
                 isPlay = false;
             }
             else if (!fileError)
             {
-                selectTapeKey(playBtn, false);
-                lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
                 isStop = true;
                 isPlay = false;
+                selectTapeKey(playBtn, false);
+                lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
+                
             }
             else if (fileError)
             {
