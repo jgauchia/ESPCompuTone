@@ -9,7 +9,7 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 
-//#include <vars.h>
+#include <stdbool.h>
 
 extern bool isRecord;
 extern bool isPlay;
@@ -28,7 +28,7 @@ enum class tapeEvent
     NO_KEY
 };
 
-static tapeEvent getTapeEvent()
+inline tapeEvent getTapeEvent()
 {
     if (isPause)
         return tapeEvent::PAUSE;

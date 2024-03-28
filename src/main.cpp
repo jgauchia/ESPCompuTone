@@ -32,16 +32,16 @@ static ulong lvgl_tick_millis = millis();
 
 void setup()
 {
-  init_sd();
-  init_SPIFFS();
+  initSD();
+  initSPIFFS();
 
   Wire.begin();
   keys.begin();
   keysDelay.start();
 
-  init_tft();
-  init_GIF("/k7.gif");
-  init_LVGL();
+  initTFT();
+  initGIF("/k7.gif");
+  initLVGL();
   initTasks();
 
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());
@@ -55,10 +55,10 @@ void loop()
   {
     if (!isMainScreen)
     {
-      lv_textarea_set_text(textarea, "");
-      lv_obj_send_event(textarea, LV_EVENT_REFRESH, NULL);
+      lv_textarea_set_text(textArea, "");
+      lv_obj_send_event(textArea, LV_EVENT_REFRESH, NULL);
       isMainScreen = true;
-      lv_screen_load(mainScr);
+      lv_screen_load(mainScreen);
     }
     if (!isConfig)
     {
@@ -86,13 +86,13 @@ void loop()
   {
     // Call file save screen
     isMainScreen = false;
-    lv_screen_load(fileSaveScr);
+    lv_screen_load(fileSaveScreen);
   }
 
   lv_timer_handler();
-  unsigned long tick_millis = millis() - lvgl_tick_millis;
+  unsigned long tickMillis = millis() - lvgl_tick_millis;
   lvgl_tick_millis = millis();
-  lv_tick_inc(tick_millis);
+  lv_tick_inc(tickMillis);
   yield();
   delay(5);
 }

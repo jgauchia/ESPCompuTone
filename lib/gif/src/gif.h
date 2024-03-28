@@ -188,7 +188,7 @@ void GIFDraw(GIFDRAW *pDraw)
  *
  * @param gifPath
  */
-void init_GIF(const char *gifPath)
+void initGIF(const char *gifPath)
 {
   gif.begin(BIG_ENDIAN_PIXELS);
 

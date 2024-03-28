@@ -17,25 +17,25 @@ void selectTapeKey(lv_obj_t *obj, bool sel)
 {
     if (sel)
     {
-        static lv_style_t style_btn;
-        lv_style_init(&style_btn);
-        lv_style_set_border_color(&style_btn, lv_color_white());
-        lv_style_set_border_opa(&style_btn, LV_OPA_50);
-        lv_style_set_border_width(&style_btn, 2);
-        lv_style_set_bg_color(&style_btn, lv_color_white());
-        lv_style_set_bg_opa(&style_btn, LV_OPA_50);
-        lv_obj_add_style(obj, &style_btn, 0);
+        static lv_style_t styleBtn;
+        lv_style_init(&styleBtn);
+        lv_style_set_border_color(&styleBtn, lv_color_white());
+        lv_style_set_border_opa(&styleBtn, LV_OPA_50);
+        lv_style_set_border_width(&styleBtn, 2);
+        lv_style_set_bg_color(&styleBtn, lv_color_white());
+        lv_style_set_bg_opa(&styleBtn, LV_OPA_50);
+        lv_obj_add_style(obj, &styleBtn, 0);
     }
     else
     {
-        static lv_style_t style_btn2;
-        lv_style_init(&style_btn2);
-        lv_style_set_border_color(&style_btn2, lv_color_white());
-        lv_style_set_border_opa(&style_btn2, LV_OPA_50);
-        lv_style_set_border_width(&style_btn2, 2);
-        lv_style_set_bg_color(&style_btn2, lv_color_white());
-        lv_style_set_bg_opa(&style_btn2, LV_OPA_0);
-        lv_obj_add_style(obj, &style_btn2, 0);
+        static lv_style_t styleBtn2;
+        lv_style_init(&styleBtn2);
+        lv_style_set_border_color(&styleBtn2, lv_color_white());
+        lv_style_set_border_opa(&styleBtn2, LV_OPA_50);
+        lv_style_set_border_width(&styleBtn2, 2);
+        lv_style_set_bg_color(&styleBtn2, lv_color_white());
+        lv_style_set_bg_opa(&styleBtn2, LV_OPA_0);
+        lv_obj_add_style(obj, &styleBtn2, 0);
     }
 }
 

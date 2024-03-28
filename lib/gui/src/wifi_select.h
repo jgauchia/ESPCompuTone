@@ -11,8 +11,6 @@
 
 #include <network.hpp>
 
-//extern std::vector<String> foundWifiList;
-
 static lv_obj_t *ip;
 static lv_obj_t *wifiBtn;
 static lv_obj_t *wifiSettings;
@@ -35,7 +33,7 @@ static lv_timer_t *timer;
  *
  * @param e
  */
-static void list_event_handler(lv_event_t *e)
+static void wifiListEvent(lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t *obj = (lv_obj_t *)lv_event_get_target(e);
@@ -65,7 +63,7 @@ static void list_event_handler(lv_event_t *e)
  *
  * @param e
  */
-static void text_input_event_cb(lv_event_t *e)
+static void textInputEvent(lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t *ta = (lv_obj_t *)lv_event_get_target(e);
@@ -152,7 +150,7 @@ static void timerForNetwork(lv_timer_t *timer)
  *
  * @param e
  */
-static void wifi_event(lv_event_t *e)
+static void wifiEvent(lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t *btn = (lv_obj_t *)lv_event_get_target(e);
@@ -237,9 +235,9 @@ static void wifi_event(lv_event_t *e)
  * @brief Create wifi settings screen
  *
  */
-static void create_wifi_screen()
+static void createWifiScreen()
 {
-    wifiSettings = lv_obj_create(mainScr);
+    wifiSettings = lv_obj_create(mainScreen);
     lv_obj_set_size(wifiSettings, tft.width(), tft.height() - 35);
     lv_obj_align(wifiSettings, LV_ALIGN_TOP_RIGHT, 0, 25);
     lv_obj_add_flag(wifiSettings, LV_OBJ_FLAG_HIDDEN);
@@ -251,11 +249,11 @@ static void create_wifi_screen()
     wifiSettingCloseBtn = lv_label_create(wifiSettings);
     lv_obj_align(wifiSettingCloseBtn, LV_ALIGN_TOP_RIGHT, 0, 0);
     lv_obj_add_flag(wifiSettingCloseBtn, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_add_event_cb(wifiSettingCloseBtn, wifi_event, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(wifiSettingCloseBtn, wifiEvent, LV_EVENT_ALL, NULL);
     lv_label_set_text(wifiSettingCloseBtn, LV_SYMBOL_CLOSE);
 
     wifiSettingSwitch = lv_switch_create(wifiSettings);
-    lv_obj_add_event_cb(wifiSettingSwitch, wifi_event, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(wifiSettingSwitch, wifiEvent, LV_EVENT_ALL, NULL);
     lv_obj_align_to(wifiSettingSwitch, settinglabel, LV_ALIGN_TOP_RIGHT, 60, -10);
 
     wifiList = lv_table_create(wifiSettings);
@@ -263,9 +261,9 @@ static void create_wifi_screen()
     lv_table_set_column_width(wifiList, 0, tft.width());
     lv_obj_set_scroll_dir(wifiList, LV_DIR_TOP | LV_DIR_BOTTOM);
     lv_obj_align_to(wifiList, wifiSettings, LV_ALIGN_TOP_LEFT, 0, 30);
-    lv_obj_add_event_cb(wifiList, list_event_handler, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(wifiList, wifiListEvent, LV_EVENT_ALL, NULL);
 
-    mboxConnect = lv_obj_create(mainScr);
+    mboxConnect = lv_obj_create(mainScreen);
     lv_obj_set_size(mboxConnect, tft.width(), tft.height() - 35);
     lv_obj_align(mboxConnect, LV_ALIGN_TOP_RIGHT, 0, 25);
 
@@ -278,17 +276,17 @@ static void create_wifi_screen()
     lv_obj_set_size(mboxPassword, tft.width() - 60, 40);
     lv_obj_align_to(mboxPassword, mboxTitle, LV_ALIGN_TOP_LEFT, 0, 30);
     lv_textarea_set_placeholder_text(mboxPassword, "Password?");
-    lv_obj_add_event_cb(mboxPassword, text_input_event_cb, LV_EVENT_ALL, keyboard);
+    lv_obj_add_event_cb(mboxPassword, textInputEvent, LV_EVENT_ALL, keyboard);
 
     mboxConnectBtn = lv_btn_create(mboxConnect);
-    lv_obj_add_event_cb(mboxConnectBtn, wifi_event, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(mboxConnectBtn, wifiEvent, LV_EVENT_ALL, NULL);
     lv_obj_align(mboxConnectBtn, LV_ALIGN_BOTTOM_LEFT, 0, 0);
     lv_obj_t *btnLabel = lv_label_create(mboxConnectBtn);
     lv_label_set_text(btnLabel, "Connect");
     lv_obj_center(btnLabel);
 
     mboxCloseBtn = lv_btn_create(mboxConnect);
-    lv_obj_add_event_cb(mboxCloseBtn, wifi_event, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(mboxCloseBtn, wifiEvent, LV_EVENT_ALL, NULL);
     lv_obj_align(mboxCloseBtn, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
     lv_obj_t *btnLabel2 = lv_label_create(mboxCloseBtn);
     lv_label_set_text(btnLabel2, "Cancel");

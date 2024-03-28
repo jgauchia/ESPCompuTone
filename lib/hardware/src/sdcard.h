@@ -10,18 +10,18 @@
 #define SDCARD_H
 
 SPIClass spiSD = SPIClass(VSPI);
-uint32_t sd_freq = 40000000;
+uint32_t sdFreq = 40000000;
 
 /**
  * @brief SD Card init
  *
  */
-void init_sd()
+void initSD()
 {
   spiSD.begin(SD_CLK, SD_MISO, SD_MOSI, SD_CS);
   pinMode(SD_CS, OUTPUT);
   digitalWrite(SD_CS, LOW);
-  if (!SD.begin(SD_CS, spiSD, sd_freq, "/sdcard"))
+  if (!SD.begin(SD_CS, spiSD, sdFreq, "/sdcard"))
   {
     log_i("SD Card Mount Failed");
     return;
@@ -37,7 +37,7 @@ void init_sd()
  * @brief SPIFFS Init
  *
  */
-void init_SPIFFS()
+void initSPIFFS()
 {
   if (!SPIFFS.begin(true))
     log_i("SPIFFS Mount Failed");

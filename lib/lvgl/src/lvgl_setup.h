@@ -12,7 +12,7 @@
 #include <lvgl.h>
 #include <tft.h>
 
-static lv_obj_t *mainScr;
+static lv_obj_t *mainScreen;
 
 #include <lv_sd_fs.hpp>
 #include <lv_spiffs_fs.hpp>
@@ -33,14 +33,14 @@ static lv_obj_t *mainScr;
 static lv_display_t *display;
 static lv_indev_t *indev_drv;
 #define DRAW_BUF_SIZE (TFT_WIDTH * TFT_HEIGHT / 10 * (LV_COLOR_DEPTH / 8))
-static uint32_t draw_buf[DRAW_BUF_SIZE / 4];
+static uint32_t drawBuf[DRAW_BUF_SIZE / 4];
 
 
 /**
  * @brief LVGL display update
  *
  */
-static void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
+static void dispFlush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map)
 {
     uint32_t w = (area->x2 - area->x1 + 1);
     uint32_t h = (area->y2 - area->y1 + 1);
@@ -55,7 +55,7 @@ static void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_ma
  * @brief LVGL touch read
  *
  */
-static void touchpad_read(lv_indev_t *indev_driver, lv_indev_data_t *data)
+static void touchRead(lv_indev_t *indev_driver, lv_indev_data_t *data)
 {
     uint16_t touchX, touchY;
     bool touched = tft.getTouch(&touchX, &touchY);
@@ -73,7 +73,7 @@ static void touchpad_read(lv_indev_t *indev_driver, lv_indev_data_t *data)
  * @brief Init LVGL
  *
  */
-static void init_LVGL()
+static void initLVGL()
 {
     lv_init();
 
@@ -81,24 +81,24 @@ static void init_LVGL()
     filesystemSPIFFSInit();
 
     display = lv_display_create(TFT_WIDTH, TFT_HEIGHT);
-    lv_display_set_flush_cb(display, disp_flush);
-    lv_display_set_buffers(display, draw_buf, NULL, sizeof(draw_buf), LV_DISPLAY_RENDER_MODE_PARTIAL);
+    lv_display_set_flush_cb(display, dispFlush);
+    lv_display_set_buffers(display, drawBuf, NULL, sizeof(drawBuf), LV_DISPLAY_RENDER_MODE_PARTIAL);
 
     indev_drv = lv_indev_create();
     lv_indev_set_type(indev_drv, LV_INDEV_TYPE_POINTER);
-    lv_indev_set_read_cb(indev_drv, touchpad_read);
+    lv_indev_set_read_cb(indev_drv, touchRead);
 
-    mainScr = lv_obj_create(NULL);
-    lv_obj_set_size(mainScr, TFT_WIDTH, TFT_HEIGHT);
+    mainScreen = lv_obj_create(NULL);
+    lv_obj_set_size(mainScreen, TFT_WIDTH, TFT_HEIGHT);
 
-    create_notify_bar();
-    create_wifi_screen();
-    create_button_bar_scr();
-    create_file_explorer();
-    create_file_save();
-    create_file_info_bar();
+    createNotifyBar();
+    createWifiScreen();
+    createButtonBar();
+    createFileExplorerScreen();
+    createFileSaveScreen();
+    createFileInfoBar();
 
-    lv_screen_load(mainScr);
+    lv_screen_load(mainScreen);
 }
 
 #endif

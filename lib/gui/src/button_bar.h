@@ -21,20 +21,20 @@ static lv_obj_t *pauseBtn;
  * @brief Create button bar screen
  *
  */
-static void create_button_bar_scr()
+static void createButtonBar()
 {
     // Button Bar
-    buttonBar = lv_obj_create(mainScr);
+    buttonBar = lv_obj_create(mainScreen);
     lv_obj_set_size(buttonBar, TFT_WIDTH, 50);
     lv_obj_set_pos(buttonBar, 0, TFT_HEIGHT - 50);
     lv_obj_set_flex_flow(buttonBar, LV_FLEX_FLOW_ROW);
     lv_obj_set_flex_align(buttonBar, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
     lv_obj_clear_flag(buttonBar, LV_OBJ_FLAG_SCROLLABLE);
-    static lv_style_t style_bar;
-    lv_style_init(&style_bar);
-    lv_style_set_bg_opa(&style_bar, LV_OPA_0);
-    lv_style_set_border_opa(&style_bar, LV_OPA_0);
-    lv_obj_add_style(buttonBar, &style_bar, LV_PART_MAIN);
+    static lv_style_t styleBar;
+    lv_style_init(&styleBar);
+    lv_style_set_bg_opa(&styleBar, LV_OPA_0);
+    lv_style_set_border_opa(&styleBar, LV_OPA_0);
+    lv_obj_add_style(buttonBar, &styleBar, LV_PART_MAIN);
     lv_obj_set_style_pad_column(buttonBar, 5, 0);
 
     // Rec Button

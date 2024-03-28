@@ -37,7 +37,7 @@ bool WAV::play(const char *fileName, eventCallback event)
     log_i("Bits per Sample: %u", bitsPerSample);
 
     // Configure and start DAC
-    DAC_start(sampleRate, numChannels, bitsPerSample);
+    startDAC(sampleRate, numChannels, bitsPerSample);
 
     // Jump WAV header
     fseek(this->wavFile, 44, SEEK_SET);
@@ -82,7 +82,7 @@ bool WAV::play(const char *fileName, eventCallback event)
     fclose(this->wavFile);
 
     // Stop DAC
-    DAC_stop();
+    stopDAC();
 
     return false;
 }
@@ -103,7 +103,7 @@ bool WAV::rec(const char *fileName, uint32_t sampleRate, uint8_t numChannels, ui
     bool file_write_error = false;
 
     // Configure and start ADC
-    ADC_start(sampleRate, numChannels, bitsPerSample);
+    startADC(sampleRate, numChannels, bitsPerSample);
 
     // Open WAV file
     this->wavFile = fopen(fileName, "wb");
@@ -188,7 +188,7 @@ bool WAV::rec(const char *fileName, uint32_t sampleRate, uint8_t numChannels, ui
     free(wavData16bits);
 
     // Stop ADC
-    ADC_stop();
+    stopADC();
 
     return file_write_error;
 }

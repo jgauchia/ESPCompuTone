@@ -21,7 +21,7 @@
  *
  */
 #define CALIBRATION_FILE "/TouchCalData1"
-static bool REPEAT_CAL = false;
+static bool repeatCal = false;
 
 /**
  * @brief TFT object declaration
@@ -34,14 +34,14 @@ static TFT_eSPI tft;
  * @brief Touch calibrate
  *
  */
-static void touch_calibrate()
+static void touchCalibrate()
 {
     uint16_t calData[8];
     uint8_t calDataOK = 0;
 
     if (SPIFFS.exists(CALIBRATION_FILE))
     {
-        if (REPEAT_CAL)
+        if (repeatCal)
             SPIFFS.remove(CALIBRATION_FILE);
         else
         {
@@ -57,7 +57,7 @@ static void touch_calibrate()
         }
     }
 
-    if (calDataOK && !REPEAT_CAL)
+    if (calDataOK && !repeatCal)
         tft.setTouchCalibrate(calData);
     else
     {
@@ -85,11 +85,11 @@ static void touch_calibrate()
  * @brief Init tft display
  *
  */
-static void init_tft()
+static void initTFT()
 {
     tft.init();
     tft.setRotation(1);
-    touch_calibrate();
+    touchCalibrate();
     tft.initDMA();
 }
 

@@ -13,15 +13,15 @@
  * @brief File save Screen
  *
  */
-static lv_obj_t *fileSaveScr;
-static lv_obj_t *textarea;
+static lv_obj_t *fileSaveScreen;
+static lv_obj_t *textArea;
 
 /**
  * @brief File Save event
  *
  * @param e
  */
-static void save_event(lv_event_t *e)
+static void saveEvent(lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t *ta = (lv_obj_t *)lv_event_get_target(e);
@@ -44,21 +44,21 @@ static void save_event(lv_event_t *e)
         fileName = (char *)lv_textarea_get_text(ta);
         if (fileName != NULL)
         {
-            char file_info[LV_FILE_EXPLORER_PATH_MAX_LEN];
-            strcpy(file_info, "/sdcard/");
+            char fileInfo[LV_FILE_EXPLORER_PATH_MAX_LEN];
+            strcpy(fileInfo, "/sdcard/");
             strcat(fileName, ".wav");
-            strcat(file_info, fileName);
+            strcat(fileInfo, fileName);
             isMainScreen = true;
             isStop = true;
             isEject = false;
             isPlay = false;
             fileOpen = false;
             fileSave = false;
-            rename("/sdcard/temp.wav", file_info);
+            rename("/sdcard/temp.wav", fileInfo);
             lv_file_explorer_open_dir(fileExplorer, "S:/");
             lv_label_set_text(file, fileName);
             lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
-            lv_screen_load(mainScr);
+            lv_screen_load(mainScreen);
         }
     }
 
@@ -72,7 +72,7 @@ static void save_event(lv_event_t *e)
         fileSave = false;
         remove("/sdcard/temp.wav");
         lv_file_explorer_open_dir(fileExplorer, "S:/");
-        lv_screen_load(mainScr);
+        lv_screen_load(mainScreen);
     }
 }
 
@@ -80,17 +80,17 @@ static void save_event(lv_event_t *e)
  * @brief Create a file save object
  *
  */
-static void create_file_save()
+static void createFileSaveScreen()
 {
-    fileSaveScr = lv_obj_create(NULL);
+    fileSaveScreen = lv_obj_create(NULL);
 
-    lv_obj_t *keyboard = lv_keyboard_create(fileSaveScr);
-    textarea = lv_textarea_create(fileSaveScr);
-    lv_obj_align(textarea, LV_ALIGN_TOP_MID, 0, 10);
-    lv_obj_set_size(textarea, lv_pct(90), 80);
-    lv_obj_add_state(textarea, LV_STATE_FOCUSED);
-    lv_obj_add_event_cb(textarea, save_event, LV_EVENT_ALL, fileSaveScr);
+    lv_obj_t *keyboard = lv_keyboard_create(fileSaveScreen);
+    textArea = lv_textarea_create(fileSaveScreen);
+    lv_obj_align(textArea, LV_ALIGN_TOP_MID, 0, 10);
+    lv_obj_set_size(textArea, lv_pct(90), 80);
+    lv_obj_add_state(textArea, LV_STATE_FOCUSED);
+    lv_obj_add_event_cb(textArea, saveEvent, LV_EVENT_ALL, fileSaveScreen);
 
-    lv_keyboard_set_textarea(keyboard, textarea);
+    lv_keyboard_set_textarea(keyboard, textArea);
 }
 #endif

@@ -14,10 +14,10 @@
 #include "driver/i2s.h"
 #include <events.h>
 
-extern void DAC_start(int sampleRate, int numChannels, int bitDepth);
-extern void DAC_stop();
-extern void ADC_start(int sampleRate, int numChannels, int bitDepth);
-extern void ADC_stop();
+extern void startDAC(int sampleRate, int numChannels, int bitDepth);
+extern void stopDAC();
+extern void startADC(int sampleRate, int numChannels, int bitDepth);
+extern void stopADC();
 
 /**
  * @brief WAV audio class

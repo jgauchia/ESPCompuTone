@@ -48,14 +48,14 @@ enum key_def
  * @brief Returns key pressed
  *
  */
-int key_pressed = NOKEY;
+int keyPressed = NOKEY;
 
 /**
  * @brief Read keys
  *
  * @return int -> enum structure keys index
  */
-int Read_Keys()
+int readKeys()
 {
     keys.read8();
     switch (keys.value())
@@ -94,9 +94,9 @@ int Read_Keys()
  */
 void checkKeys()
 {
-    key_pressed = Read_Keys();
+    keyPressed = readKeys();
 
-    switch (key_pressed)
+    switch (keyPressed)
     {
     case PLAY:
         if (isStop && !isPause && fileLoad)

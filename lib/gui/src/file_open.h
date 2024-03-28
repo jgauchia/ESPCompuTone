@@ -20,7 +20,7 @@ static lv_obj_t *fileExplorer;
  *
  * @param e
  */
-static void get_file(lv_event_t *e)
+static void getFileEvent(lv_event_t *e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t *obj = (lv_obj_t *)lv_event_get_target(e);
@@ -35,7 +35,7 @@ static void get_file(lv_event_t *e)
         isEject = false;
         fileOpen = false;
         fileLoad = true;
-        lv_screen_load(mainScr);
+        lv_screen_load(mainScreen);
         lv_label_set_text(file, fileName);
         lv_obj_send_event(file,LV_EVENT_REFRESH,NULL);
     }
@@ -45,12 +45,12 @@ static void get_file(lv_event_t *e)
  * @brief Create a file explorer screen
  *
  */
-static void create_file_explorer()
+static void createFileExplorerScreen()
 {
     fileExplorer = lv_file_explorer_create(NULL);
     lv_file_explorer_set_sort(fileExplorer, LV_EXPLORER_SORT_NONE);
     lv_file_explorer_open_dir(fileExplorer, "S:/");
-    lv_obj_add_event_cb(fileExplorer, get_file, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(fileExplorer, getFileEvent, LV_EVENT_ALL, NULL);
 }
 
 #endif

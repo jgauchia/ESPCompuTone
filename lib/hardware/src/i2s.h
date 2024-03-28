@@ -10,14 +10,13 @@
 #define I2S_H
 
 #include "driver/i2s.h"
-//#include <vars.h>
 #include <hal.h>
 
 /**
  * @brief I2S DAC Port Configuration
  *
  */
-i2s_config_t i2s_dac_config = {
+i2s_config_t i2sConfigDAC = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_TX),
     .sample_rate = 44100,
     .bits_per_sample = I2S_BITS_PER_SAMPLE_24BIT,
@@ -34,7 +33,7 @@ i2s_config_t i2s_dac_config = {
  * @brief I2S DAC Pin Configuration
  *
  */
-i2s_pin_config_t i2s_dac_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_LRC, .data_out_num = I2S_DOUT, .data_in_num = I2S_PIN_NO_CHANGE};
+i2s_pin_config_t i2sPinConfigDAC = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_LRC, .data_out_num = I2S_DOUT, .data_in_num = I2S_PIN_NO_CHANGE};
 
 /**
  * @brief Start DAC
@@ -43,15 +42,15 @@ i2s_pin_config_t i2s_dac_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_L
  * @param numChannels
  * @param bitDepth
  */
-void DAC_start(int sampleRate, int numChannels, int bitDepth)
+void startDAC(int sampleRate, int numChannels, int bitDepth)
 {
-    i2s_dac_config.sample_rate = sampleRate;
-    i2s_dac_config.fixed_mclk = sampleRate * 384;
-    i2s_dac_config.bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT;
+    i2sConfigDAC.sample_rate = sampleRate;
+    i2sConfigDAC.fixed_mclk = sampleRate * 384;
+    i2sConfigDAC.bits_per_sample = I2S_BITS_PER_SAMPLE_16BIT;
     if (numChannels == 1)
-       i2s_dac_config.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
-    i2s_driver_install(I2S_NUM_0, &i2s_dac_config, 0, NULL);
-    i2s_set_pin(I2S_NUM_0, &i2s_dac_pin_config);
+       i2sConfigDAC.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
+    i2s_driver_install(I2S_NUM_0, &i2sConfigDAC, 0, NULL);
+    i2s_set_pin(I2S_NUM_0, &i2sPinConfigDAC);
     i2s_set_sample_rates(I2S_NUM_0, sampleRate);
     i2s_set_clk(I2S_NUM_0, sampleRate, I2S_BITS_PER_SAMPLE_16BIT, (i2s_channel_t)numChannels);
     i2s_start(I2S_NUM_0);
@@ -63,7 +62,7 @@ void DAC_start(int sampleRate, int numChannels, int bitDepth)
  * @brief Stop DAC
  *
  */
-void DAC_stop()
+void stopDAC()
 {
     i2s_stop(I2S_NUM_0);
     i2s_driver_uninstall(I2S_NUM_0);
@@ -73,7 +72,7 @@ void DAC_stop()
  * @brief I2S ADC Port Configuration
  *
  */
-i2s_config_t i2s_adc_config = {
+i2s_config_t i2sConfigADC = {
     .mode = (i2s_mode_t)(I2S_MODE_MASTER | I2S_MODE_RX),
     .sample_rate = 44100,
     .bits_per_sample = I2S_BITS_PER_SAMPLE_24BIT,
@@ -90,7 +89,7 @@ i2s_config_t i2s_adc_config = {
  * @brief I2S ADC Pin Configuration
  *
  */
-i2s_pin_config_t i2s_adc_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_LRC, .data_out_num = I2S_PIN_NO_CHANGE, .data_in_num = I2S_DIN};
+i2s_pin_config_t i2sPinConfigADC = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_LRC, .data_out_num = I2S_PIN_NO_CHANGE, .data_in_num = I2S_DIN};
 
 /**
  * @brief Start ADC
@@ -99,14 +98,14 @@ i2s_pin_config_t i2s_adc_pin_config = {.bck_io_num = I2S_BCK, .ws_io_num = I2S_L
  * @param numChannels
  * @param bitDepth
  */
-void ADC_start(int sampleRate, int numChannels, int bitDepth)
+void startADC(int sampleRate, int numChannels, int bitDepth)
 {
-    i2s_adc_config.sample_rate = sampleRate;
-    i2s_adc_config.fixed_mclk = sampleRate * 384;
+    i2sConfigADC.sample_rate = sampleRate;
+    i2sConfigADC.fixed_mclk = sampleRate * 384;
     if (numChannels == 1)
-        i2s_adc_config.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
-    i2s_driver_install(I2S_NUM_0, &i2s_adc_config, 0, NULL);
-    i2s_set_pin(I2S_NUM_0, &i2s_adc_pin_config);
+        i2sConfigADC.channel_format = I2S_CHANNEL_FMT_ONLY_RIGHT;
+    i2s_driver_install(I2S_NUM_0, &i2sConfigADC, 0, NULL);
+    i2s_set_pin(I2S_NUM_0, &i2sPinConfigADC);
     // i2s_set_sample_rates(I2S_NUM_0, sampleRate);
 }
 
@@ -114,7 +113,7 @@ void ADC_start(int sampleRate, int numChannels, int bitDepth)
  * @brief Stop ADC
  *
  */
-void ADC_stop()
+void stopADC()
 {
     i2s_driver_uninstall(I2S_NUM_0);
 }
