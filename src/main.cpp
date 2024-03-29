@@ -65,11 +65,22 @@ void loop()
     {
       if (isStop || isPause)
       {
+        if (audioTaskHandler != NULL && isStop)
+        {
+          vTaskDelete(audioTaskHandler);
+          audioTaskHandler = NULL;
+          log_i("Audio Task Off");
+        }
         gif.playFrame(true, &maxGifDuration);
         gif.reset();
       }
       else
       {
+        if (audioTaskHandler == NULL)
+        {
+          initAudioTask();
+          log_i("Audio Task On");
+        }
         gif.playFrame(true, NULL);
       }
     }

@@ -11,9 +11,8 @@
 
 #include <wav.hpp>
 
-extern bool isRecord;
-
 WAV audioWAV;
+TaskHandle_t audioTaskHandler = NULL;
 
 /**
  * @brief Keys Read task
@@ -31,6 +30,11 @@ void keysTask(void *pvParameters)
     }
 }
 
+/**
+ * @brief Audio Task
+ *
+ * @param pvParameters
+ */
 void audioTask(void *pvParameters)
 {
     bool fileError = false;
@@ -58,7 +62,6 @@ void audioTask(void *pvParameters)
                 isPlay = false;
                 selectTapeKey(playBtn, false);
                 lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
-                
             }
             else if (fileError)
             {
@@ -68,7 +71,7 @@ void audioTask(void *pvParameters)
                 lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
             }
         }
-        if (isRecord)
+        else if (isRecord)
         {
             fileError = audioWAV.rec("/sdcard/temp.wav", sampleRate, numChannels, bitDepth, getTapeEvent);
             if (getTapeEvent() == tapeEvent::STOP)
@@ -97,7 +100,15 @@ void initTasks()
 {
     xTaskCreatePinnedToCore(keysTask, "Keys Read Task", 2048, NULL, 1, NULL, 1);
     delay(500);
-    xTaskCreatePinnedToCore(audioTask, "Audio Task", 16384, NULL, 1, NULL, 1);
+}
+
+/**
+ * @brief Init Audio task
+ * 
+ */
+void initAudioTask()
+{
+    xTaskCreatePinnedToCore(audioTask, "Audio Task", 9128, NULL, 1, &audioTaskHandler, 1);
     delay(500);
 }
 
