@@ -17,6 +17,7 @@
 #include <SD.h>
 
 #include <vars.h>
+#include <settings.h>
 #include <hal.h>
 #include <network.hpp>
 #include <sdcard.h>
@@ -34,6 +35,7 @@ void setup()
 {
   initSD();
   initSPIFFS();
+  loadSettings();
 
   Wire.begin();
   keys.begin();
@@ -42,6 +44,7 @@ void setup()
   initTFT();
   initGIF("/k7.gif");
   initLVGL();
+  autoConnectWifi();
   initTasks();
 
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());

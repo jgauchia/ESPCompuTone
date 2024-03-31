@@ -38,3 +38,4 @@ Network_Status_t networkStatus = NONE;
 int totalWificount = 0;
 int foundNetworks = 0;
 unsigned long networkTimeout = 10 * 1000;
+

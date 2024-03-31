@@ -296,4 +296,27 @@ static void createWifiScreen()
     lv_obj_add_flag(keyboard, LV_OBJ_FLAG_HIDDEN);
 }
 
+/**
+ * @brief Auto Connect saved Wifi
+ *
+ */
+static void autoConnectWifi()
+{
+    if (wifiSSID.length() != 0 && wifiPswd.length() != 0)
+    {
+        char preSSIDName[30], preSSIDPw[30];
+        lv_obj_add_state(wifiSettingSwitch, LV_STATE_CHECKED);
+        lv_obj_send_event(wifiSettingSwitch, LV_EVENT_VALUE_CHANGED, NULL);
+        ssidName = wifiSSID;
+        ssidPW = wifiPswd;
+        networkConnector();
+    }
+    else
+    {
+        settings.begin("ESPCompuTone", false);
+        settings.putString("network_ssid", "");
+        settings.putString("network_pswd", "");
+        settings.end();
+    }
+}
 #endif

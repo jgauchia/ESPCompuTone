@@ -12,10 +12,14 @@
 #include "WiFi.h"
 #include <vector>
 #include <vars.h>
+#include <settings.h>
 
 extern String ssidName, ssidPW;
 extern TaskHandle_t ntScanTaskHandler, ntConnectTaskHandler;
 extern std::vector<String> foundWifiList;
+extern Preferences settings;
+extern String wifiSSID;
+extern String wifiPswd;
 
 void scanWIFITask(void *pvParameters);
 void networkScanner();

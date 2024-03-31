@@ -91,6 +91,4 @@ extern unsigned long networkTimeout;
 } /*extern "C"*/
 #endif
 
-
-
 #endif

@@ -66,6 +66,7 @@ pio run --target uploadfs
 - [ ] Play Bluetooth Audio
 - [ ] PSRAM support (WROVER)
 - [x] Review Audio Task
+- [ ] Review Keys Events
 - [ ] PCB
 - [x] Battery Support
 - [ ] Remote connector support
