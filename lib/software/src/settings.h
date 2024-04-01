@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief Settings 
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #ifndef SETTINGS_H

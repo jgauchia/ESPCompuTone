@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief  SPIFFS filesystem for LVGL
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #ifndef LV_SPIFFS_FS_HPP

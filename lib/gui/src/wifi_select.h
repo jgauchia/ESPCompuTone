@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief LVGL Wifi selection screen
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #ifndef WIFI_SELECT_H
@@ -125,10 +125,11 @@ static void timerForNetwork(lv_timer_t *timer)
         break;
 
     case NETWORK_CONNECTED_POPUP:
-        // popupMsgBox("WiFi Connected!", "Now you'll get the current time soon.");
         networkStatus = NETWORK_CONNECTED;
         lv_label_set_text_fmt(ip, "%s", WiFi.localIP().toString());
         lv_obj_send_event(ip, LV_EVENT_REFRESH, NULL);
+        configureWebServer();
+        server.begin();
         break;
 
     case NETWORK_CONNECTED:
@@ -137,7 +138,6 @@ static void timerForNetwork(lv_timer_t *timer)
 
     case NETWORK_CONNECT_FAILED:
         networkStatus = NETWORK_SEARCHING;
-        // popupMsgBox("Oops!", "Please check your wifi password and try again.");
         break;
 
     default:
@@ -182,7 +182,6 @@ static void wifiEvent(lv_event_t *e)
 
                 networkConnector();
                 lv_obj_move_background(mboxConnect);
-                // popupMsgBox("Connecting!", "Attempting to connect to the selected network.");
             }
             else if (btn == mboxCloseBtn)
             {
@@ -200,7 +199,6 @@ static void wifiEvent(lv_event_t *e)
 
                 if (lv_obj_has_state(btn, LV_STATE_CHECKED))
                 {
-
                     if (ntScanTaskHandler == NULL)
                     {
                         networkStatus = NETWORK_SEARCHING;
@@ -224,6 +222,7 @@ static void wifiEvent(lv_event_t *e)
                         WiFi.disconnect(true);
                         lv_label_set_text_fmt(ip, "%s", WiFi.localIP().toString());
                         lv_obj_send_event(ip, LV_EVENT_REFRESH, NULL);
+                        server.end();
                     }
                 }
             }
@@ -304,7 +303,6 @@ static void autoConnectWifi()
 {
     if (wifiSSID.length() != 0 && wifiPswd.length() != 0)
     {
-        char preSSIDName[30], preSSIDPw[30];
         lv_obj_add_state(wifiSettingSwitch, LV_STATE_CHECKED);
         lv_obj_send_event(wifiSettingSwitch, LV_EVENT_VALUE_CHANGED, NULL);
         ssidName = wifiSSID;

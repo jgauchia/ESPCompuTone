@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief Main program variables
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #include <vars.h>
@@ -22,6 +22,7 @@ bool isConfig = false;
 bool fileOpen = false;
 bool fileLoad = false;
 bool fileSave = false;
+bool isDirRefresh = false;
 
 char *filePath;
 char *fileName;

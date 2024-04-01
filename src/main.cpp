@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief ESP Digital recorder
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #include "Arduino.h"
@@ -11,6 +11,8 @@
 #include <PCF8574.h>
 #include <MyDelay.h>
 #include <stdio.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
 #include <SPI.h>
 #include <FS.h>
@@ -20,6 +22,8 @@
 #include <settings.h>
 #include <hal.h>
 #include <network.hpp>
+#include <WebPage.h>
+#include <Web_server.h>
 #include <sdcard.h>
 #include <tft.h>
 #include <gif.h>
@@ -44,8 +48,10 @@ void setup()
   initTFT();
   initGIF("/k7.gif");
   initLVGL();
-  autoConnectWifi();
   initTasks();
+  delay(500);
+  autoConnectWifi();
+  
 
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());
   log_i("SPIFFS: Total %d - Free %d", SPIFFS.totalBytes(), (SPIFFS.totalBytes() - SPIFFS.usedBytes()));
@@ -94,6 +100,11 @@ void loop()
     if (sdLoaded)
     {
       isMainScreen = false;
+      if (!isDirRefresh)
+      {
+        isDirRefresh = true;
+        lv_file_explorer_open_dir(fileExplorer, "S:/");
+      }
       lv_screen_load(fileExplorer);
     }
   }

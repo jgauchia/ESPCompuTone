@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief LVGL - File Explorer
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #ifndef FILE_OPEN_H
@@ -35,6 +35,7 @@ static void getFileEvent(lv_event_t *e)
         isEject = false;
         fileOpen = false;
         fileLoad = true;
+        isDirRefresh = false;
         lv_screen_load(mainScreen);
         lv_label_set_text(file, fileName);
         lv_obj_send_event(file,LV_EVENT_REFRESH,NULL);

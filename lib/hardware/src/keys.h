@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief Keys imput routines
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #ifndef KEYS_H
@@ -168,8 +168,10 @@ void checkKeys()
             isStop = false;
             isEject = true;
             if (!fileSave)
+            {
                 fileOpen = true;
-            // fileSave = false;
+                isDirRefresh = false;
+            }
             fileLoad = false;
         }
         else

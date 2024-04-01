@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief Main program variables
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #ifndef VARS_H
@@ -23,6 +23,9 @@ extern "C"
 #define LVGL_BKG 0x10A3
 #define TFT_WIDTH 320
 #define TFT_HEIGHT 240
+
+#define HTTP_USERNAME "admin"
+#define HTTP_PASSWORD "admin"
 
 /**
  * @brief Boolean vars for tape status
@@ -46,6 +49,7 @@ extern bool isConfig;
 extern bool fileOpen;
 extern bool fileLoad;
 extern bool fileSave;
+extern bool isDirRefresh;
 
 /**
  * @brief File explorer vars

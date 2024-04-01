@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief  SD filesystem for LVGL
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #include <lv_sd_fs.hpp>

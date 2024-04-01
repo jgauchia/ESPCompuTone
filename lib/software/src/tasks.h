@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief Core Tasks functions
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #ifndef TASKS_H

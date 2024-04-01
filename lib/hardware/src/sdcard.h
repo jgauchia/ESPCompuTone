@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief SD Card definition and functions
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #ifndef SDCARD_H

@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief I2S Routines
  * @version 0.3
- * @date 2024-03
+ * @date 2024-04
  */
 
 #ifndef I2S_H

@@ -10,6 +10,9 @@ Prototype:
 <img src="images/ESPCompuTone.jpg" width="50%" height="50%">
 
 
+Webserver:
+
+<img src="images/webserver,png" width="50%" height="50%">
 
 ### Specifications
 
@@ -58,7 +61,7 @@ pio run --target uploadfs
 
 - [x] Play (WAV Format)
 - [x] Record (WAV Format)
-- [ ] File transfer over WiFi
+- [x] File transfer over WiFi
 - [ ] Other file support (MP3, TAP, TZX...)
 - [ ] Configuration Screen
 - [ ] File Utilities
