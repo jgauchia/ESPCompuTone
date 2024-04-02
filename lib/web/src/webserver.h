@@ -174,7 +174,6 @@ void handleUpload(AsyncWebServerRequest *request, String filename, size_t index,
   {
     request->client()->setRxTimeout(15000);
     request->_tempFile = SD.open(oldDir + "/" + filename, "w");
-    
   }
   if (len)
     request->_tempFile.write(data, len);
@@ -294,7 +293,7 @@ void configureWebServer()
                 {
                   if (oldDir != "/..")
                   {
-                    String oldDir = oldDir.substring(0, oldDir.lastIndexOf("/"));
+                    oldDir = oldDir.substring(0, oldDir.lastIndexOf("/"));
                     if (oldDir == "")
                       oldDir = "/";
                     SD.open(oldDir.c_str());
