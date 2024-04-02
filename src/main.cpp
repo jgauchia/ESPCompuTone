@@ -22,8 +22,8 @@
 #include <settings.h>
 #include <hal.h>
 #include <network.hpp>
-#include <WebPage.h>
-#include <Web_server.h>
+#include <webpage.h>
+#include <webserver.h>
 #include <sdcard.h>
 #include <tft.h>
 #include <gif.h>

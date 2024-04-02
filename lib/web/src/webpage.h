@@ -1,3 +1,11 @@
+/**
+ * @file webpage.h
+ * @author Jordi Gauchía
+ * @brief Web page
+ * @version 0.3
+ * @date 2024-04
+ */
+
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE HTML>
 <html lang="en">
