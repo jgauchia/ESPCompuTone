@@ -16,7 +16,7 @@ const char index_html[] PROGMEM = R"rawliteral(
   <meta charset="UTF-8">
 
   <style>
-      h1  {
+      header {
             font-family: "Lucida Console", "Courier New", monospace;
             font-weight: bold;
             font-size: 30px;
@@ -64,21 +64,30 @@ const char index_html[] PROGMEM = R"rawliteral(
             height: 25px;
             vertical-align: middle;
           }
+
+      #drag {
+            width: 350px;
+            height: 70px;
+            padding: 10px;
+            background-color:  white;
+            border: 1px solid #aaaaaa;
+            text-align: center;
+          }    
   </style>
 
 </head>
 
 <body>
 
-  <h1>%APP%</h1>
+  <header>%APP%</header>
 
   <p class="p3">Firmware: %FIRMWARE%</p>
-  <p class="p3">Type: %TYPEFS% | Size: %TOTALFS% | Used: %USEDFS% | Free: %FREEFS%</p>
+  <p class="p3">Type: %TYPEFS% | Size: <span id="size">%TOTALFS%</span> | Used: <span id="used">%USEDFS%</span> | Free: <span id="free">%FREEFS%</span></p>
 
   <p>
   <button class="button" onclick="rebootButton()"><img src="reb"> Reboot</button>
   <button class="button" onclick="listFilesButton()"><img src="list"> List Files</button>
-  <button class="button" onclick="showUploadButtonFancy()"><img src="up"> Upload File</button>
+  <button class="button" onclick="uploadButton()"><img src="up"> Upload File</button>
   </p>
 
   <p class="p3" id="status"></p>
@@ -129,36 +138,58 @@ function changeDirectory(directory) {
   document.getElementById("details").innerHTML = xmlhttp.responseText;
 }
 
-function showUploadButtonFancy() {
-  document.getElementById("detailsheader").innerHTML = "<h3>Upload File<h3>"
+function dragHelper(e) 
+{  
+  var z = document.getElementById("drag");
+  z.style.backgroundColor = "#5d6d7e";
+  z.style.opacity = "0.6";
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function dropped(e) 
+{
+  dragHelper(e);
+  var fls = e.dataTransfer.files;
+  var formData = new FormData();
+  formData.append("file1", fls[0]);
+  var z = document.getElementById("drag");
+  z.style.backgroundColor = "white";
+  z.textContent = fls[0].name;
+  var ajax = new XMLHttpRequest();
+  ajax.upload.addEventListener("progress", progressHandler, false);
+  ajax.addEventListener("load", completeHandler, false); 
+  ajax.addEventListener("error", errorHandler, false);
+  ajax.addEventListener("abort", abortHandler, false);
+  ajax.open("POST", "/");
+  ajax.send(formData);   
+}
+
+function uploadButton() 
+{
+  document.getElementById("detailsheader").innerHTML = "<h3>Upload File</h3>"
   document.getElementById("status").innerHTML = "";
-  var uploadform = "<form method = \"POST\" action = \"/\" enctype=\"multipart/form-data\"><input type=\"file\" name=\"data\"/><input type=\"submit\" name=\"upload\" value=\"Upload\" title = \"Upload File\"></form>"
-  document.getElementById("details").innerHTML = uploadform;
   var uploadform =
   "<form id=\"upload_form\" enctype=\"multipart/form-data\" method=\"post\">" +
-  "<input type=\"file\" name=\"file1\" id=\"file1\" onchange=\"uploadFile()\"><br>" +
-  "<progress id=\"progressBar\" value=\"0\" max=\"100\" style=\"width:300px;\"></progress>" +
+  
+  "<div id=\"drag\"><h3 id=\"filetext\">Drag to upload file</h3></div>" + 
+
+  "<progress id=\"progressBar\" value=\"0\" max=\"100\" style=\"width:372px;\"></progress>" +
   "<h3 id=\"status\"></h3>" +
   "<p id=\"loaded_n_total\"></p>" +
   "</form>";
   document.getElementById("details").innerHTML = uploadform;
+
+  var z = document.getElementById("drag");
+  z.addEventListener("dragenter", dragHelper, false);
+  z.addEventListener("dragover", dragHelper, false);
+  z.addEventListener("drop", dropped, false);
 }
+
 function _(el) {
   return document.getElementById(el);
 }
-function uploadFile() {
-  var file = _("file1").files[0];
-  // alert(file.name+" | "+file.size+" | "+file.type);
-  var formdata = new FormData();
-  formdata.append("file1", file);
-  var ajax = new XMLHttpRequest();
-  ajax.upload.addEventListener("progress", progressHandler, false);
-  ajax.addEventListener("load", completeHandler, false); // doesnt appear to ever get called even upon success
-  ajax.addEventListener("error", errorHandler, false);
-  ajax.addEventListener("abort", abortHandler, false);
-  ajax.open("POST", "/");
-  ajax.send(formdata);
-}
+
 function progressHandler(event) {
   //_("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total; // event.total doesnt show accurate total file size
   _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes";
