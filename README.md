@@ -12,7 +12,7 @@ Prototype:
 
 Webserver:
 
-<img src="images/webserver.jpg" width="50%" height="50%"> <img src="images/drag.gif" width=75% height=25%>
+<img src="images/webserver.jpg" width="30%" height="30%"> <img src="images/drag.gif" width=30%>
 
 
 ### Specifications
