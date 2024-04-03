@@ -9,10 +9,9 @@ Prototype:
 
 <img src="images/ESPCompuTone.jpg" width="50%" height="50%">
 
-
-Webserver:
-
-<img src="images/webserver.jpg" width="30%" height="30%"> <img src="images/drag.gif" width=30%>
+|<img src="images/webserver.jpg" width="40%" height="40%">|<img src="images/drag.gif" width="60%">|
+|:-:|:-:|
+| Webserver | Drag&Drop | 
 
 
 ### Specifications
