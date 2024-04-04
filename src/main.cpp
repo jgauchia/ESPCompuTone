@@ -2,8 +2,8 @@
  * @file main.cpp
  * @author Jordi Gauchía
  * @brief ESP Digital recorder
- * @version 0.2
- * @date 2024-03
+ * @version 0.3
+ * @date 2024-04
  */
 
 #include "Arduino.h"
@@ -11,45 +11,47 @@
 #include <PCF8574.h>
 #include <MyDelay.h>
 #include <stdio.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
 #include <SPI.h>
 #include <FS.h>
 #include <SD.h>
-#include <AnimatedGIF.h>
-#include <lvgfx.hpp>
-#include <LGFX_TFT_eSPI.hpp>
+
 #include <vars.h>
-#include <tft.h>
-#include <GIFFile.h>
-#include <lvgl_setup.h>
-#include "driver/i2s.h"
+#include <settings.h>
 #include <hal.h>
+#include <network.hpp>
+#include <webpage.h>
+#include <webserver.h>
 #include <sdcard.h>
-#include <i2s.h>
-#include <keys_def.h>
+#include <tft.h>
+#include <gif.h>
+#include <lvgl_setup.h>
 #include <keys.h>
-#include <play_wav.h>
-#include <rec_wav.h>
+#include <i2s.h>
 #include <tasks.h>
 
 unsigned long millis_actual = 0;
 static ulong lvgl_tick_millis = millis();
 
-static lv_obj_t *test;
-
 void setup()
 {
-  init_sd();
-  init_SPIFFS();
+  initSD();
+  initSPIFFS();
+  loadSettings();
 
   Wire.begin();
   keys.begin();
-  keys_delay.start();
+  keysDelay.start();
 
-  init_tft();
-  init_GIF("/k7.gif");
-  init_LVGL();
-  init_tasks();
+  initTFT();
+  initGIF("/k7.gif");
+  initLVGL();
+  initTasks();
+  delay(500);
+  autoConnectWifi();
+  
 
   log_i("Model:%s %dMhz - Free mem:%dK %d%%", ESP.getChipModel(), ESP.getCpuFreqMHz(), (ESP.getFreeHeap() / 1024), (ESP.getFreeHeap() * 100) / ESP.getHeapSize());
   log_i("SPIFFS: Total %d - Free %d", SPIFFS.totalBytes(), (SPIFFS.totalBytes() - SPIFFS.usedBytes()));
@@ -58,43 +60,65 @@ void setup()
 
 void loop()
 {
-  if (!fileopen && !filesave)
+  if (!fileOpen && !fileSave)
   {
-    if (!is_mainscreen)
+    if (!isMainScreen)
     {
-      is_mainscreen = true;
-      lv_screen_load(mainScr);
+      lv_textarea_set_text(textArea, "");
+      lv_obj_send_event(textArea, LV_EVENT_REFRESH, NULL);
+      isMainScreen = true;
+      lv_screen_load(mainScreen);
     }
-    if (is_stop || is_pause)
+
+    if (!isConfig)
     {
-      gif.playFrame(true, &maxGifDuration);
-      gif.reset();
-    }
-    else
-    {
-      gif.playFrame(true, NULL);
+      if (isStop || isPause)
+      {
+        if (audioTaskHandler != NULL && isStop)
+        {
+          vTaskDelete(audioTaskHandler);
+          audioTaskHandler = NULL;
+          log_i("Audio Task Off");
+        }
+        gif.playFrame(true, &maxGifDuration);
+        gif.reset();
+      }
+      else
+      {
+        if (audioTaskHandler == NULL)
+        {
+          initAudioTask();
+          log_i("Audio Task On");
+        }
+        gif.playFrame(true, NULL);
+      }
     }
   }
-  else if (fileopen && !filesave)
+  else if (fileOpen && !fileSave)
   {
     // Call file open screen
-    if (sdloaded)
+    if (sdLoaded)
     {
-      is_mainscreen = false;
+      isMainScreen = false;
+      if (!isDirRefresh)
+      {
+        isDirRefresh = true;
+        lv_file_explorer_open_dir(fileExplorer, "S:/");
+      }
       lv_screen_load(fileExplorer);
     }
   }
-  else if (filesave && !fileopen)
+  else if (fileSave && !fileOpen)
   {
     // Call file save screen
-    is_mainscreen = false;
-    lv_screen_load(fileSave);
+    isMainScreen = false;
+    lv_screen_load(fileSaveScreen);
   }
 
   lv_timer_handler();
-  unsigned long tick_millis = millis() - lvgl_tick_millis;
+  unsigned long tickMillis = millis() - lvgl_tick_millis;
   lvgl_tick_millis = millis();
-  lv_tick_inc(tick_millis);
+  lv_tick_inc(tickMillis);
   yield();
   delay(5);
 }

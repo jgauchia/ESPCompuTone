@@ -1,10 +1,13 @@
 /**
  * @file lvgfx.hpp
- * @author Jordi Gauchía 
- * @brief  LOVYANGFX TFT driver 
-* @version 0.2
+ * @author Jordi Gauchía
+ * @brief  LOVYANGFX TFT driver
+ * @version 0.3
  * @date 2023-06-14
  */
+
+#ifndef LVGFX_HPP
+#define LVGFX_HPP
 
 #define LGFX_USE_V1
 
@@ -79,3 +82,5 @@ public:
         setPanel(&_panel_instance);
     }
 };
+
+#endif

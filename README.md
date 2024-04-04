@@ -9,6 +9,9 @@ Prototype:
 
 <img src="images/ESPCompuTone.jpg" width="50%" height="50%">
 
+|<img src="images/webserver.jpg" width="40%" height="40%">|<img src="images/drag.gif" width="60%">|
+|:-:|:-:|
+| Webserver | Drag&Drop | 
 
 
 ### Specifications
@@ -58,15 +61,20 @@ pio run --target uploadfs
 
 - [x] Play (WAV Format)
 - [x] Record (WAV Format)
-- [ ] File transfer over WiFi
+- [x] File transfer over WiFi
 - [ ] Other file support (MP3, TAP, TZX...)
 - [ ] Add 24bit. WAV support 
 - [ ] Configuration Screen
-- [ ] File Utilities
+- [x] File Utilities (web page)
 - [ ] Splash screen
+- [ ] Play Bluetooth Audio
 - [ ] PSRAM support (WROVER)
+- [x] Review Audio Task
+- [ ] Review Keys Events
+- [ ] Loading progress bar
 - [ ] PCB
-- [ ] Battery Support
+- [x] Battery Support
+- [ ] Remote connector support
 - [ ] Internal Speaker
 - [ ] 3D Printed case
 

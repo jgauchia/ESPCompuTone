@@ -2,16 +2,59 @@
  * @file keys.h
  * @author Jordi Gauchía
  * @brief Keys imput routines
- * @version 0.2
- * @date 2024-03
+ * @version 0.3
+ * @date 2024-04
  */
+
+#ifndef KEYS_H
+#define KEYS_H
+
+#include <PCF8574.h>
+#include <MyDelay.h>
+
+extern bool isRecord;
+
+/**
+ * @brief PCF8574 Object declaration
+ *
+ */
+PCF8574 keys(0x20);
+
+/**
+ * @brief Keys read delay
+ *
+ */
+#define KEYS_UPDATE_TIME 135
+MyDelay keysDelay(KEYS_UPDATE_TIME);
+
+/**
+ * @brief Keys enum
+ *
+ */
+enum key_def
+{
+    REC,
+    PLAY,
+    REC_PLAY,
+    REW,
+    ADV,
+    STOP_EJ,
+    PAUSE,
+    NOKEY,
+};
+
+/**
+ * @brief Returns key pressed
+ *
+ */
+int keyPressed = NOKEY;
 
 /**
  * @brief Read keys
  *
  * @return int -> enum structure keys index
  */
-int Read_Keys()
+int readKeys()
 {
     keys.read8();
     switch (keys.value())
@@ -38,7 +81,7 @@ int Read_Keys()
         return PAUSE;
         break;
     default:
-        return NONE;
+        return NOKEY;
         break;
     }
 }
@@ -48,126 +91,128 @@ int Read_Keys()
  *
  *
  */
-void Check_keys()
+void checkKeys()
 {
-    key_pressed = Read_Keys();
+    keyPressed = readKeys();
 
-    switch (key_pressed)
+    switch (keyPressed)
     {
     case PLAY:
-        if (is_stop && !is_pause && fileload)
+        if (isStop && !isPause && fileLoad)
         {
             log_i("PLAY");
-            is_record = false;
-            is_play = true;
-            is_rewind = false;
-            is_advance = false;
-            is_stop = false;
-            is_eject = false;
-            is_pause = false;
-            select_obj(playBtn, true);
+            isRecord = false;
+            isPlay = true;
+            isRewind = false;
+            isAdvance = false;
+            isStop = false;
+            isEject = false;
+            isPause = false;
+            selectTapeKey(playBtn, true);
             lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
         }
         break;
     case REC_PLAY:
-        if (is_stop && !is_pause)
+        if (isStop && !isPause)
         {
             log_i("RECORD");
-            is_record = true;
-            is_play = false;
-            is_rewind = false;
-            is_advance = false;
-            is_stop = false;
-            is_eject = false;
-            is_pause = false;
-            select_obj(recBtn, true);
+            isRecord = true;
+            isPlay = false;
+            isRewind = false;
+            isAdvance = false;
+            isStop = false;
+            isEject = false;
+            isPause = false;
+            selectTapeKey(recBtn, true);
             lv_obj_send_event(recBtn, LV_EVENT_REFRESH, NULL);
-            select_obj(playBtn, true);
+            selectTapeKey(playBtn, true);
             lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
             lv_label_set_text(file, "Audio Recording");
             lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
         }
         break;
     case REW:
-        if (is_stop && !is_pause)
+        if (isStop && !isPause)
         {
             log_i("REWIND");
-            is_record = false;
-            is_play = false;
-            is_rewind = true;
-            is_advance = false;
-            is_stop = false;
-            is_eject = false;
-            is_pause = false;
-            select_obj(rewBtn, true);
+            isRecord = false;
+            isPlay = false;
+            isRewind = true;
+            isAdvance = false;
+            isStop = false;
+            isEject = false;
+            isPause = false;
+            selectTapeKey(rewBtn, true);
             lv_obj_send_event(rewBtn, LV_EVENT_REFRESH, NULL);
         }
         break;
     case ADV:
-        if (is_stop && !is_pause)
+        if (isStop && !isPause)
         {
             log_i("ADVANCE");
-            is_record = false;
-            is_play = false;
-            is_rewind = false;
-            is_advance = true;
-            is_stop = false;
-            is_eject = false;
-            is_pause = false;
-            select_obj(ffwBtn, true);
+            isRecord = false;
+            isPlay = false;
+            isRewind = false;
+            isAdvance = true;
+            isStop = false;
+            isEject = false;
+            isPause = false;
+            selectTapeKey(ffwBtn, true);
             lv_obj_send_event(ffwBtn, LV_EVENT_REFRESH, NULL);
         }
         break;
     case STOP_EJ:
-        if (is_stop)
+        if (isStop)
         {
             log_i("EJECT");
-            is_stop = false;
-            is_eject = true;
-            if (!filesave)
-                fileopen = true;
-            // filesave = false;
-            fileload = false;
+            isStop = false;
+            isEject = true;
+            if (!fileSave)
+            {
+                fileOpen = true;
+                isDirRefresh = false;
+            }
+            fileLoad = false;
         }
         else
         {
             log_i("STOP");
-            is_stop = true;
-            is_eject = false;
-            fileopen = false;
-            filesave = false;
-            select_obj(rewBtn, false);
+            isStop = true;
+            isEject = false;
+            fileOpen = false;
+            fileSave = false;
+            selectTapeKey(rewBtn, false);
             lv_obj_send_event(rewBtn, LV_EVENT_REFRESH, NULL);
-            select_obj(ffwBtn, false);
+            selectTapeKey(ffwBtn, false);
             lv_obj_send_event(ffwBtn, LV_EVENT_REFRESH, NULL);
-            select_obj(recBtn, false);
+            selectTapeKey(recBtn, false);
             lv_obj_send_event(recBtn, LV_EVENT_REFRESH, NULL);
-            select_obj(playBtn, false);
+            selectTapeKey(playBtn, false);
             lv_obj_send_event(playBtn, LV_EVENT_REFRESH, NULL);
-            if (!fileload)
+            if (!fileLoad)
             {
                 lv_label_set_text(file, "No File");
                 lv_obj_send_event(file, LV_EVENT_REFRESH, NULL);
             }
         }
-        is_record = false;
-        is_play = false;
-        is_rewind = false;
-        is_advance = false;
-        is_pause = false;
+        isRecord = false;
+        isPlay = false;
+        isRewind = false;
+        isAdvance = false;
+        isPause = false;
         break;
     case PAUSE:
-        if (!is_pause)
+        if (!isPause)
         {
             log_i("PAUSE");
-            is_pause = true;
-            select_obj(pauseBtn, true);
+            isPause = true;
+            selectTapeKey(pauseBtn, true);
         }
         else
         {
             log_i("NO PAUSE");
-            is_pause = false;
-            select_obj(pauseBtn, false);
+            isPause = false;
+            selectTapeKey(pauseBtn, false);
         }
         lv_obj_send_event(pauseBtn, LV_EVENT_REFRESH, NULL);
         break;
@@ -175,3 +220,5 @@ void Check_keys()
         break;
     }
 }
+
+#endif

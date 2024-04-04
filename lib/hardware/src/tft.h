@@ -2,22 +2,46 @@
  * @file tft.h
  * @author Jordi Gauchía
  * @brief TFT definition and functions
-* @version 0.2
- * @date 2024-03
+ * @version 0.3
+ * @date 2024-04
  */
+
+#ifndef TFT_H
+#define TFT_H
+
+#include <lvgfx.hpp>
+#include <LGFX_TFT_eSPI.hpp>
+#include <SPIFFS.h>
+#include <SPI.h>
+#include <FS.h>
+#include <SD.h>
+
+/**
+ * @brief TFT Calibration
+ *
+ */
+#define CALIBRATION_FILE "/TouchCalData1"
+static bool repeatCal = false;
+
+/**
+ * @brief TFT object declaration
+ *
+ */
+static TFT_eSPI tft;
+
 
 /**
  * @brief Touch calibrate
  *
  */
-void touch_calibrate()
+static void touchCalibrate()
 {
     uint16_t calData[8];
     uint8_t calDataOK = 0;
 
     if (SPIFFS.exists(CALIBRATION_FILE))
     {
-        if (REPEAT_CAL)
+        if (repeatCal)
             SPIFFS.remove(CALIBRATION_FILE);
         else
         {
@@ -33,7 +57,7 @@ void touch_calibrate()
         }
     }
 
-    if (calDataOK && !REPEAT_CAL)
+    if (calDataOK && !repeatCal)
         tft.setTouchCalibrate(calData);
     else
     {
@@ -61,10 +85,12 @@ void touch_calibrate()
  * @brief Init tft display
  *
  */
-void init_tft()
+static void initTFT()
 {
     tft.init();
     tft.setRotation(1);
-    touch_calibrate();
+    touchCalibrate();
     tft.initDMA();
 }
+
+#endif
