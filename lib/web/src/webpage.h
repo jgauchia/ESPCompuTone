@@ -94,7 +94,6 @@ const char index_html[] PROGMEM = R"rawliteral(
   <p class="p3" id="detailsheader"></p>
   <p class="p3" id="details"></p>
 
-
 <script>
 
 function _(el)
@@ -107,13 +106,15 @@ function refresh()
   xhr = new XMLHttpRequest();
   xhr.open("GET", "/listfiles", false);
   xhr.send();
+  _("status").innerHTML = sessionStorage.getItem("msgStatus");
+  sessionStorage.removeItem("msgStatus");
   _("detailsheader").innerHTML = "<h3>Files<h3>";
   _("details").innerHTML = xhr.responseText;
 }
 
 function rebootButton()
 {
-  _("statusdetails").innerHTML = "Invoking Reboot ...";
+  _("status").innerHTML = "Invoking Reboot ...";
   xhr = new XMLHttpRequest();
   xhr.open("GET", "/reboot", true);
   xhr.send();
@@ -137,7 +138,7 @@ function downloadDeleteButton(filename, action)
   {
     xhr.open("GET", urltocall, false);
     xhr.send();
-    _("status").innerHTML = xhr.responseText;
+    sessionStorage.setItem("msgStatus",xhr.responseText);
     _("details").innerHTML = xhr.responseText;
     document.location.reload(true);   
   }
@@ -172,7 +173,7 @@ function dragged(e)
 
 function dropped(e) 
 {
-  dragHelper(e);
+  dragged(e);
   var fls = e.dataTransfer.files;
   var formData = new FormData();
   formData.append("file1", fls[0]);
@@ -230,7 +231,7 @@ function completeHandler(event)
   xhr = new XMLHttpRequest();
   xhr.open("GET", "/listfiles", false);
   xhr.send();
-  _("status").innerHTML = "File Uploaded";
+  sessionStorage.setItem("msgStatus","File Uploaded");
   _("detailsheader").innerHTML = "<h3>Files<h3>";
   _("details").innerHTML = xhr.responseText;
   document.location.reload(true);
