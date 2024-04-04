@@ -77,7 +77,7 @@ const char index_html[] PROGMEM = R"rawliteral(
 
 </head>
 
-<body>
+<body onload="refresh()">
 
   <header>%APP%</header>
 
@@ -96,51 +96,74 @@ const char index_html[] PROGMEM = R"rawliteral(
 
 
 <script>
-function rebootButton() {
-  document.getElementById("statusdetails").innerHTML = "Invoking Reboot ...";
-  var xhr = new XMLHttpRequest();
+
+function _(el)
+{
+  return document.getElementById(el);
+}
+
+function refresh()
+{
+  xhr = new XMLHttpRequest();
+  xhr.open("GET", "/listfiles", false);
+  xhr.send();
+  _("detailsheader").innerHTML = "<h3>Files<h3>";
+  _("details").innerHTML = xhr.responseText;
+}
+
+function rebootButton()
+{
+  _("statusdetails").innerHTML = "Invoking Reboot ...";
+  xhr = new XMLHttpRequest();
   xhr.open("GET", "/reboot", true);
   xhr.send();
   window.open("/reboot","_self");
 }
-function listFilesButton() {
-  xmlhttp=new XMLHttpRequest();
-  xmlhttp.open("GET", "/listfiles", false);
-  xmlhttp.send();
-  document.getElementById("detailsheader").innerHTML = "<h3>Files<h3>";
-  document.getElementById("details").innerHTML = xmlhttp.responseText;
+
+function listFilesButton()
+{
+  xhr = new XMLHttpRequest();
+  xhr.open("GET", "/listfiles", false);
+  xhr.send();
+  _("detailsheader").innerHTML = "<h3>Files<h3>";
+  _("details").innerHTML = xhr.responseText;
 }
-function downloadDeleteButton(filename, action) {
+
+function downloadDeleteButton(filename, action) 
+{
   var urltocall = "/file?name=/" + filename + "&action=" + action;
-  xmlhttp=new XMLHttpRequest();
-  if (action == "delete") {
-    xmlhttp.open("GET", urltocall, false);
-    xmlhttp.send();
-    document.getElementById("status").innerHTML = xmlhttp.responseText;
-    xmlhttp.open("GET", "/listfiles", false);
-    xmlhttp.send();
-    document.getElementById("details").innerHTML = xmlhttp.responseText;
+  xhr = new XMLHttpRequest();
+  if (action == "delete")
+  {
+    xhr.open("GET", urltocall, false);
+    xhr.send();
+    _("status").innerHTML = xhr.responseText;
+    _("details").innerHTML = xhr.responseText;
+    document.location.reload(true);   
   }
-  if (action == "download") {
-    document.getElementById("status").innerHTML = "";
+  if (action == "download") 
+  {
+    _("status").innerHTML = "";
     window.open(urltocall,"_blank");
   }
 }
 
-function changeDirectory(directory) {
+function changeDirectory(directory)
+{
   var urltocall = "/changedirectory?dir=/" + directory;
-  xmlhttp=new XMLHttpRequest();
-  xmlhttp.open("GET", urltocall, false);
-  xmlhttp.send();
-  document.getElementById("status").innerHTML = xmlhttp.responseText;
-  xmlhttp.open("GET", "/listfiles", false);
-  xmlhttp.send();
-  document.getElementById("details").innerHTML = xmlhttp.responseText;
+  xhr = new XMLHttpRequest();
+  xhr.open("GET", urltocall, false);
+  xhr.send();
+  _("status").innerHTML = xhr.responseText;
+  xhr.open("GET", "/listfiles", false);
+  xhr.send();
+  _("detailsheader").innerHTML = "<h3>Files<h3>";
+  _("details").innerHTML = xhr.responseText;
 }
 
-function dragHelper(e) 
+function dragged(e) 
 {  
-  var z = document.getElementById("drag");
+  var z = _("drag");
   z.style.backgroundColor = "#5d6d7e";
   z.style.opacity = "0.6";
   e.stopPropagation();
@@ -156,64 +179,70 @@ function dropped(e)
   var z = document.getElementById("drag");
   z.style.backgroundColor = "white";
   z.textContent = fls[0].name;
-  var ajax = new XMLHttpRequest();
-  ajax.upload.addEventListener("progress", progressHandler, false);
-  ajax.addEventListener("load", completeHandler, false); 
-  ajax.addEventListener("error", errorHandler, false);
-  ajax.addEventListener("abort", abortHandler, false);
-  ajax.open("POST", "/");
-  ajax.send(formData);   
+  var xhr = new XMLHttpRequest();
+  xhr.upload.addEventListener("progress", progressHandler, false);
+  xhr.addEventListener("load", completeHandler, false); 
+  xhr.addEventListener("error", errorHandler, false);
+  xhr.addEventListener("abort", abortHandler, false);
+  xhr.open("POST", "/");
+  xhr.send(formData);   
 }
 
 function uploadButton() 
 {
-  document.getElementById("detailsheader").innerHTML = "<h3>Upload File</h3>"
-  document.getElementById("status").innerHTML = "";
+  _("detailsheader").innerHTML = "<h3>Upload File</h3>"
+  _("status").innerHTML = "";
+
   var uploadform =
   "<form id=\"upload_form\" enctype=\"multipart/form-data\" method=\"post\">" +
-  
   "<div id=\"drag\"><h3 id=\"filetext\">Drag to upload file</h3></div>" + 
-
   "<progress id=\"progressBar\" value=\"0\" max=\"100\" style=\"width:372px;\"></progress>" +
   "<h3 id=\"status\"></h3>" +
   "<p id=\"loaded_n_total\"></p>" +
   "</form>";
-  document.getElementById("details").innerHTML = uploadform;
+  
+  _("details").innerHTML = uploadform;
 
-  var z = document.getElementById("drag");
-  z.addEventListener("dragenter", dragHelper, false);
-  z.addEventListener("dragover", dragHelper, false);
+  var z = _("drag");
+  z.addEventListener("dragenter", dragged, false);
+  z.addEventListener("dragover", dragged, false);
   z.addEventListener("drop", dropped, false);
 }
 
-function _(el) {
-  return document.getElementById(el);
-}
-
-function progressHandler(event) {
-  //_("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total; // event.total doesnt show accurate total file size
-  _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes";
+function progressHandler(event) 
+{
   var percent = (event.loaded / event.total) * 100;
-  _("progressBar").value = Math.round(percent);
+  //_("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total; // event.total doesnt show accurate total file size
+ 
+  _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes";
+   _("progressBar").value = Math.round(percent);
   _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
-  if (percent >= 100) {
+  if (percent >= 100)
+  {
     _("status").innerHTML = "Please wait, writing file to filesystem";
   }
 }
-function completeHandler(event) {
+
+function completeHandler(event) 
+{
   _("status").innerHTML = "Upload Complete";
   _("progressBar").value = 0;
-  xmlhttp=new XMLHttpRequest();
-  xmlhttp.open("GET", "/listfiles", false);
-  xmlhttp.send();
-  document.getElementById("status").innerHTML = "File Uploaded";
-  document.getElementById("detailsheader").innerHTML = "<h3>Files<h3>";
-  document.getElementById("details").innerHTML = xmlhttp.responseText;
+  xhr = new XMLHttpRequest();
+  xhr.open("GET", "/listfiles", false);
+  xhr.send();
+  _("status").innerHTML = "File Uploaded";
+  _("detailsheader").innerHTML = "<h3>Files<h3>";
+  _("details").innerHTML = xhr.responseText;
+  document.location.reload(true);
 }
-function errorHandler(event) {
+
+function errorHandler(event) 
+{
   _("status").innerHTML = "Upload Failed";
 }
-function abortHandler(event) {
+
+function abortHandler(event) 
+{
   _("status").innerHTML = "inUpload Aborted";
 }
 </script>
@@ -221,6 +250,8 @@ function abortHandler(event) {
 </body>
 </html>
 )rawliteral";
+
+
 
 // reboot.html base upon https://gist.github.com/Joel-James/62d98e8cb3a1b6b05102
 const char reboot_html[] PROGMEM = R"rawliteral(

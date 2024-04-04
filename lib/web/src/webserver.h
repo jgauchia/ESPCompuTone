@@ -198,7 +198,8 @@ void configureWebServer()
             {
               String logMessage = "Client:" + request->client()->remoteIP().toString() + +" " + request->url();
                 log_i("%s", logMessage.c_str());
-                request->send_P(200, "text/html", index_html, webParser); });
+                request->send_P(200, "text/html", index_html, webParser); 
+            });
 
   server.on("/files", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(SPIFFS, "/file.png", "image/png"); });
@@ -265,7 +266,6 @@ void configureWebServer()
                   {
                     logMessage += " deleted";
                     SD.remove(path);
-                   
                     request->send(200, "text/plain", "Deleted File: " + String(fileName));
                   }
                   else
