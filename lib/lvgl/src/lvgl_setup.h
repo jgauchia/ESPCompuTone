@@ -2,7 +2,7 @@
  * @file lvgl_setup.h
  * @author Jordi Gauchía
  * @brief LVGL Screen implementation
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

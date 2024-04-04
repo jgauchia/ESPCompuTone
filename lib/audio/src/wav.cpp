@@ -2,7 +2,7 @@
  * @file wav.cpp
  * @author Jordi Gauchía
  * @brief WAV audio file class
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

@@ -2,7 +2,7 @@
  * @file webpage.h
  * @author Jordi Gauchía
  * @brief Web page
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

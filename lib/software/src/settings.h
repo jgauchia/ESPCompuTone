@@ -2,7 +2,7 @@
  * @file settings.h
  * @author Jordi Gauchía
  * @brief Settings 
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

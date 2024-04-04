@@ -2,7 +2,7 @@
  * @file lvgfx.hpp
  * @author Jordi Gauchía
  * @brief  LOVYANGFX TFT driver
- * @version 0.3
+ * @version 0.3.1
  * @date 2023-06-14
  */
 

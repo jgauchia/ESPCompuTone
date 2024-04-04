@@ -2,7 +2,7 @@
  * @file wifi_select.h
  * @author Jordi Gauchía
  * @brief LVGL Wifi selection screen
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

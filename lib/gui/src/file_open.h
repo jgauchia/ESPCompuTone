@@ -2,7 +2,7 @@
  * @file file_open.h
  * @author Jordi Gauchía
  * @brief LVGL - File Explorer
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

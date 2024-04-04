@@ -2,7 +2,7 @@
  * @file vars.c
  * @author Jordi Gauchía
  * @brief Main program variables
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

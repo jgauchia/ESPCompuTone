@@ -2,7 +2,7 @@
  * @file tft.h
  * @author Jordi Gauchía
  * @brief TFT definition and functions
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

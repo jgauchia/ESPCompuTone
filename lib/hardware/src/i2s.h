@@ -2,7 +2,7 @@
  * @file i2s.h
  * @author Jordi Gauchía
  * @brief I2S Routines
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

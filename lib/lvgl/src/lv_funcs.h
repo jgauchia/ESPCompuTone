@@ -2,7 +2,7 @@
  * @file lv_funcs.h
  * @author Jordi Gauchía
  * @brief  LVGL custom functions
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

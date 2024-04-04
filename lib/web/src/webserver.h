@@ -2,7 +2,7 @@
  * @file webserver.h
  * @author Jordi Gauchía
  * @brief Web server functions
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 
@@ -59,7 +59,7 @@ void webNotFound(AsyncWebServerRequest *request)
 String webParser(const String &var)
 {
   if (var == "FIRMWARE")
-    return String(VERSION);
+    return String(VERSION,1) + "." + String(REVISION);
   else if (var == "FREEFS")
     return humanReadableSize((SD.totalBytes() - SD.usedBytes()));
   else if (var == "USEDFS")

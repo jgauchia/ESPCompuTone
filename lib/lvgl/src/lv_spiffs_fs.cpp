@@ -2,7 +2,7 @@
  * @file lv_spiffs_fs.cpp
  * @author Jordi Gauchía
  * @brief  SPIFFS filesystem for LVGL
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

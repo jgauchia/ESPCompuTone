@@ -2,7 +2,7 @@
  * @file notify_bar.h
  * @author Jordi Gauchía
  * @brief LVGL - Notify Bar
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

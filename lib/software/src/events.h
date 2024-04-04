@@ -2,7 +2,7 @@
  * @file events.h
  * @author Jordi Gauchía
  * @brief Tape events
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

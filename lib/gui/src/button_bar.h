@@ -2,7 +2,7 @@
  * @file button_bar.h
  * @author Jordi Gauchía
  * @brief LVGL - Button Bar
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 

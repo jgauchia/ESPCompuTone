@@ -2,7 +2,7 @@
  * @file hal.h
  * @author Jordi Gauchía
  * @brief  Pin definitions
- * @version 0.3
+ * @version 0.3.1
  * @date 2024-04
  */
 
