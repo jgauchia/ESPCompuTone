@@ -21,6 +21,7 @@
 #include <vars.h>
 #include <settings.h>
 #include <hal.h>
+#include <battery.h>
 #include <network.hpp>
 #include <webpage.h>
 #include <webserver.h>
@@ -48,6 +49,7 @@ void setup()
   initTFT();
   initGIF("/k7.gif");
   initLVGL();
+  initBatteryADC();
   initTasks();
   delay(500);
   autoConnectWifi();
