@@ -3,7 +3,7 @@
  * @author Jordi Gauchía
  * @brief  LOVYANGFX TFT driver
  * @version 0.3.1
- * @date 2023-06-14
+ * @date 2024-04
  */
 
 #ifndef LVGFX_HPP
@@ -48,8 +48,8 @@ public:
             cfg.panel_height = 320;
             cfg.memory_width = 240;
             cfg.memory_height = 320;
-            cfg.offset_x = 0;
-            cfg.offset_y = 0;
+            cfg.offsetX = 0;
+            cfg.offsetY = 0;
             cfg.offset_rotation = 0;
             cfg.dummy_read_pixel = 8;
             cfg.dummy_read_bits = 1;
